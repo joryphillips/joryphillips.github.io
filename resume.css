@@ -1,0 +1,64 @@
+/* line 28, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+#resume {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  color: #262121;
+  max-width: 30.063em; }
+
+/* line 37, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+.timeline {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 94%;
+  max-width: 30.063em;
+  list-style: none; }
+  /* line 46, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+  .timeline h2 {
+    margin: 0 auto;
+    padding: 1.667em 0 0 0;
+    width: 94%;
+    max-width: 48.889em; }
+  /* line 52, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+  .timeline h3 {
+    margin: 0; }
+    @media screen and (min-width: 48.889em) {
+      .timeline h3 {
+        margin: -1.2em 0 0 0.25em; } }
+  /* line 58, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+  .timeline h4 {
+    margin: 0; }
+    @media screen and (min-width: 48.889em) {
+      .timeline h4 {
+        margin: 1.1em 0 0 -10.444em; } }
+  /* line 64, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+  .timeline p {
+    text-shadow: none;
+    margin: 0.75em; }
+
+/* line 69, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+.thumb {
+  position: relative;
+  /*display: inline-block*/
+  vertical-align: top;
+  margin: 0;
+  z-index: 100;
+  width: 4.222em;
+  height: 4.222em;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  border: solid 1px #006080;
+  background: #0086B3;
+  /*@include border-radius(0.5em)*/ }
+  /* line 84, /Users/jory/Documents/Web Design/my-portfolio/2015/resume.sass */
+  .thumb img {
+    width: 100%;
+    height: 100%; }
+  @media screen and (min-width: 48.889em) {
+    .thumb {
+      margin: 0 0 0 6.333em; } }
+
+/*# sourceMappingURL=resume.css.map */

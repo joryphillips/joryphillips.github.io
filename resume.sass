@@ -1,0 +1,97 @@
+
+$white: #FFFCF7
+$red: #F05123
+$Dark-Cool: #0086B3
+$Dark-Warm: #F05123 
+$Med-Cool-Grn: #0BE3C8
+$Med-Cool-Blu: #1AC5FF
+$Med-Warm: #FFC14D
+$Light-Cool: #F7FDFF
+$Light-Warm: #FFFCF7
+$Copy: #262121
+
+
+$width-small:  24em  //432px 
+$width-medium: 30.063em //541px
+$width-large:  48.889em //880px
+$width-extralg: 85em //1530px
+
+
+@mixin border-radius($radius) 
+	-webkit-border-radius: $radius
+	border-radius: $radius
+	background-clip: padding-box
+
+
+
+
+#resume
+	position: relative
+	display: block
+	margin: 0 auto
+	width: 100%
+	color: $Copy
+	max-width: $width-medium
+
+
+.timeline
+	position: relative
+	display: block
+	margin: 0 auto
+	width: 94%
+	max-width: $width-medium
+	list-style: none
+
+
+	h2
+		margin: 0 auto
+		padding: 1.667em 0 0 0 
+		width: 94%
+		max-width: 48.889em
+
+	h3
+		margin: 0
+
+		@media screen and (min-width: $width-large)
+			margin: -1.2em 0 0 0.25em
+
+	h4
+		margin: 0
+		
+		@media screen and (min-width: $width-large)
+			margin: 1.1em 0 0 -10.444em
+
+	p
+		text-shadow: none
+		margin: 0.75em
+
+
+.thumb
+	position: relative
+	/*display: inline-block*/
+	vertical-align: top
+	margin: 0
+	z-index: 100
+	// float: left
+	width: 4.222em
+	height: 4.222em
+	left: 0
+	top: 0
+	overflow: hidden
+	border: solid 1px darken($Dark-Cool, 10%)
+	background: $Dark-Cool
+	/*@include border-radius(0.5em)*/
+
+	img
+		width: 100%
+		height: 100%
+
+	@media screen and (min-width: $width-large)
+			margin: 0 0 0 6.333em
+
+	
+
+		
+
+
+

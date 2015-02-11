@@ -1,0 +1,422 @@
+/* line 45, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+body {
+  color: #262121;
+  font: 105%/1.4em 'Archivo Narrow', sans-serif; }
+  @media screen and (min-width: 30.063em) {
+    body {
+      font-size: 120%;
+      line-height: 120%; } }
+  @media screen and (min-width: 48.889em) {
+    body {
+      font-size: 130%;
+      line-height: 130%; } }
+
+/* line 62, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+img, object, embed, video {
+  max-width: 100%; }
+
+/* line 66, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.ie6 img {
+  width: 100%; }
+
+/* line 73, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#contact b, #email b {
+  display: none; }
+
+/* line 77, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.gridContainer {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  /*padding-top: 5.25em*/
+  /*@media screen and (min-width: $width-medium)
+		padding-top: 6.5em*/ }
+
+/* line 86, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.container {
+  position: relative;
+  width: 100%; }
+
+/* line 90, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#header {
+  position: fixed;
+  width: 100%;
+  z-index: 500;
+  height: 5.1em; }
+  @media screen and (min-width: 30.063em) {
+    #header {
+      height: 6.5em; } }
+  /* line 100, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #header h1 {
+    position: relative;
+    display: block;
+    z-index: 600;
+    font-family: 'Syncopate', sans-serif;
+    font-size: 1.5em;
+    background: #1ac5ff;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0.4em 0.6em 0.4em 0.6em; }
+    /* line 112, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    #header h1 a {
+      text-decoration: none;
+      color: #262121;
+      letter-spacing: normal;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease; }
+      @media screen and (min-width: 30.063em) {
+        /* line 119, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+        #header h1 a:hover {
+          letter-spacing: 7px;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease; }
+ }
+    @media screen and (min-width: 24em) {
+      #header h1 {
+        text-align: center;
+        padding: 0.4em 0.972em 0.4em 0.972em; } }
+    @media screen and (min-width: 30.063em) {
+      #header h1 {
+        display: block;
+        font-size: 2em;
+        padding: 0.4em 0 0.4em 0; } }
+    @media screen and (min-width: 48.889em) {
+      #header h1 {
+        /*font-size: 2em*/
+        padding: 0.4em 0.972em 0.4em 0.972em; } }
+    @media screen and (min-width: 85em) {
+      #header h1 {
+        padding: 0.4em 0.972em 0.4em 0; } }
+
+/* line 147, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#menu, .centered-maxwidth-box {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 48.889em; }
+  @media screen and (min-width: 30.063em) {
+    #menu, .centered-maxwidth-box {
+      width: 89.0625%; } }
+
+/* line 158, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#menu-button {
+  cursor: pointer;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  border: none;
+  background-color: #1ac5ff;
+  color: #006080;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  /* line 170, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #menu-button:hover {
+    color: #002733;
+    background-color: #4dd2ff;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; }
+
+/* line 176, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.slide, .slide-index {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 300;
+  background-color: #1ac5ff;
+  -webkit-transform: translateY(-11.275em);
+  -moz-transform: translateY(-11.275em);
+  -o-transform: translateY(-11.275em);
+  transform: translateY(-11.275em);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  @media screen and (min-width: 30.063em) {
+    .slide, .slide-index {
+      -webkit-transform: translateY(-3.8em);
+      -moz-transform: translateY(-3.8em);
+      -o-transform: translateY(-3.8em);
+      transform: translateY(-3.8em); } }
+  /* line 191, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .slide a, .slide-index a {
+    text-align: center;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.25em;
+    background-color: #00b5f3;
+    color: #342d2d;
+    border-bottom: solid 3px #1ac5ff; }
+    /* line 202, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    .slide a:hover, .slide-index a:hover {
+      background-color: #00ace6;
+      color: #262121; }
+    /* line 206, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    .slide a:active, .slide-index a:active {
+      background-color: #0099cd; }
+    @media screen and (min-width: 30.063em) {
+      .slide a, .slide-index a {
+        margin: 0;
+        width: 32.7%;
+        display: inline-block; } }
+    @media screen and (min-width: 48.889em) {
+      .slide a, .slide-index a {
+        margin: 0;
+        width: 32.6%;
+        max-width: 16.2em;
+        display: inline-block; } }
+
+/* line 222, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.slide-index {
+  -webkit-transform: translateY(-5.6em);
+  -moz-transform: translateY(-5.6em);
+  -o-transform: translateY(-5.6em);
+  transform: translateY(-5.6em); }
+  @media screen and (min-width: 30.063em) {
+    .slide-index {
+      -webkit-transform: translateY(-1.8em);
+      -moz-transform: translateY(-1.8em);
+      -o-transform: translateY(-1.8em);
+      transform: translateY(-1.8em); } }
+
+/* line 228, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.slide-up {
+  z-index: 200;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0); }
+
+/* line 233, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#summary, #vision, #design, #comm, #resume, #samples {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  padding: 4.5em 0.972em 3em 0.972em;
+  width: 89.0625%;
+  max-width: 30.063em;
+  /*border: solid 1px gray*/ }
+  /* line 242, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #summary h2 + p, #vision h2 + p, #design h2 + p, #comm h2 + p, #resume h2 + p, #samples h2 + p {
+    margin-top: 4em; }
+  /* line 245, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #summary h2, #vision h2, #design h2, #comm h2, #resume h2, #samples h2, #summary h3, #vision h3, #design h3, #comm h3, #resume h3, #samples h3 {
+    text-align: center; }
+  /* line 248, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #summary h3, #vision h3, #design h3, #comm h3, #resume h3, #samples h3 {
+    font-family: Courier, monospace;
+    font-size: 95%;
+    margin-top: 1.75em;
+    margin-bottom: 1.5em; }
+  @media screen and (min-width: 30.063em) {
+    #summary, #vision, #design, #comm, #resume, #samples {
+      padding: 7.5em 0.972em 3em 0.972em; } }
+
+/* line 258, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#vision, #design, #comm, #resume {
+  padding: 2em 0.25em 5em 0.25em;
+  border-top: solid 3px #0086B3; }
+  /* line 262, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #vision h3, #design h3, #comm h3, #resume h3 {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 100%;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0; }
+  /* line 269, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #vision h2, #design h2, #comm h2, #resume h2 {
+    text-align: left; }
+
+/* line 273, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#samples {
+  padding: 2em 0.25em 5em 0.25em;
+  max-width: 30.063em; }
+  /* line 279, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #samples img {
+    max-width: 30.063em 0.75em;
+    padding: 0.25em; }
+    @media screen and (min-width: 30.063em) {
+      #samples img {
+        max-width: calc((97% / 2) - 0.25em); }
+        /* line 287, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+        #samples img:nth-child(even) {
+          padding: 0 0 0 0.25em; } }
+    @media screen and (min-width: 48.889em) {
+      #samples img {
+        max-width: 9.271em; }
+        /* line 294, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+        #samples img:nth-child(2), #samples img:nth-child(5) {
+          padding: 0 0.25em 0 0.25em; } }
+
+/* line 298, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.timeline {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  /*width: 94%*/
+  max-width: 30.063em;
+  list-style: none; }
+  /* line 308, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .timeline h3, .timeline h4, .timeline h5, .timeline p {
+    margin: 0;
+    padding: 0; }
+  /* line 313, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .timeline h3 {
+    font-weight: 400; }
+    /* line 315, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    .timeline h3 strong {
+      font-weight: 700;
+      color: #00698d; }
+  /* line 319, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .timeline h3:first-child {
+    padding-top: 1.25em; }
+  /* line 322, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .timeline h4 {
+    font-weight: 700;
+    margin-top: 0.45em; }
+  /* line 326, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .timeline p {
+    font-size: 82.5%;
+    margin-top: 0.5em;
+    margin-bottom: 3em; }
+
+/* line 334, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.thumb {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  z-index: 100;
+  float: left;
+  width: 4.222em;
+  height: 4.222em;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  border: solid 1px #006080;
+  background: #0086B3; }
+  /* line 349, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .thumb img {
+    width: 100%;
+    height: 100%; }
+
+/* line 355, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+#action {
+  position: relative;
+  background-color: #F05123;
+  color: #FFFCF7;
+  margin: 0 auto;
+  text-shadow: none; }
+  /* line 361, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #action h2 {
+    display: block;
+    margin: 0 auto;
+    padding: 2em 0.25em 5em 0.25em;
+    text-align: center; }
+  /* line 367, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  #action a {
+    text-decoration: none;
+    color: #1ac5ff;
+    -webkit-transition: color 0.5s ease;
+    -moz-transition: color 0.5s ease;
+    -o-transition: color 0.5s ease;
+    transition: color 0.5s ease; }
+    /* line 372, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    #action a:hover, #action a:active {
+      color: #00ace6;
+      -webkit-transition: color 0.5s ease;
+      -moz-transition: color 0.5s ease;
+      -o-transition: color 0.5s ease;
+      transition: color 0.5s ease; }
+
+/* line 379, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.topic {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0 0 3.75em 0;
+  border-left: solid 6px #0086B3; }
+  /* line 386, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .topic:first-child {
+    padding-top: 3em; }
+  /* line 389, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .topic:nth-child(odd) {
+    background-color: #F7FDFF;
+    border-left: solid 6px #F05123; }
+    /* line 393, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    .topic:nth-child(odd) .heading {
+      color: #F7FDFF;
+      background-color: #F05123; }
+
+/* line 401, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.heading {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #0086B3;
+  color: #FFFCF7; }
+  /* line 412, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .heading img {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    top: 0;
+    width: 15%;
+    max-width: 6em; }
+  /* line 421, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .heading h2 {
+    position: relative;
+    display: inline-block;
+    margin: 0; }
+
+/* line 428, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+.projects {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 30.063em; }
+  /* line 434, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .projects img {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    /*max-width: $width-medium*/ }
+  /* line 439, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .projects h3 {
+    text-align: center;
+    margin: 3.75em 0 0.5em 0; }
+  /* line 444, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+  .projects p {
+    display: block;
+    margin: 1.5% auto;
+    width: 90%;
+    max-width: 45em; }
+    /* line 449, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+    .projects p a {
+      text-decoration: none;
+      color: #0086B3;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease; }
+      /* line 452, /Users/jory/Documents/Web Design/my-portfolio/2015/portfolio.sass */
+      .projects p a:hover {
+        color: #004d66; }
+
+/*# sourceMappingURL=portfolio.css.map */
