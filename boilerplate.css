@@ -47,8 +47,8 @@ body, button, input, select, textarea { font-family: sans-serif; color: #262121;
  */
 
 /* Uncomment these if you do want to customize the selection highlight */
- *::-moz-selection { background: #0BE3C8; color: #fff; text-shadow: none; }
- *::selection { background: #0BE3C8; color: #fff; text-shadow: none; }
+ *::-moz-selection { background: #0086B3; color: #fff; text-shadow: none; }
+ *::selection { background: #0086B3; color: #fff; text-shadow: none; }
  
 
 /* =============================================================================
