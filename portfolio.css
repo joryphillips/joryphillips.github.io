@@ -1,4 +1,4 @@
-/* line 45, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 45, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 body {
   color: #262121;
   font: 105%/1.4em 'Archivo Narrow', sans-serif; }
@@ -11,37 +11,37 @@ body {
       font-size: 130%;
       line-height: 130%; } }
 
-/* line 62, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 62, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 img, object, embed, video {
   max-width: 100%; }
 
-/* line 66, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 66, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .ie6 img {
   width: 100%; }
 
-/* line 73, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 73, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #contact b, #email b {
   display: none; }
 
-/* line 77, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 77, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .gridContainer {
   position: relative;
   display: block;
   margin: 0 auto;
   padding-top: 4.65em; }
 
-/* line 84, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 84, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .container {
   position: relative;
   width: 100%; }
 
-/* line 89, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 89, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #header {
   position: fixed;
   width: 100%;
   z-index: 500;
   max-height: 4.65em; }
-  /* line 97, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 97, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #header h1 {
     position: relative;
     display: block;
@@ -52,7 +52,7 @@ img, object, embed, video {
     margin: 0 auto;
     text-align: center;
     padding: 0.4em 0.6em 0.4em 0.6em; }
-    /* line 109, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 109, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     #header h1 a {
       text-decoration: none;
       color: #262121;
@@ -61,14 +61,13 @@ img, object, embed, video {
       -o-transition: all 0.5s ease;
       transition: all 0.5s ease; }
       @media screen and (min-width: 30.063em) {
-        /* line 115, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+        /* line 115, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
         #header h1 a:hover {
           color: #006080;
           -webkit-transition: all 0.5s ease;
           -moz-transition: all 0.5s ease;
           -o-transition: all 0.5s ease;
-          transition: all 0.5s ease; }
- }
+          transition: all 0.5s ease; } }
     @media screen and (min-width: 24em) {
       #header h1 {
         text-align: center;
@@ -85,7 +84,7 @@ img, object, embed, video {
       #header h1 {
         padding: 0.4em 0.972em 0.4em 0; } }
 
-/* line 140, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 140, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #menu, .centered-maxwidth-box {
   position: relative;
   display: block;
@@ -94,7 +93,7 @@ img, object, embed, video {
   line-height: 180%;
   max-width: 30.063em; }
 
-/* line 149, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 149, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #menu-button {
   position: relative;
   display: block;
@@ -107,7 +106,7 @@ img, object, embed, video {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease; }
-  /* line 160, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 160, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #menu-button:hover {
     color: #002733;
     background-color: #4dd2ff;
@@ -116,7 +115,7 @@ img, object, embed, video {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease; }
 
-/* line 166, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 166, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .slide, .slide-index {
   position: relative;
   display: block;
@@ -138,7 +137,7 @@ img, object, embed, video {
       -moz-transform: translateY(-3.8em);
       -o-transform: translateY(-3.8em);
       transform: translateY(-3.8em); } }
-  /* line 181, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 181, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .slide a, .slide-index a {
     text-align: center;
     display: block;
@@ -148,10 +147,10 @@ img, object, embed, video {
     font-size: 1.25em;
     color: #004d66;
     border-bottom: solid 1px #1ac5ff; }
-    /* line 191, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 191, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     .slide a:hover, .slide-index a:hover {
       color: #262121; }
-    /* line 194, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 194, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     .slide a:active, .slide-index a:active {
       background-color: #0099cd; }
     @media screen and (min-width: 30.063em) {
@@ -160,7 +159,7 @@ img, object, embed, video {
         width: 32.7%;
         display: inline-block; } }
 
-/* line 204, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 204, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .slide-index {
   -webkit-transform: translateY(-5.6em);
   -moz-transform: translateY(-5.6em);
@@ -173,7 +172,7 @@ img, object, embed, video {
       -o-transform: translateY(-1.8em);
       transform: translateY(-1.8em); } }
 
-/* line 210, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 210, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .slide-up {
   z-index: 200;
   -webkit-transform: translateY(0);
@@ -182,7 +181,7 @@ img, object, embed, video {
   transform: translateY(0); }
 
 /* on index.html*/
-/* line 216, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 216, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #summary, #vision, #design, #comm, #resume, #samples {
   position: relative;
   display: block;
@@ -190,45 +189,45 @@ img, object, embed, video {
   padding: 4.5em 0.972em 3em 0.972em;
   width: 89.0625%;
   max-width: 30.063em; }
-  /* line 224, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 224, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #summary h2 + p, #vision h2 + p, #design h2 + p, #comm h2 + p, #resume h2 + p, #samples h2 + p {
     margin-top: 4em; }
-  /* line 227, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 227, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #summary h2, #vision h2, #design h2, #comm h2, #resume h2, #samples h2, #summary h3, #vision h3, #design h3, #comm h3, #resume h3, #samples h3 {
     text-align: center; }
 
-/* line 232, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 232, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #vision, #design, #comm, #resume {
   padding: 3em 0.25em 3em 0.25em;
   border-top: solid 3px #0086B3; }
-  /* line 237, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 237, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #vision h3, #design h3, #comm h3, #resume h3 {
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 100%;
     text-align: left;
     margin-top: 0;
     margin-bottom: 0; }
-  /* line 244, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 244, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #vision h2, #design h2, #comm h2, #resume h2 {
     text-align: left; }
 
-/* line 248, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 248, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #samples {
   border-top: solid 3px #0086B3;
   padding: 3em 0.25em 3em 0.25em;
   max-width: 30.063em; }
-  /* line 254, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 254, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #samples img {
     max-width: 30.063em 0.75em;
     padding: 0.25em; }
     @media screen and (min-width: 30.063em) {
       #samples img {
         max-width: calc((97% / 2) - 0.25em); }
-        /* line 262, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+        /* line 262, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
         #samples img:nth-child(even) {
           padding: 0 0 0 0.25em; } }
 
-/* line 267, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 267, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .timeline {
   position: relative;
   display: block;
@@ -236,31 +235,31 @@ img, object, embed, video {
   /*width: 94%*/
   max-width: 30.063em;
   list-style: none; }
-  /* line 277, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 277, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .timeline h3, .timeline h4, .timeline h5, .timeline p {
     margin: 0;
     padding: 0; }
-  /* line 282, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 282, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .timeline h3 {
     font-weight: 400; }
-    /* line 284, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 284, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     .timeline h3 strong {
       font-weight: 700;
       color: #00698d; }
-  /* line 288, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 288, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .timeline h3:first-child {
     padding-top: 1.25em; }
-  /* line 291, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 291, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .timeline h4 {
     font-weight: 700;
     margin-top: 0.45em; }
-  /* line 295, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 295, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .timeline p {
     font-size: 82.5%;
     margin-top: 0.5em;
     margin-bottom: 3em; }
 
-/* line 303, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 303, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .thumb {
   position: relative;
   display: inline-block;
@@ -275,26 +274,26 @@ img, object, embed, video {
   overflow: hidden;
   border: solid 1px #006080;
   background: #0086B3; }
-  /* line 318, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 318, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .thumb img {
     width: 100%;
     height: 100%; }
 
-/* line 324, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 324, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 #action {
   position: relative;
   background-color: #F05123;
   color: #FFFCF7;
   margin: 0 auto;
   text-shadow: none; }
-  /* line 330, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 330, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #action h2 {
     display: block;
     margin: 0 auto;
     padding: 2em 0.25em 5em 0.25em;
     text-align: center;
     line-height: 125%; }
-  /* line 337, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 337, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   #action a {
     text-decoration: none;
     color: #1ac5ff;
@@ -302,7 +301,7 @@ img, object, embed, video {
     -moz-transition: color 0.5s ease;
     -o-transition: color 0.5s ease;
     transition: color 0.5s ease; }
-    /* line 342, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 342, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     #action a:hover, #action a:active {
       color: #00ace6;
       -webkit-transition: color 0.5s ease;
@@ -310,23 +309,21 @@ img, object, embed, video {
       -o-transition: color 0.5s ease;
       transition: color 0.5s ease; }
 
-/* line 349, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 349, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .topic {
   position: relative;
   display: block;
   width: 100%;
-  padding: 0 0 3.75em 0;
-  border-left: solid 6px #0086B3; }
-  /* line 356, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  padding: 0 0 3.75em 0; }
+  /* line 355, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .topic:nth-child(odd) {
-    background-color: #F7FDFF;
-    border-left: solid 6px #F05123; }
-    /* line 360, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    background-color: #F7FDFF; }
+    /* line 358, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     .topic:nth-child(odd) .heading {
       color: #F7FDFF;
       background-color: #F05123; }
 
-/* line 368, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 366, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .heading {
   position: relative;
   display: block;
@@ -336,40 +333,41 @@ img, object, embed, video {
   width: 100%;
   background-color: #0086B3;
   color: #FFFCF7; }
-  /* line 379, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 377, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .heading img {
     display: inline-block;
     width: 15%;
     max-width: 6em; }
-  /* line 385, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 383, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .heading h2 {
     display: inline-block;
     margin: 0;
     vertical-align: middle; }
 
-/* line 392, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+/* line 390, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
 .projects {
   position: relative;
   display: block;
   margin: 0 auto;
   width: 100%;
   max-width: 30.063em; }
-  /* line 398, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 396, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .projects img {
     display: block;
     margin: 0 auto;
     width: 90%; }
-  /* line 402, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 400, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .projects h3 {
     text-align: center;
     margin: 3.75em 0 0.5em 0; }
-  /* line 407, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+  /* line 405, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
   .projects p {
     display: block;
     margin: 1.5% auto;
+    margin-top: 1em;
     width: 90%;
     max-width: 45em; }
-    /* line 412, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+    /* line 411, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
     .projects p a {
       text-decoration: none;
       color: #0086B3;
@@ -377,7 +375,7 @@ img, object, embed, video {
       -moz-transition: all 0.5s ease;
       -o-transition: all 0.5s ease;
       transition: all 0.5s ease; }
-      /* line 415, /Users/jory/Documents/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
+      /* line 414, /Users/jory/Documents/Work/Web Design/my-portfolio/joryphillips.github.io/portfolio.sass */
       .projects p a:hover {
         color: #004d66; }
 
