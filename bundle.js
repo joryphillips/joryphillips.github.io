@@ -26082,7 +26082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}, {
 	  title: "Seattle Multifamily Housing Presentation",
 	  date: 2005,
-	  imageSources: ["../img/seattle-mf-crop.svg"],
+	  imageSources: ["../img/seattle-mf-crop.png"],
 	  description: ["I conducted an analysis of Seattle's multifamily-zoned areas and created a series of presentation boards for use in a public meetings to discuss how they might change over time. These materials ultimately led to the comprehensive revision of Seattle's multifamily zoning districts."],
 	  category: ["Urban Design & Planning", "Communication"]
 	}, {
@@ -26431,7 +26431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						React.createElement(
 							"li",
 							null,
-							"Apply the interactive and responsive SVG animation techniques I have been using recently to my home page and some of my portfolio examples. Can you imagine a hot dog that grows and shrinks to width of the screen without changing height or skewing? ",
+							"Apply the interactive and responsive SVG animation techniques I have been using recently to my home page and some of my portfolio examples. Can you imagine a hot dog that grows and shrinks to the width of the screen without changing height or skewing? ",
 							React.createElement(
 								"a",
 								{ href: "http://softwiener.com", target: "blank" },
