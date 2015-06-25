@@ -2,21 +2,21 @@ var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 var data = require('./data')
 
 module.exports = {
-  entry: 
+  entry:
     './entry.js',
 
 
   output: {
     filename: 'bundle.js',
     path: __dirname,
-    libraryTarget: 'umd',
+    libraryTarget: 'umd'
   },
 
   module: {
     loaders: [
-      { test: /\.jsx$/, 
-        exclude: /(node_modules|bower_components)/, 
-        loaders: ['babel'],
+      { test: /\.jsx$/,
+        exclude: /(node_modules|bower_components)/,
+        loaders: ['babel']
          },
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
       { test: /\.css/, loader: 'css-loader!cssnext-loader' }
