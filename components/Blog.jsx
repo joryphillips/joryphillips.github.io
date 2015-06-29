@@ -1,5 +1,7 @@
 var React = require('react/addons')
 
+React.initializeTouchEvents(true)
+
 var Blog = React.createClass({
   render: function () {
     return (

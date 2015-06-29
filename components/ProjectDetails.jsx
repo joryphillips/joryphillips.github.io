@@ -1,6 +1,8 @@
 var React = require('react/addons')
 var PORTFOLIODATA = require('../data/PORTFOLIODATA.js')
 
+React.initializeTouchEvents(true)
+
 var ProjectDetails = React.createClass({
 
 	getInitialState: function() {
@@ -12,13 +14,13 @@ var ProjectDetails = React.createClass({
 	render: function () {
 		if (this.state.id >= 0) {
 			var id = this.state.id
-			// console.log(id)
+			var imgPath = '..\/img\/' + PORTFOLIODATA[id].imageSources[0]
 
 			return (
 					<section className="clearfix py4 px3 bg-silver border-top border-bottom" id="portfolio">
 						<div className="container">
 							<div className="p3 bg-white">
-								<img src={PORTFOLIODATA[id].imageSources[0]} className="block"/>
+								<img src={imgPath} className="block"/>
 								<h2 className="h3">{PORTFOLIODATA[id].title}</h2>
 								<p className="mb0">{PORTFOLIODATA[id].description[0]}</p>
 							</div>
@@ -49,7 +51,6 @@ function convertToSlug(Text) {
 		.toLowerCase()
 		.replace(/[^\w ]+/g,'')
 		.replace(/ +/g,'-')
-		;
 }
 
 var slugMatch = function (bigArray, littleSlug) {
@@ -58,7 +59,7 @@ var slugMatch = function (bigArray, littleSlug) {
 		var checkSlug = (convertToSlug(bigArray[i].title))
 		if (checkSlug === littleSlug) {
 			return {id: i}
-		} 
+		}
 	}
 	return null
 }

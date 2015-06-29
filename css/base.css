@@ -119,8 +119,8 @@ p {
 }
 
 .page-push-leave {
-  -webkit-transition: opacity 0.25s ease-in;
-  transition: opacity 0.25s ease-in;
+/*  -webkit-transition: opacity 0.25s ease-in;
+*/  transition: opacity 0.25s ease-in;
   opacity: 1;
 }
 
@@ -130,8 +130,8 @@ p {
 
 .page-push-appear {
 	opacity: .01;
-	-webkit-transition: opacity .25s ease-in;
-	transition: opacity .25s ease-in;
+/*	-webkit-transition: opacity .25s ease-in;
+*/	transition: opacity .25s ease-in;
 }
 
 .page-push-appear.page-push-appear-active {

@@ -7,15 +7,14 @@ var PORTFOLIODATA = require('../data/PORTFOLIODATA.js')
 var RESUMEDATA = require('../data/RESUMEDATA.js')
 
 
-
 var Index = React.createClass({
   render: function () {
     return (
       <main>
-    		<Hero />
-    		<Summary />
-    		<Portfolio projectData={PORTFOLIODATA} />
-    		<Resume jobData={RESUMEDATA} />
+        <Hero />
+        <Summary />
+        <Portfolio projectData={PORTFOLIODATA} />
+        <Resume jobData={RESUMEDATA} />
       </main>
     )
   }

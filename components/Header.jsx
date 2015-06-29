@@ -1,5 +1,4 @@
 var React = require('react/addons')
-var Hero = require('./Hero.jsx')
 var Router = require('react-router')
 var Link = Router.Link
 

@@ -14,9 +14,9 @@ var Resume = React.createClass({
 			</div>
 
 		</section>
-	);
+	)
 	}
-});
+})
 
 
 module.exports = Resume
