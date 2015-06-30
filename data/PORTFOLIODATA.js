@@ -65,7 +65,7 @@ var PORTFOLIODATA = [
   title: "Santa Monica Zoning & Design Guidelines",
   date: 2013,
   imageSources: ["smdg.png"],
-  description: ["I recently directed the production of new Zoning Ordinance and Design Guidelines to be used in the decision-making process for new multifamily, commercial, and mixed-use development in Santa Monica. These efforts will help make Santa Monica more pedestrian, bicycle, and transit-friendly, improve the quality of new development, and make the zoning ordinance itself more legible and accessible. Image credit: John Kaliski Architects."],
+  description: ["I recently directed the production of new Zoning Ordinance and Design Guidelines to be used in the decision-making process for new multifamily, commercial, and mixed-use development in Santa Monica. I managed several consultants in the project, and coordinated staff involvement and public outreach through the public draft phase of the project. Ultimately adopted in June 2015, these efforts will help make Santa Monica more pedestrian, bicycle, and transit-friendly, improve the quality of new development, and make the zoning ordinance itself more legible and accessible. Image credit: John Kaliski Architects."],
   category: ['Urban Design & Planning', 'Communication']
 },
 
@@ -97,7 +97,8 @@ var PORTFOLIODATA = [
   title: "Universal Studios Master Plan",
   date: 2011,
   imageSources: ["usmp.png"],
-  description: ["While working at Rios Clementi Hale Studios, I managed a multidisciplinary team of designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. Their needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials."],
+  description: ["While working at Rios Clementi Hale Studios, I managed a multidisciplinary team of designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles."],
+  href: "http://www.nbcuniversalevolution.com/",
   category: ['Urban Design & Planning', 'Communication']
 },
 
@@ -105,7 +106,7 @@ var PORTFOLIODATA = [
   title: "Seattle Business District Strategy",
   date: 2006,
   imageSources: ["nbds-bird.jpg"],
-  description: ["While at the City of Seattle, I managed a project to revise its commercial and mixed-use zoning and design guidelines. Objectives included contending with overly ambitious ground-floor retail requirements, which were resulting in an abundance of vacant storefronts, largely due to the exploding residential market of the early 2000s. I made revisions to allow more flexibility for ground-floor uses, while also creating new development standards and revising design guidelines to help ensure buildings would be designed in ways that encourage pedestrian activity and placemaking. I also made recommendations that limited surface parking lots and aggressively lowered parking requirements in places near transit. The recommendations were unanimously adopted by City Council."],
+  description: ["While at the City of Seattle, I managed a project to revise its commercial and mixed-use zoning and design guidelines. Objectives included contending with overly ambitious ground-floor retail requirements, which were resulting in an abundance of vacant storefronts, largely due to the exploding residential market of the early 2000s. I made revisions to allow more flexibility for ground-floor uses, while also creating new development standards and revising design guidelines to help ensure buildings would be designed in ways that encourage pedestrian activity and placemaking. I also made recommendations that limited surface parking lots and aggressively lowered parking requirements in places near transit. The recommendations were unanimously adopted by City Council and have been instrumental in shaping Seattle's pedestrian-oriented business districts in recent years."],
   category: ['Urban Design & Planning', 'Communication']
 },
 
@@ -113,7 +114,7 @@ var PORTFOLIODATA = [
   title: "Seattle Backyard Cottages",
   date: 2004,
   imageSources: ["dadu-sketch.png"],
-  description: ["I managed a project to examine allowing cottages and detached second units in single-family zones, which comprises most of the land of the city. I administered a demonstration program that allowed a few examples of cottages and second units to be built under tight constraints related to neighbor acceptance and a design selection committee. After the units were constructed, I conducted an analysis, surveys and outreach efforts to guage the level of acceptance for the idea of &ldquo;backyard cottages&rdquo; in Seattle's single family neighborhoods. These small housing units now provide an important housing option in the city's most expansive zoning district. "],
+  description: ["I managed a project to examine allowing cottages and detached second units in single-family zones, which comprises most of the land of the city. I administered a demonstration program that allowed a few examples of cottages and second units to be built under tight constraints related to neighbor acceptance and a design selection committee. After the units were constructed, I conducted an analysis, surveys and outreach efforts to guage the level of acceptance for the idea of \"backyard cottages\" in Seattle's single family neighborhoods. I then crafted legislation that allowed them in a portion of the city (later expanded to all of Seattle). These small housing units now provide an important housing option in the city's most expansive zoning district."],
   category: ['Urban Design & Planning', 'Communication']
 }
 

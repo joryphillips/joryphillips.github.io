@@ -13,7 +13,7 @@ var Header = React.createClass({
       <header className="fixed z2 top-0 left-0 right-0 navy bg-electric-blue border-bottom">
          <nav className="container">
             <div className="flex-auto">
-              <Link to="/#home" className="left button py2 button-transparent">Home</Link>
+              <a href="/#home" className="left button py2 button-transparent">Home</a>
               <a href="/#summary" className="sm-show left button py2 button-transparent">Summary</a>
               <a href="/#portfolio" className="button left py2 button-transparent">Portfolio</a>
               <a href="/#resume" className="sm-show left button py2 button-transparent">Resume</a>
