@@ -10,17 +10,22 @@
   </head>
 
   <body>
+
+    <top-menu></top-menu>
     <x-hero></x-hero>
     <x-summary></x-summary>
-    <!-- <x-portfolio></x-portfolio> -->
-    <x-resume></x-resume>
+    <x-portfolio data-source="./data/PORTFOLIODATA.json"></x-portfolio>
+    <x-resume data-source="./data/RESUMEDATA.json"></x-resume>
+    <x-footer></x-footer>
 
+    <script src="./top-menu.js"></script>
     <script src="./hero.js"></script>
     <script src="./summary.js"></script>
-    <!-- <script src="./portfolio.js"></script> -->
+    <script src="./portfolio.js"></script>
     <script src="./resume.js"></script>
-    <script src="./thumbnails.js"></script>
-    <script src="./job.js"></script>
+    <script src="./footer.js"></script>
+
+
 
   </body>
 
