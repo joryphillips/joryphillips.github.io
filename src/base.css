@@ -53,6 +53,16 @@ x-portfolio img {
   max-width: 100%;
 }
 
+.proj {
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 0.35s ease-in;
+}
+
+.proj.visible {
+  opacity: 1;
+}
+
 
 /*	CSS ADDITIONS*/
 
