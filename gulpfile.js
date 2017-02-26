@@ -7,7 +7,9 @@ var replace = require('gulp-replace');
 
 gulp.task('babelify', function () {
   return gulp.src(['src/**/*.js', '!src/sw.js'])
-  .pipe(babel())
+  .pipe(babel({
+    presets: ['es2015']
+  }))
   .pipe(gulp.dest('dist'));
 });
 
@@ -16,7 +18,7 @@ gulp.task('css', function () {
     autoprefixer({browsers: ['last 2 versions']}),
     cssnano(),
   ];
-  return gulp.src('src/app.css')
+  return gulp.src('src/base.css')
   .pipe(postcss(processors))
   .pipe(gulp.dest('dist'));
 });
@@ -24,6 +26,11 @@ gulp.task('css', function () {
 gulp.task('images', function () {
   return gulp.src(['src/images/**', '!**/.DS_Store'])
   .pipe(gulp.dest('dist/images/'));
+});
+
+gulp.task('data', function () {
+  return gulp.src(['src/data/**', '!**/.DS_Store'])
+  .pipe(gulp.dest('dist/data/'));
 });
 
 gulp.task('html', function () {
@@ -52,6 +59,7 @@ gulp.task('default', [
   'babelify',
   'css',
   'images',
+  'data',
   'html',
   'vendor',
   'assets',

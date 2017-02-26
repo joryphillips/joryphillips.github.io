@@ -1,3 +1,4 @@
+/* global customElements */
 (function() {
   'use strict';
 

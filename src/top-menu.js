@@ -1,15 +1,6 @@
+/* globals customElements */
 (function() {
   'use strict';
-
-
-  window.requestAnimFrame = (function() {
-    return window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      function(callback) {
-        window.setTimeout(callback, 1000 / 60);
-      };
-  })();
 
   class TopMenu extends HTMLElement {
 
@@ -33,13 +24,14 @@
 
     constructor() {
       super();
-
     }
 
     enableClickHandlers() {
       let nav = document.querySelector('nav');
       let links = nav.children;
-      for (let link of links) {
+      // NOTE: 'for of' loop threw an error in Safari 10.0.1
+      for (let i=0;i<links.length;i++) {
+        let link = links[i];
         link.addEventListener('click', this.scrollToId.bind(this), false);
       }
     }
@@ -54,16 +46,12 @@
     }
 
 
-
     // my favorite smooth scroll technique, orig. found at
     // http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation
-    scrollToY(scrollTargetY, speed, easing) {
+    scrollToY(scrollTargetY = 0, speed = 2000, easing = 'easeOutSine') {
       // scrollTargetY: the target scrollY property of the window
       // speed: time in pixels per second
       // easing: easing equation to use
-      scrollTargetY = scrollTargetY || 0;
-      speed = speed || 2000;
-      easing = easing || 'easeOutSine';
       let scrollY = window.scrollY || document.documentElement.scrollTop;
       let currentTime = 0;
 
@@ -89,19 +77,15 @@
       // add animation loop
       function tick() {
         currentTime += 1 / 60;
-
         let p = currentTime / time;
         let t = easingEquations[easing](p);
-
         if (p < 1) {
           requestAnimationFrame(tick);
-
           window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
         } else {
           window.scrollTo(0, scrollTargetY);
         }
       }
-
       // call it once to get started
       tick();
     }

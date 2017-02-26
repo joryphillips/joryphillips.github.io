@@ -21,7 +21,4 @@
 
   customElements.define('x-footer', XFooter);
 
-
-
-
 })();

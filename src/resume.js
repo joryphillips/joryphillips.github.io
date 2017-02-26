@@ -1,3 +1,4 @@
+/* global customElements */
 (function() {
   'use strict';
 
@@ -26,7 +27,7 @@
 
     connectedCallback() {
       this.innerHTML = this.template();
-      this.loadData(this.dataset.source).then((result) => {
+      this.loadData(this.dataset.source).then(result => {
         this.createJobs(result);
       });
     }
@@ -34,8 +35,8 @@
     loadData(source) {
       if (source) {
         let resumeRequest = new Request(source);
-        return fetch(resumeRequest).then((response) => {
-          return response.json().then((json) => {
+        return fetch(resumeRequest).then(response => {
+          return response.json().then(json => {
             return json;
           });
         });
@@ -67,10 +68,5 @@
   }
 
   customElements.define('x-resume', XResume);
-
-
-
-
-
 
 })();

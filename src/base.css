@@ -38,7 +38,11 @@ p {
   line-height: 2.2rem;
 }
 .navy {
-    color: #001f3f;
+  color: #001f3f;
+}
+
+.bg-navy {
+  background-color: #001f3f;
 }
 
 .container {
@@ -53,16 +57,44 @@ x-portfolio img {
   max-width: 100%;
 }
 
+.proj > * {
+  cursor: pointer;
+  /*pointer-events: none;*/
+}
+
 .proj {
   opacity: 0;
-  will-change: opacity;
-  transition: opacity 0.35s ease-in;
+  will-change: opacity, scale3d;
+  transition: all 0.35s ease-in;
+  transform: scale3d(1.05, 1.05, 1);
+  z-index: 1;
 }
 
 .proj.visible {
   opacity: 1;
+  transform: scale3d(1, 1, 1);
 }
 
+.proj.wide {
+  /*position: absolute;*/
+  transform: scale3d(1, 1, 5);
+  z-index: 5;
+  width: 100%;
+  background-color: #FFF;
+  padding: 16px;
+}
+
+#description {
+  display: none;
+  opacity: 0;
+  will-change: opacity;
+  transition: all 0.35s ease-in;
+}
+
+#description.visible {
+  display: block;
+  opacity: 1;
+}
 
 /*	CSS ADDITIONS*/
 
@@ -112,11 +144,8 @@ x-portfolio img {
 }
 
 .hover-shadow-grow {
-	-webkit-transform: translateZ(0);
-    transform: translateZ(0);
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: scale3d(1,1,1);
-	transform: scale3d(1,1,1);
+	-webkit-transform: scale(1);
+	transform: scale(1);
 	-webkit-box-shadow:  1px 1px 3px 0px rgba(50, 50, 50, 0.38);
 	box-shadow:  1px 1px 3px 0px rgba(50, 50, 50, 0.38);
 	-webkit-transition: all 0.15s ease-in;
@@ -124,15 +153,15 @@ x-portfolio img {
 }
 
 .hover-shadow-grow:hover {
-	-webkit-transform: scale3d(1.035,1.035,5);
-	transform: scale3d(1.035,1.035,5);
-	-webkit-box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.56);
-	box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.56);
+	-webkit-transform: scale(1.015);
+	transform: scale(1.015);
+	-webkit-box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.46);
+	box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.46);
 }
 
 .hover-shadow-grow:active {
-	-webkit-transform: scale3d(1.025,1.025,5);
-	transform: scale3d(1.025,1.025,5);
+  -webkit-transform: scale(1.01);
+	transform: scale(1.01);
 	-webkit-box-shadow:  2px 2px 2px 0px rgba(50, 50, 50, 0.38);
 	box-shadow:  2px 2px 2px 0px rgba(50, 50, 50, 0.38);
 	-webkit-transition: all 0.05s ease-in;
@@ -143,14 +172,14 @@ x-portfolio img {
 	opacity: 0;
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
-	-webkit-transition: all 0.275s ease-in;
-	transition: all 0.275s ease-in;
+	-webkit-transition: all 0.175s ease-in;
+	transition: all 0.175s ease-in;
 }
 
 .hover-shadow-grow:hover .hover-fade-in {
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
-	opacity: 0.8;
+	opacity: 0.95;
 }
 
 .cursor-pointer {

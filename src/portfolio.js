@@ -1,3 +1,4 @@
+/* global customElements */
 (function() {
   'use strict';
 
@@ -5,27 +6,29 @@
 
     template() {
       return `
-      <section class="clearfix py4 px2 sm-px3 bg-silver border-top border-bottom" id="portfolio">
-        <h1 class="mt0 mb3 navy">Portfolio</h1>
-        <div class="flex flex-wrap mxn1 project-holder"></div>
-      </section>
+        <section class="clearfix py4 px2 sm-px3 bg-silver border-top border-bottom" id="portfolio">
+          <h1 class="mt0 mb3 navy">Portfolio</h1>
+          <div class="flex flex-wrap mxn1 project-holder"></div>
+        </section>
 
-        <template id="project">
-          <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb2">
-            <div class="hover-shadow-grow">
-                <img id="image" src="" alt="">
-                <div class="hover-fade-in absolute bottom-0 z2 full-width bg-navy">
-                  <h5 id="title" class="h5 p1 mb0 electric-blue">{projectInfo.title}</h5>
-                </div>
+          <template id="project">
+            <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
+              <div class="hover-shadow-grow image-container">
+                <img id="image" class="block" src="" alt="">
+              </div>
+              <div id="textContainer" class="absolute mt1 col-12">
+                <h5 id="title" class="h5 p1 m0 navy"></h5>
+                <p id="description" class="p1 m0 navy"></p>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
       `;
     }
 
+
     connectedCallback() {
       this.innerHTML = this.template();
-      this.loadData(this.dataset.source).then((data) => {
+      this.loadData(this.dataset.source).then(data => {
         this.createProjects(data);
       });
     }
@@ -33,8 +36,8 @@
     loadData(source) {
       if (source) {
         let portfolioRequest = new Request(source);
-        return fetch(portfolioRequest).then((response, error) => {
-          return response.json().then((json, error) => {
+        return fetch(portfolioRequest).then(response => {
+          return response.json().then(json => {
             return json;
           }, (error) => {
             console.error(error);
@@ -45,20 +48,73 @@
       }
     }
 
+    setupImports() {
+      let importArr = this.dataset.imports.split(',');
+      importArr.forEach(importEl => {
+        importEl = importEl.trim();
+        let scriptEl = document.createElement('script');
+        scriptEl.src = importEl + '.js';
+        this.appendChild(scriptEl);
+        scriptEl.addEventListener('load', () => {
+          window[importEl]();
+        });
+      });
+    }
+
+    toggleAllExcept(selected, list, className, flipBool = true) {
+      list.forEach(item => {
+        if (item !== selected) {
+          item.classList.toggle(className);
+          if (!flipBool) {
+            item.style.display = item.classList.contains(className) ? 'none' : 'block';
+          } else {
+            item.style.display = item.classList.contains(className) ? 'block' : 'none';
+          }
+        }
+      });
+    }
+
+
+    handleProjectClick(e) {
+      let highlightProj = e.path.find(el => {
+        return el.classList && el.classList.contains('proj');
+      });
+      let description = highlightProj.querySelector('#description');
+      let textContainer = highlightProj.querySelector('#textContainer');
+      let portfolio = document.querySelector('#portfolio');
+      let portfolioItems = portfolio.querySelectorAll('.proj');
+      let portfolioSection = document.querySelector('#portfolio');
+      let sections = document.querySelectorAll('section');
+
+      this.toggleAllExcept(portfolioSection, sections, 'invisible', false);
+      this.toggleAllExcept(highlightProj, portfolioItems, 'visible');
+
+      highlightProj.classList.toggle('wide');
+      description.classList.toggle('visible');
+      textContainer.classList.toggle('absolute');
+    }
+
+
+
+
     createProjects(portfolio) {
 
-      function contentLoader(portfolio) {
-        return new Promise((resolve, reject) => {
+      let self = this;
+
+      let contentLoader = portfolio => {
+        return new Promise(resolve => {
           let cloneList = [];
 
-          portfolio.forEach((project) => {
+          portfolio.forEach(project => {
             let projectTemplate = document.querySelector('#project');
             let image = projectTemplate.content.querySelector('#image');
             let title = projectTemplate.content.querySelector('#title');
+            let description = projectTemplate.content.querySelector('#description');
 
             image.alt = 'image of ' + project.title;
-            image.src = './img/' + project.imageSources[0];
+            image.src = './images/' + project.imageSources[0];
             title.textContent = project.title;
+            description.textContent = project.description;
 
             let clone = document.importNode(projectTemplate.content, true);
             cloneList.push(clone);
@@ -70,82 +126,66 @@
             resolve(cloneList);
           }
         });
-      }
+      };
 
-      function appendClones(cloneList) {
+      let appendClones = cloneList => {
         const projectHolder = document.querySelector('.project-holder');
         let appendPromiseList = [];
-        cloneList.forEach((clone) => {
+        cloneList.forEach(clone => {
           projectHolder.appendChild(clone);
         });
         let projects = projectHolder.querySelectorAll('.proj');
-        projects.forEach((proj) => {
+        // NOTE: projects.forEach threw error in older Firefox, now works in 50.1
+        projects.forEach(proj => {
           appendPromiseList.push(Promise.resolve(proj));
+          proj.addEventListener('click', self.handleProjectClick.bind(self), false);
         });
         return appendPromiseList;
-      }
+      };
 
-      function imageLoadedPromise(proj, image) {
-        return new Promise((resolve, reject) => {
+      let imageLoadedPromise = (proj, image) => {
+        return new Promise(resolve => {
           image.addEventListener('load', resolve(proj), false);
           image.addEventListener('error', resolve(proj), false);
         });
-      }
+      };
 
-      function waitForImageLoad(projects) {
-        // let projects = document.querySelectorAll('.proj');
+      let waitForImageLoad = projects => {
         let imagesLoadedArray = [];
         for (let proj of projects) {
           let image = proj.querySelector('img');
           imagesLoadedArray.push(imageLoadedPromise(proj, image));
         }
-        return imagesLoadedArray;
-      }
+        return Promise.resolve(imagesLoadedArray);
+      };
 
-      let sequence = Promise.resolve();
+      let fadeInSequence = (i, elements, duration) => {
+        setTimeout(() => {
+          let targetEl = elements[i];
+          if (i < elements.length) {
+            targetEl.classList.add('visible');
+            fadeInSequence(i + 1, elements, duration);
+          }
+        }, 250);
+      };
+
 
       contentLoader(portfolio)
-        .then((cloneList) => {
+        .then(cloneList => {
           Promise.all(appendClones(cloneList))
-            .then((projects) => {
-              let start = new Date();
-              return waitForImageLoad(projects).reduce((sequence, imagePromise) => {
-                // console.log(sequence, imagePromise, new Date()-start);
-                // Use reduce to chain the promises together,
-                // adding content to the page for each chapter
-                return sequence.then(() => {
-                  // Wait for everything in the sequence so far,
-                  // then wait for this chapter to arrive.
-                  return imagePromise;
-                }).then((project) => {
-                  // console.log('add visible class', project, new Date()-start);
-                  // setTimeout( ()=>{
-                  //   console.log('settimeout', new Date()-start);
-                  project.classList.add('visible');
-                // }, 600);
-
-                  //   // NOTE: event listeners don't seem to work if added to clone before being imported
-                  project.addEventListener('click', () => {
-                    // add function to expand to details view here
-                    console.log(project, 'clicked');
-                  }, false);
-
+            .then(projects => {
+              waitForImageLoad(projects).then(results => {
+                Promise.all(results).then(elements => {
+                  fadeInSequence(0, elements, 450);
                 });
-              }, Promise.resolve());
+
+              }).then(this.setupImports());
             });
         });
-
-
     }
 
   }
 
   customElements.define('x-portfolio', XPortfolio);
-
-
-
-
-
-
 
 })();
