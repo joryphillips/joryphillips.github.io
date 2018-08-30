@@ -19,14 +19,6 @@ body {
 *::-moz-selection { background: #0086B3; color: #fff; text-shadow: none; }
 *::selection { background: #0086B3; color: #fff; text-shadow: none; }
 
-/*.h1, h1,
-.h2, h2,
-.h3, h3,
-.h4, h4,
-.h5, h5,
-.h6, h6 {
-	font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
-}*/
 
 .jumbo {
   font-size: 4rem;
@@ -57,11 +49,6 @@ x-portfolio img {
   max-width: 100%;
 }
 
-.proj > * {
-  cursor: pointer;
-  /*pointer-events: none;*/
-}
-
 .proj {
   opacity: 0;
   will-change: opacity, scale3d;
@@ -76,7 +63,6 @@ x-portfolio img {
 }
 
 .proj.wide {
-  /*position: absolute;*/
   transform: scale3d(1, 1, 5);
   z-index: 5;
   width: 100%;

@@ -1,11 +1,11 @@
 [{
     "date": "Sept 2015 - present",
-    "place": "Google Android, Front-End Design & Engineering",
+    "place": "Google, UX Engineer",
     "summary": "Developing web apps to help Android engineers, designers & researchers.",
     "detail": "Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipping Material-design emoji. Tech used: HTML/CSS/Javascript, Polymer, Web Components, Google APIs, Adobe Creative Suite, Sketch."
 }, {
     "date": "Jan 2014 - Sept 2015",
-    "place": "Freelance Designer, Web/App Developer",
+    "place": "Freelance Designer/Developer",
     "summary": "Built meaningful tech solutions with design and communication expertise.",
     "detail": "Designed and developed a handful of client websites, also providing messaging, content advice, graphic design, and production. Developed a prototype/MVP web app to help medical clinics with green business guidelines (part-time development ongoing). Consulted as a Creative Director for a boutique branding firm, including communication, visual design, and technical advice. Tech used: Adobe Creative Suite, HTML/CSS/Javascript."
 }, {
@@ -31,6 +31,6 @@
 }, {
     "date": "Aug 1997 - April 2000",
     "place": "Arai/Jackson Architects & Planners",
-    "summary": "Exemplary tech skills helped launch my career in design and planning.",
+    "summary": "Exemplary tech skills launched my career in design and planning.",
     "detail": "Design, production, content of various urban design and planning projects. Tech used: Adobe Photoshop, PageMaker and Freehand, MS Office, ArcView GIS, AutoCAD."
 }]

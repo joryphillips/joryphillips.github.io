@@ -12,15 +12,16 @@
         </section>
 
           <template id="project">
-            <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
+            <a
+              class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4"
+              href="">
               <div class="hover-shadow-grow image-container">
-                <img id="image" class="block" src="" alt="">
+                <img class="image block" src="" alt="">
               </div>
-              <div id="textContainer" class="absolute mt1 col-12">
-                <h5 id="title" class="h5 p1 m0 navy"></h5>
-                <p id="description" class="p1 m0 navy"></p>
+              <div class="textContainer absolute mt1 col-12">
+                <h5 class="title h5 p1 m0 navy"></h5>
               </div>
-            </div>
+            </a>
           </template>
       `;
     }
@@ -28,31 +29,34 @@
 
     connectedCallback() {
       this.innerHTML = this.template();
-      this.loadData(this.dataset.source).then(data => {
-        this.createProjects(data);
-      });
+      this.loadData(this.dataset.source)
     }
 
-    loadData(source) {
+    async loadData(source) {
+      console.log(source)
       if (source) {
-        let portfolioRequest = new Request(source);
-        return fetch(portfolioRequest).then(response => {
-          return response.json().then(json => {
-            return json;
-          }, (error) => {
-            console.error(error);
-          });
-        }, (error) => {
-          console.error(error);
-        });
+        const portfolioRequest = new Request(source);
+        const response = await fetch(portfolioRequest)
+        console.log(response)
+
+        //   return response.json().then(json => {
+        //     return json;
+        //   }, (error) => {
+        //     console.error(error);
+        //   });
+        // }, (error) => {
+        //   console.error(error);
+        // });
+        
+        this.createProjects(data);
       }
     }
 
     setupImports() {
-      let importArr = this.dataset.imports.split(',');
+      const importArr = this.dataset.imports.split(',');
       importArr.forEach(importEl => {
         importEl = importEl.trim();
-        let scriptEl = document.createElement('script');
+        const scriptEl = document.createElement('script');
         scriptEl.src = importEl + '.js';
         this.appendChild(scriptEl);
         scriptEl.addEventListener('load', () => {
@@ -61,107 +65,110 @@
       });
     }
 
-    toggleAllExcept(selected, list, className, flipBool = true) {
-      list.forEach(item => {
-        if (item !== selected) {
-          item.classList.toggle(className);
-          if (!flipBool) {
-            item.style.display = item.classList.contains(className) ? 'none' : 'block';
-          } else {
-            item.style.display = item.classList.contains(className) ? 'block' : 'none';
-          }
-        }
-      });
-    }
-
 
     handleProjectClick(e) {
+      console.log(e)
       let highlightProj = e.path.find(el => {
         return el.classList && el.classList.contains('proj');
       });
-      let description = highlightProj.querySelector('#description');
-      let textContainer = highlightProj.querySelector('#textContainer');
-      let portfolio = document.querySelector('#portfolio');
-      let portfolioItems = portfolio.querySelectorAll('.proj');
-      let portfolioSection = document.querySelector('#portfolio');
-      let sections = document.querySelectorAll('section');
 
-      this.toggleAllExcept(portfolioSection, sections, 'invisible', false);
-      this.toggleAllExcept(highlightProj, portfolioItems, 'visible');
+      // let description = highlightProj.querySelector('#description');
+      // let textContainer = highlightProj.querySelector('#textContainer');
+      // let portfolio = document.querySelector('#portfolio');
+      // let portfolioItems = portfolio.querySelectorAll('.proj');
+      // let portfolioSection = document.querySelector('#portfolio');
+      // let sections = document.querySelectorAll('section');
+      //
+      // this.toggleAllExcept(portfolioSection, sections, 'invisible', false);
+      // this.toggleAllExcept(highlightProj, portfolioItems, 'visible');
+      //
+      // highlightProj.classList.toggle('wide');
+      // description.classList.toggle('visible');
+      // textContainer.classList.toggle('absolute');
 
-      highlightProj.classList.toggle('wide');
-      description.classList.toggle('visible');
-      textContainer.classList.toggle('absolute');
+      // this.dispatchEvent(new CustomEvent('open-project-detail', {
+      //   bubbles: true,
+      //   detail: {
+      //     // projectEl: highlightProj,
+      //     infoData: highlightProj.infoData,
+      //   }
+      // }));
+
+
     }
 
 
+    kebabCase(string) {
+      return string.toLowerCase().replace(/[^a-z0-9+]+/gi, '-');
+    }
 
 
     createProjects(portfolio) {
 
-      let self = this;
-
-      let contentLoader = portfolio => {
+      const contentLoader = portfolio => {
         return new Promise(resolve => {
           let cloneList = [];
 
           portfolio.forEach(project => {
-            let projectTemplate = document.querySelector('#project');
-            let image = projectTemplate.content.querySelector('#image');
-            let title = projectTemplate.content.querySelector('#title');
-            let description = projectTemplate.content.querySelector('#description');
+            const projectTemplate = document.querySelector('#project');
+            const projLink = projectTemplate.content.querySelector('a.proj');
+            const image = projectTemplate.content.querySelector('.image');
+            const title = projectTemplate.content.querySelector('.title');
+            // let description = projectTemplate.content.querySelector('#description');
 
+            projLink.href = `?project=${this.kebabCase(project.title)}`;
             image.alt = 'image of ' + project.title;
             image.src = './images/' + project.imageSources[0];
             title.textContent = project.title;
-            description.textContent = project.description;
+            // description.textContent = project.description;
 
-            let clone = document.importNode(projectTemplate.content, true);
+            const clone = document.importNode(projectTemplate.content, true);
             cloneList.push(clone);
           });
           if (cloneList.length === portfolio.length) {
-            resolve(cloneList);
+            resolve(cloneList, portfolio);
           } else {
             console.warn('something is wrong. portfolio and clonelist lengths do not match.');
-            resolve(cloneList);
+            resolve(cloneList, portfolio);
           }
         });
       };
 
-      let appendClones = cloneList => {
+      const appendClones = (cloneList, portfolio) => {
         const projectHolder = document.querySelector('.project-holder');
         let appendPromiseList = [];
-        cloneList.forEach(clone => {
+        cloneList.forEach((clone) => {
           projectHolder.appendChild(clone);
         });
-        let projects = projectHolder.querySelectorAll('.proj');
-        // NOTE: projects.forEach threw error in older Firefox, now works in 50.1
-        projects.forEach(proj => {
-          appendPromiseList.push(Promise.resolve(proj));
-          proj.addEventListener('click', self.handleProjectClick.bind(self), false);
+        const projects = projectHolder.querySelectorAll('.proj');
+
+        projects.forEach((proj, index) => {
+          appendPromiseList.push(proj);
+          proj.infoData = portfolio[index];
+          proj.addEventListener('click', this.handleProjectClick.bind(this), false);
         });
         return appendPromiseList;
       };
 
-      let imageLoadedPromise = (proj, image) => {
+      const imageLoadedPromise = (proj, image) => {
         return new Promise(resolve => {
           image.addEventListener('load', resolve(proj), false);
           image.addEventListener('error', resolve(proj), false);
         });
       };
 
-      let waitForImageLoad = projects => {
+      const waitForImageLoad = projects => {
         let imagesLoadedArray = [];
         for (let proj of projects) {
-          let image = proj.querySelector('img');
+          const image = proj.querySelector('img');
           imagesLoadedArray.push(imageLoadedPromise(proj, image));
         }
         return Promise.resolve(imagesLoadedArray);
       };
 
-      let fadeInSequence = (i, elements, duration) => {
+      const fadeInSequence = (i, elements, duration) => {
         setTimeout(() => {
-          let targetEl = elements[i];
+          const targetEl = elements[i];
           if (i < elements.length) {
             targetEl.classList.add('visible');
             fadeInSequence(i + 1, elements, duration);
@@ -172,7 +179,7 @@
 
       contentLoader(portfolio)
         .then(cloneList => {
-          Promise.all(appendClones(cloneList))
+          Promise.all(appendClones(cloneList, portfolio))
             .then(projects => {
               waitForImageLoad(projects).then(results => {
                 Promise.all(results).then(elements => {

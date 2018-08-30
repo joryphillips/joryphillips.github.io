@@ -1,17 +1,15 @@
-console.log('clock.js loaded');
-
 function clock() {
-  console.log('clock function executing');
-  let imageHolders = document.querySelectorAll('.image-container');
+  const imageHolders = document.querySelectorAll('.image-container');
   // finds linked svg, swaps in the in-line version
   imageHolders.forEach( (holder)=>{
-    if (holder.children.image.src.indexOf('clock.svg') > -1) {
-      holder.removeChild(holder.children.image);
+    const image = holder.querySelector('img');
+    if (image.src.indexOf('clock.svg') > -1) {
+      holder.removeChild(image);
       holder.innerHTML = CLOCKSVGHTML;
     }
   });
 
-  let rotateHand = (el, deg)=> {
+  const rotateHand = (el, deg)=> {
     if (el) {
       el.setAttribute('transform', 'rotate(' + deg + ' 1504.5 593.2)');
     } else {
@@ -19,10 +17,10 @@ function clock() {
     }
   };
 
-  let clockWork = ()=> {
-    let d = new Date();
-    let min = document.querySelector('#min');
-    let hour = document.querySelector('#hour');
+  const clockWork = ()=> {
+    const d = new Date();
+    const min = document.querySelector('#min');
+    const hour = document.querySelector('#hour');
     rotateHand(min, 6 * d.getMinutes());
     rotateHand(hour, 30 * (d.getHours() % 12) + d.getMinutes() / 2);
   };

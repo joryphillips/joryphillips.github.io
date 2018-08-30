@@ -1,50 +1,268 @@
 <!doctype html>
 
-  <head>
-    <meta charset="utf-8">
-    <title>Jory Phillips Portfolio and Resume</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="./vendor/ace.min.css" >
-    <link rel="stylesheet" href="./base.css">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>Jory Phillips Portfolio and Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./vendor/ace.min.css">
+  <link rel="stylesheet" href="./base.css">
+</head>
 
-  <body>
+<body>
 
-    <x-app></x-app>
+  <header class="fixed z2 top-0 left-0 right-0 navy bg-electric-blue border-bottom">
+    <nav class="container flex-auto">
+      <a href="/#home" class="sm-show left button py2 button-transparent">Home</a>
+      <a href="/#summary" class="sm-show left button py2 button-transparent">Summary</a>
+      <a href="/#visuals" class="button left py2 button-transparent">Visuals</a>
+      <a href="/#experience" class="sm-show left button py2 button-transparent">Experience</a>
+    </nav>
+  </header>
 
-    <!-- polyfills -->
-    <script src="./vendor/fetch.js"></script>
-    <script src="./vendor/custom-elements.min.js"></script>
-    <script>
-      // event.path polyfill
-      if (!('path' in Event.prototype)) {
-        Object.defineProperty(Event.prototype, 'path', {
-          get: function() {
-            let path = [];
-            let currentElem = this.target;
-            while (currentElem) {
-              path.push(currentElem);
-              currentElem = currentElem.parentElement;
+  <section class="bg-electric-blue bg-cover center px2 py4 navy border-bottom" id="home">
+    <h1 class="jumbo h0-responsive mb2">Jory Phillips</h1>
+    <h2 class="h2">designer & front-end developer</h2>
+  </section>
+
+  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="summary">
+    <div class="container">
+      <p>My strength is bridging big-picture concepts with detailed implementation. I am especially interested in projects that
+        help people navigate and understand complex things.</p>
+      <p>I have designed & developed apps for Google, helped a branding agency brand itself, and created design guidelines and
+        illustrations for major cities and a movie studio/theme park. I have also delivered scores of presentations to decision
+        makers, community groups, and professional organizations. I can prototype, design, develop, or present your ideas
+        and information with interest, interaction, and positive experiences.</p>
+    </div>
+  </section>
+
+  <section class="clearfix py4 px2 sm-px3 bg-silver border-top border-bottom" id="visuals">
+    <h1 class="mt0 mb3 navy">Visuals</h1>
+    <div class="flex flex-wrap mxn1 project-holder"></div>
+  </section>
+
+  <template id="project">
+    <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
+      <div class="image-container">
+        <img class="image block" src="" alt="">
+      </div>
+      <div class="textContainer absolute mt1 col-12">
+        <h5 class="title h5 p1 m0 navy"></h5>
+      </div>
+    </div>
+  </template>
+
+  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="experience">
+    <div class="container">
+      <h1 class="mt0 mb3">Experience</h1>
+      <div class="job-holder"></div>
+    </div>
+  </section>
+
+  <template id="job">
+    <div class="mb4">
+      <h3 class="mt0">
+        <span id="place" class="dark-blue"></span>
+        <span id="date" class="regular date"></span>
+      </h3>
+      <h3 id="summary" class="mt1"></h3>
+    </div>
+  </template>
+
+  <footer class="navy bg-electric-blue border-top bottom-0 full-width">
+    <div class="px2 py1 container">
+      <a href="https://www.linkedin.com/in/joryphillips" target="_blank" class="button button-transparent h6">linkedin</a>
+      <a class="button button-transparent h6" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
+    </div>
+  </footer>
+  
+
+  <!-- special project addition-->
+  <script src="clock.js"></script>
+
+  <script>
+    (async () => {
+      const DATA_PATH = './data/jory.json';
+      const IMAGE_FADE_IN_TIMEOUT = 350;
+
+      function enableScrollClickHandlers() {
+        const links = document.querySelectorAll('nav a');
+        for (const link of links) {
+          link.addEventListener('click', scrollToId, false);
+        }
+      }
+
+      function scrollToId(e) {
+        e.preventDefault();
+        const hash = e.target.hash;
+        const scrollTargetEl = document.querySelector(hash);
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        if (scrollTargetEl) {
+          const scrollTargetY = scrollTargetEl.offsetTop - headerHeight;
+          scrollToY(scrollTargetY, 2250, 'easeInOutQuint');
+          history.pushState(null, null, hash)
+        }
+      }
+
+      // my favorite smooth scroll technique, orig. found at
+      // http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation
+      function scrollToY(scrollTargetY = 0, speed = 2000, easing = 'easeOutSine') {
+        // scrollTargetY: the target scrollY property of the window
+        // speed: time in pixels per second
+        // easing: easing equation to use
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        let currentTime = 0;
+
+        // min time .1, max time .8 seconds
+        const time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
+
+        // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
+        const easingEquations = {
+          easeOutSine:  (pos) => {
+            return Math.sin(pos * (Math.PI / 2));
+          },
+          easeInOutSine: (pos) => {
+            return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+          },
+          easeInOutQuint: (pos) => {
+            if ((pos /= 0.5) < 1) {
+              return 0.5 * Math.pow(pos, 5);
             }
-            if (path.indexOf(window) === -1 && path.indexOf(document) === -1)
-              path.push(document);
-            if (path.indexOf(window) === -1)
-              path.push(window);
-            return path;
+            return 0.5 * (Math.pow((pos - 2), 5) + 2);
           }
+        };
+
+        // add animation loop
+        function tick() {
+          currentTime += 1 / 60;
+          const p = currentTime / time;
+          const t = easingEquations[easing](p);
+          if (p < 1) {
+            requestAnimationFrame(tick);
+            window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
+          } else {
+            window.scrollTo(0, scrollTargetY);
+          }
+        }
+        // call it once to get started
+        tick();
+      }
+
+      async function loadData(source) {
+        if (source) {
+          try {
+            const request = new Request(source);
+            const response = await fetch(request);
+            return response.json();
+          } catch (error) {
+            console.error('WHOOPSIE DAISY. Error loading data', error);
+          }
+        }
+        return;
+      }
+
+      function kebabCase(string) {
+        return string.toLowerCase().replace(/[^a-z0-9+]+/gi, '-');
+      }
+
+      function getImportNodes(portfolio) {
+        return portfolio.map(project => {
+          const projectTemplate = document.querySelector('#project');
+          const image = projectTemplate.content.querySelector('.image');
+          const title = projectTemplate.content.querySelector('.title');
+          image.alt = 'image of ' + project.title;
+          image.src = './images/' + project.imageSources[0];
+          title.textContent = project.title;
+          return document.importNode(projectTemplate.content, true);
         });
       }
-    </script>
 
-    <!-- base app import -->
-    <script src="./x-app.js"></script>
-    <script src="./top-menu.js"></script>
-    <script src="./hero.js"></script>
-    <script src="./summary.js"></script>
-    <script src="./portfolio.js"></script>
-    <script src="./resume.js"></script>
-    <script src="./footer.js"></script>
+      function appendClones(cloneList, portfolio) {
+        const projectHolder = document.querySelector('.project-holder');
+        let appendList = [];
+        cloneList.forEach((clone) => {
+          projectHolder.appendChild(clone);
+        });
 
-  </body>
+        const projects = projectHolder.querySelectorAll('.proj');
+        projects.forEach((proj, index) => {
+          appendList.push(proj);
+        });
+        return appendList;
+      }
+
+      function imageLoadedPromise(proj, image) {
+        // resolve the promise when the image loads/errors
+        return new Promise(resolve => {
+          image.addEventListener('load', resolve(proj), false);
+          image.addEventListener('error', resolve(proj), false);
+        });
+      }
+
+      function getImageLoadedPromiseList(projects) {
+        return projects.map((proj)=> {
+          const image = proj.querySelector('img');
+          return imageLoadedPromise(proj, image);
+        });
+      }
+
+      function fadeInSequence(index, elements, timeout) {
+        setTimeout(() => {
+          const targetEl = elements[index];
+          if (index < elements.length) {
+            targetEl.classList.add('visible');
+            fadeInSequence(index + 1, elements, timeout);
+          }
+        }, timeout);
+      }
+
+
+      function createProjects(portfolio) {
+        const nodes = getImportNodes(portfolio);
+        const clones = appendClones(nodes, portfolio);
+        const imageLoadedPromiseList = getImageLoadedPromiseList(clones);
+
+        // once all images are loaded, sequence fade in
+        Promise.all(imageLoadedPromiseList)
+        .then(elements => {
+          fadeInSequence(0, elements, IMAGE_FADE_IN_TIMEOUT);
+        }).then(()=>{
+          // execute special projects here
+          clock();
+        });
+      }
+
+      function createJobs(resume) {
+        const jobHolder = document.querySelector('.job-holder');
+        if (jobHolder) {
+          for (const job of resume) {
+            const jobTemplate = document.querySelector('#job');
+            if (jobTemplate) {
+              // append date, place, summary, detail text to template
+              const keys = Object.keys(job);
+              for (const key of keys) {
+                const domId = jobTemplate.content.querySelector(`#${key}`);
+                // check that the id exists (shortcut to check that the resume ids match the property names in the json)
+                if (domId) {
+                  domId.textContent = job[key];
+                }
+              }
+              const clone = document.importNode(jobTemplate.content, true);
+              jobHolder.appendChild(clone);
+            }
+          }
+        }
+      }
+      
+      enableScrollClickHandlers();
+      const DATA = await loadData(DATA_PATH);
+      if (DATA && DATA.PORTFOLIO && DATA.RESUME) {
+        createProjects(DATA.PORTFOLIO);
+        createJobs(DATA.RESUME);
+      }
+    })();
+  </script>
+
+</body>
 
 </html>
