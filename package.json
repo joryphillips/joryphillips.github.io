@@ -1,7 +1,7 @@
 {
   "name": "jory-phillips-website",
   "version": "1.0.0",
-  "description": "Portfolio and Resume for Jory Phillips",
+  "description": "Jory Phillips Professional Stuff",
   "main": "gulpfile.js",
   "dependencies": {
     "webcomponents.js": "^0.7.22",

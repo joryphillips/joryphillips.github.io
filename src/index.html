@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <title>Jory Phillips Portfolio and Resume</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="./vendor/ace.min.css">
+  <!-- <link rel="stylesheet" href="./vendor/ace.min.css"> -->
+  <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="./base.css">
 </head>
 
@@ -40,6 +42,21 @@
     <div class="flex flex-wrap mxn1 project-holder"></div>
   </section>
 
+
+  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="experience">
+    <div class="container">
+      <h1 class="mt0 mb3">Experience</h1>
+      <div class="job-holder"></div>
+    </div>
+  </section>
+
+  <footer class="navy bg-electric-blue border-top bottom-0 full-width">
+    <div class="px2 py1 container">
+      <a href="https://www.linkedin.com/in/joryphillips" target="_blank" class="button button-transparent h6">linkedin</a>
+      <a class="button button-transparent h6" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
+    </div>
+  </footer>
+  
   <template id="project">
     <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
       <div class="image-container">
@@ -51,13 +68,6 @@
     </div>
   </template>
 
-  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="experience">
-    <div class="container">
-      <h1 class="mt0 mb3">Experience</h1>
-      <div class="job-holder"></div>
-    </div>
-  </section>
-
   <template id="job">
     <div class="mb4">
       <h3 class="mt0">
@@ -67,14 +77,6 @@
       <h3 id="summary" class="mt1"></h3>
     </div>
   </template>
-
-  <footer class="navy bg-electric-blue border-top bottom-0 full-width">
-    <div class="px2 py1 container">
-      <a href="https://www.linkedin.com/in/joryphillips" target="_blank" class="button button-transparent h6">linkedin</a>
-      <a class="button button-transparent h6" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
-    </div>
-  </footer>
-  
 
   <!-- special project addition-->
   <script src="clock.js"></script>

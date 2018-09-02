@@ -37,16 +37,15 @@ p {
   background-color: #001f3f;
 }
 
+/*	CSS ADDITIONS*/
+
 .container {
   display: block;
   max-width: 48em;
   margin: 0 auto;
 }
-x-resume .date {
+.date {
   margin-left: 0.5rem;
-}
-x-portfolio img {
-  max-width: 100%;
 }
 
 .proj {
@@ -82,11 +81,25 @@ x-portfolio img {
   opacity: 1;
 }
 
-/*	CSS ADDITIONS*/
-
 /*internet explorer svg fix*/
 .width-100 {
 	width: 100%
+}
+
+.image-container {
+  display: flex;
+  height: 100%;
+  max-height: 400px;
+  padding: 8px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .font-syncopate {
@@ -171,7 +184,6 @@ x-portfolio img {
 .cursor-pointer {
 	cursor: pointer;
 }
-
 
 .button-transparent {
     position: relative;
