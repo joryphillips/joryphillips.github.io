@@ -37,6 +37,17 @@ p {
   background-color: #001f3f;
 }
 
+.input, .select, .textarea {
+  font-family: inherit;
+  font-size: inherit;
+  display: block;
+  width: 100%;
+  padding: .5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
 /*	CSS ADDITIONS*/
 
 .container {
@@ -44,6 +55,11 @@ p {
   max-width: 48em;
   margin: 0 auto;
 }
+
+.text-container {
+  margin-top: 0.25rem;
+}
+
 .date {
   margin-left: 0.5rem;
 }

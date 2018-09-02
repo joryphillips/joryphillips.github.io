@@ -36,7 +36,7 @@
     "detail": "Design, production, content of various urban design and planning projects."
   }],
   "PORTFOLIO": [
-    { "title": "comprehensive UX/UI design",
+    { "title": "comprehensive design + implementation",
       "imageSources": ["test-result-details.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
@@ -48,19 +48,19 @@
       "imageSources": ["grid-test-views@3x.png"],
       "keywords": ["conceptual", "diagram", "communication", "Google", "Android"]
     },
-    { "title": "notification CRUD",
+    { "title": "notification CRUD app",
       "imageSources": ["notification-crud-edit.png"],
+      "keywords": ["ux", "ui", "develop", "Google", "Android"]
+    },
+    { "title": "lightweight webpage generator",
+      "imageSources": ["ux-page-crud.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
     { "title": "mojibrush.co ui/ux + oss contributions",
       "imageSources": ["moji-brush.png"],
       "keywords": ["ux", "ui", "develop", "fun", "Google", "Android"]
     },
-    { "title": "lightweight page generator",
-      "imageSources": ["ux-page-crud.png"],
-      "keywords": ["ux", "ui", "develop", "Google", "Android"]
-    },
-    { "title": "stepper to make a webpage from Sheets",
+    { "title": "make a webpage from Google Sheets",
       "imageSources": ["ux-sheet-stepper.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
@@ -76,13 +76,13 @@
       "imageSources": ["four-material-emoji.svg"],
       "keywords": ["illustration", "Material", "fun", "Google", "Android"]
     },
-    { "title": "identity/branding illustrations",
-      "imageSources": ["droid-4-up.svg"],
-      "keywords": ["illustration", "fun", "Google", "Android"]
-    },
     { "title": "imagery exploration",
       "imageSources": ["dichotomy-01.png"],
       "keywords": ["presentation", "conceptual", "communication", "Google", "Android"]
+    },
+    { "title": "identity/branding illustrations",
+      "imageSources": ["droid-4-up.svg"],
+      "keywords": ["illustration", "fun", "Google", "Android"]
     },
     { "title": "concept for research logo",
       "imageSources": ["UERchives-magnifying-glass-exag_480.png"],
