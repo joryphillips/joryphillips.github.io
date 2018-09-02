@@ -50,6 +50,16 @@ p {
 
 /*	CSS ADDITIONS*/
 
+.input.error {
+  color: red;
+  border-color: red;
+  outline-color: red;
+}
+
+#visuals form {
+  width: 50%;
+}
+
 .container {
   display: block;
   max-width: 48em;

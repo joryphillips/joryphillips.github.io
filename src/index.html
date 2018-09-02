@@ -89,7 +89,8 @@
 
   <script>
     const DATA_PATH = './data/jory.json';
-    const IMAGE_FADE_IN_TIMEOUT = 350;
+    const IMAGE_FADE_IN_TIMEOUT = 200;
+    const DEBOUNCE_TIMEOUT = 350;
     
     function scrollToId(e) {
       e.preventDefault();
@@ -215,7 +216,7 @@
       }, timeout);
     }
 
-    // heavily modified from Underscore
+    // modified from Underscore
     function debounce(func, wait = 250) {
       let timeout;
       return () => {
@@ -226,61 +227,73 @@
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (!timeout) {
-          func(arguments)
+          func(arguments);
         };
       };
     };
-
+    
 
     class AwesomeWebPage {
       constructor(dataPath) {
-        this.enableScrollClickHandlers();
-        this.enableInputHandler();
-        this.loadAndAppendData(dataPath)
+        this.addScrollClickHandlers();
+        this.keywords = [];
+        this.searchInput = document.querySelector('#search');
+        this.debouncedInput = debounce(this.handleInput.bind(this), DEBOUNCE_TIMEOUT);
+        this.addKeyupHandler();
+        this.loadAndAppendData(dataPath);
       }
+
       
-      enableScrollClickHandlers() {
+      addScrollClickHandlers() {
         const links = document.querySelectorAll('nav a');
         if (links) {
           for (const link of links) {
             link.addEventListener('click', scrollToId, false);
           }
         }
-
       }
 
-      enableInputHandler() {
-        const input = document.querySelector('#search');
-        if (input) {
-          input.addEventListener('keyup', this.handleInput, false);
+      addKeyupHandler() {
+        if (this.searchInput) {
+          this.searchInput.addEventListener('keyup', this.debouncedInput, false);
         }
       }
 
       async loadAndAppendData(dataPath) {
         this.DATA = await loadData(dataPath);
-        if (this.DATA && this.DATA.PORTFOLIO && this.DATA.RESUME) {
-          this.createProjects(this.DATA.PORTFOLIO);
+        if (this.DATA) {
+          this.createProjects(this.DATA.PORTFOLIO)
+          .then(()=>{
+            executeSpecialProjects();
+          });
+          this.keywords = this.getKeyWords(this.DATA.PORTFOLIO);
           this.createJobs(this.DATA.RESUME);
         }
       }
 
-      createProjects(portfolio) {
-        const nodes = getImportNodes(portfolio);
-        const clones = appendClones(nodes, portfolio);
-        const imageLoadedPromiseList = getImageLoadedPromiseList(clones);
-
-        // once all images are loaded, sequence fade in
-        Promise.all(imageLoadedPromiseList)
-        .then(elements => {
-          fadeInSequence(0, elements, IMAGE_FADE_IN_TIMEOUT);
-        }).then(()=>{
-          executeSpecialProjects();
+      getKeyWords(portfolio) {
+        const keywords = new Set();
+        portfolio.forEach(project => {
+          project.keywords.forEach(word => keywords.add(word.toLowerCase()));
         });
+        return keywords;
+      }
+
+      createProjects(portfolio, timeout = IMAGE_FADE_IN_TIMEOUT) {
+        if (portfolio) {
+          const nodes = getImportNodes(portfolio);
+          const clones = appendClones(nodes, portfolio);
+          const imageLoadedPromiseList = getImageLoadedPromiseList(clones);
+          return Promise.all(imageLoadedPromiseList).then(elements => {
+            // once all images are loaded, sequence fade in
+            fadeInSequence(0, elements, timeout);
+          });
+        }
       }
 
       createJobs(resume) {
         const jobHolder = document.querySelector('.job-holder');
-        if (jobHolder) {
+        if (resume && jobHolder) {
           for (const job of resume) {
             const jobTemplate = document.querySelector('#job');
             if (jobTemplate) {
@@ -300,8 +313,40 @@
         }
       }
     
+      removeProjects() {
+        const projectHolder = document.querySelector('.project-holder');
+        const projects = document.querySelectorAll('.proj');
+        for (const project of projects) {
+          projectHolder.removeChild(project);
+        }
+      }
+
+      showInputErrorState() {
+        this.searchInput.classList.add('error');
+      }
+
+      hideInputErrorState() {
+        this.searchInput.classList.remove('error');
+      }
+
       handleInput(e) {
-        debounce(console.log(e), 1000)
+        if (this.searchInput) {
+          this.hideInputErrorState();
+          const searchValue = this.searchInput.value;
+          this.removeProjects();
+          if (searchValue) {
+            if (this.keywords.has(searchValue)) {
+              const filteredPortfolio = this.DATA.PORTFOLIO.filter(project => {
+                return project.keywords.includes(searchValue);
+              });
+              this.createProjects(filteredPortfolio);
+            } else {
+              this.showInputErrorState();
+            }
+          } else {
+            this.createProjects(this.DATA.PORTFOLIO, 0);
+          }
+        } 
       }
     }
     
