@@ -1,6 +1,4 @@
 
-My portfolio, made with a boilerplate for generating a static with with React and webpack. Original boilerplate:
-
-http://jxnblk.com/writing/posts/static-site-generation-with-react-and-webpack/
+Jory's portfolio and resume (in easily-digestible, abbreviated form)
 
 MIT License
