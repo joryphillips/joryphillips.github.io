@@ -39,20 +39,45 @@
     <div class="flex">
       <h1 class="flex-auto mt0 mb3 navy">Visuals</h1>
 
-      <form>
+      <div class="search box">
         <label for="search" class="hide">Search</label>
-        <input id="search" type="search" placeholder="search" class="input">
-      </form>
+        <input id="search" type="search" placeholder="search" class="input" autocomplete="off">
+        <div class="dropdown">
+          <template id="keywords">
+            <div class="text p1"></div>
+          </template>
+        </div>
+      </div>
     </div>
 
-    <div class="flex flex-wrap mxn1 project-holder"></div>
+    <div class="flex flex-wrap mxn1 project-holder">
+      <template id="project">
+        <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
+          <div class="image-container">
+            <img class="image block" src="" alt="">
+          </div>
+          <div class="text-container absolute col-12">
+            <h5 class="title h5 p1 m0 navy"></h5>
+          </div>
+        </div>
+      </template>
+    </div>
   </section>
-
 
   <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="experience">
     <div class="container">
       <h1 class="mt0 mb3">Experience</h1>
-      <div class="job-holder"></div>
+      <div class="job-holder">
+        <template id="job">
+          <div class="mb4">
+            <h3 class="mt0">
+              <span id="place" class="dark-blue"></span>
+              <span id="date" class="regular date"></span>
+            </h3>
+            <h3 id="summary" class="mt1"></h3>
+          </div>
+        </template>
+      </div>
     </div>
   </section>
 
@@ -63,26 +88,6 @@
     </div>
   </footer>
   
-  <template id="project">
-    <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
-      <div class="image-container">
-        <img class="image block" src="" alt="">
-      </div>
-      <div class="text-container absolute col-12">
-        <h5 class="title h5 p1 m0 navy"></h5>
-      </div>
-    </div>
-  </template>
-
-  <template id="job">
-    <div class="mb4">
-      <h3 class="mt0">
-        <span id="place" class="dark-blue"></span>
-        <span id="date" class="regular date"></span>
-      </h3>
-      <h3 id="summary" class="mt1"></h3>
-    </div>
-  </template>
 
   <!-- special project addition-->
   <script src="clock.js"></script>
@@ -217,32 +222,60 @@
     }
 
     // modified from Underscore
-    function debounce(func, wait = 250) {
+    function debounce(func, context, wait = 250) {
       let timeout;
       return () => {
         const later = () => {
           timeout = null;
-          func(arguments);
+          func.apply(context, arguments);
         };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (!timeout) {
-          func(arguments);
+          func.apply(context, arguments);
         };
       };
     };
     
+    function isCheaplyEqual(list1, list2) {
+      return JSON.stringify(list1) === JSON.stringify(list2);
+    }
 
     class AwesomeWebPage {
       constructor(dataPath) {
         this.addScrollClickHandlers();
-        this.keywords = [];
+        this.keywords = null;
+        this.savedSearchResults = [];
         this.searchInput = document.querySelector('#search');
-        this.debouncedInput = debounce(this.handleInput.bind(this), DEBOUNCE_TIMEOUT);
         this.addKeyupHandler();
+        this.addFocusHandler();
         this.loadAndAppendData(dataPath);
       }
 
+      addFocusHandler() {
+        if (this.searchInput) {
+          this.searchInput.addEventListener('focus', (e) => this.showDropdown(e));
+          this.searchInput.addEventListener('blur', (e) => this.handleBlur(e));
+        }
+      }
+
+      addDropdownClickHandler() {
+        const dropdownButtons = document.querySelectorAll('.dropdown .text');
+        for (const button of dropdownButtons) {
+          //use mousedown instead of click to get priorty over searchInput onblur
+          button.addEventListener('mousedown', (e) => this.onDropdownButtonClick(e));
+        }
+      }
+
+      onDropdownButtonClick(e) {
+        e.preventDefault();
+        const text = e.target.innerText;
+        if (this.searchInput && text) {
+          this.searchInput.value = text;
+          this.hideDropdown(e);
+          this.handleInput();
+        }
+      }
       
       addScrollClickHandlers() {
         const links = document.querySelectorAll('nav a');
@@ -255,60 +288,95 @@
 
       addKeyupHandler() {
         if (this.searchInput) {
-          this.searchInput.addEventListener('keyup', this.debouncedInput, false);
+          const debounceInput = debounce(this.handleInput, this, DEBOUNCE_TIMEOUT);
+          this.searchInput.addEventListener('input', debounceInput);
         }
+      }
+
+      showDropdown() {
+        const dropdown = document.querySelector('.search.box .dropdown');
+        dropdown.classList.add('show');
+      }
+
+      handleBlur(e) {
+        e.preventDefault();
+        console.log('handleBlur');
+        this.hideDropdown(e)
+      }
+
+      hideDropdown(e) {
+        e.preventDefault();
+        const dropdown = document.querySelector('.search.box .dropdown');
+        dropdown.classList.remove('show');
       }
 
       async loadAndAppendData(dataPath) {
         this.DATA = await loadData(dataPath);
         if (this.DATA) {
           this.createProjects(this.DATA.PORTFOLIO)
-          .then(()=>{
-            executeSpecialProjects();
-          });
           this.keywords = this.getKeyWords(this.DATA.PORTFOLIO);
           this.createJobs(this.DATA.RESUME);
+          this.appendKeywords(this.keywords);
+          this.addDropdownClickHandler();
         }
       }
 
       getKeyWords(portfolio) {
         const keywords = new Set();
-        portfolio.forEach(project => {
-          project.keywords.forEach(word => keywords.add(word.toLowerCase()));
-        });
+        if (portfolio) {
+          portfolio.forEach(project => {
+            project.keywords.forEach(word => keywords.add(word.toLowerCase()));
+          });
+        }
         return keywords;
+      }
+
+      appendKeywords(keywords) {
+        const keywordHolder = document.querySelector('.dropdown');
+        const keywordTemplate = document.querySelector('#keywords');
+        if (keywords) {
+          for (const keyword of keywords) {
+            const text = keywordTemplate.content.querySelector('.text');
+            if (text) {
+              text.textContent = keyword;
+              const clone = document.importNode(keywordTemplate.content, true);
+              keywordHolder.appendChild(clone);
+            }
+          }
+        }
       }
 
       createProjects(portfolio, timeout = IMAGE_FADE_IN_TIMEOUT) {
         if (portfolio) {
+          this.savedSearchResults = portfolio;
           const nodes = getImportNodes(portfolio);
           const clones = appendClones(nodes, portfolio);
           const imageLoadedPromiseList = getImageLoadedPromiseList(clones);
           return Promise.all(imageLoadedPromiseList).then(elements => {
             // once all images are loaded, sequence fade in
             fadeInSequence(0, elements, timeout);
+          }).then(()=>{
+            executeSpecialProjects();
           });
         }
       }
 
       createJobs(resume) {
         const jobHolder = document.querySelector('.job-holder');
-        if (resume && jobHolder) {
+        const jobTemplate = document.querySelector('#job');
+        if (resume && jobHolder && jobTemplate) {
           for (const job of resume) {
-            const jobTemplate = document.querySelector('#job');
-            if (jobTemplate) {
-              // append date, place, summary, detail text to template
-              const keys = Object.keys(job);
-              for (const key of keys) {
-                const domId = jobTemplate.content.querySelector(`#${key}`);
-                // check that the id exists (shortcut to check that the resume ids match the property names in the json)
-                if (domId) {
-                  domId.textContent = job[key];
-                }
+            // append date, place, summary, detail text to template
+            const keys = Object.keys(job);
+            for (const key of keys) {
+              const domId = jobTemplate.content.querySelector(`#${key}`);
+              // check that the id exists (shortcut to check that the resume ids match the property names in the json)
+              if (domId) {
+                domId.textContent = job[key];
               }
-              const clone = document.importNode(jobTemplate.content, true);
-              jobHolder.appendChild(clone);
             }
+            const clone = document.importNode(jobTemplate.content, true);
+            jobHolder.appendChild(clone);
           }
         }
       }
@@ -329,28 +397,53 @@
         this.searchInput.classList.remove('error');
       }
 
-      handleInput(e) {
+      listHasSearchValues(searchValue, listString) {
+        let matches = false;
+        const searchList = searchValue.toLowerCase().split(' ');
+        for (let i = 0; i < searchList.length; i++) {
+          const searchTerm = searchList[i].trim();
+          matches = listString.toLowerCase().includes(searchTerm);
+        }
+        return matches;
+      }
+
+      shouldShowProject(searchValue, keywords, title) {
+        return this.listHasSearchValues(searchValue, keywords.join(' ')) || this.listHasSearchValues(searchValue, title.toLowerCase());
+      }
+      getFilteredPorfolio(portfolio, searchValue) {
+        return portfolio.filter(project => {
+          return this.shouldShowProject(searchValue, project.keywords, project.title);
+        });
+      }
+
+      handleInput() {
         if (this.searchInput) {
+
           this.hideInputErrorState();
           const searchValue = this.searchInput.value;
-          this.removeProjects();
           if (searchValue) {
-            if (this.keywords.has(searchValue)) {
-              const filteredPortfolio = this.DATA.PORTFOLIO.filter(project => {
-                return project.keywords.includes(searchValue);
-              });
-              this.createProjects(filteredPortfolio);
-            } else {
-              this.showInputErrorState();
+            // there is a search & it changed from the last search
+            const filteredPortfolio = this.getFilteredPorfolio(this.DATA.PORTFOLIO, searchValue);
+            
+            if (!isCheaplyEqual(this.savedSearchResults, filteredPortfolio)) {
+              if (filteredPortfolio.length > 0) {
+                this.removeProjects();
+                this.createProjects(filteredPortfolio, 150);
+              } else {
+                this.showInputErrorState();
+              }
             }
-          } else {
+          } else if (!searchValue) {
+            // there is no search
+            this.removeProjects();
             this.createProjects(this.DATA.PORTFOLIO, 0);
-          }
+          } 
+          // else searchValue === this.savedSearch value; do nothing
         } 
       }
     }
     
-    new AwesomeWebPage(DATA_PATH);
+    window.awesomeWebPage = new AwesomeWebPage(DATA_PATH);
 
   </script>
 

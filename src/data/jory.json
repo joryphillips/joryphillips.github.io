@@ -35,60 +35,73 @@
     "summary": "Designed & produced posters and giant documents; learned to manage projects; made plenty of mistakes.",
     "detail": "Design, production, content of various urban design and planning projects."
   }],
-  "PORTFOLIO": [
-    { "title": "comprehensive design + implementation",
+  "PORTFOLIO": [{
+      "title": "comprehensive design + implementation",
       "imageSources": ["test-result-details.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
-    { "title": "web component wireframe",
+    {
+      "title": "web component wireframe",
       "imageSources": ["target-row-pies-wireframe.jpg"],
       "keywords": ["ux", "ui", "wireframe", "Google", "Android"]
     },
-    { "title": "concept diagrams",
+    {
+      "title": "concept diagrams",
       "imageSources": ["grid-test-views@3x.png"],
       "keywords": ["conceptual", "diagram", "communication", "Google", "Android"]
     },
-    { "title": "notification CRUD app",
+    {
+      "title": "notification CRUD app",
       "imageSources": ["notification-crud-edit.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
-    { "title": "lightweight webpage generator",
+    {
+      "title": "lightweight webpage generator",
       "imageSources": ["ux-page-crud.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
-    { "title": "mojibrush.co ui/ux + oss contributions",
+    {
+      "title": "mojibrush.co ui/ux + oss contributions",
       "imageSources": ["moji-brush.png"],
       "keywords": ["ux", "ui", "develop", "fun", "Google", "Android"]
     },
-    { "title": "make a webpage from Google Sheets",
+    {
+      "title": "make a webpage from Google Sheets",
       "imageSources": ["ux-sheet-stepper.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
     },
-    { "title": "contrast study",
+    {
+      "title": "contrast study",
       "imageSources": ["material-gray-contrast-ratio-study.png"],
       "keywords": ["ux", "ui", "accessibility", "Google", "Android"]
     },
-    { "title": "sketchy wireframe",
+    {
+      "title": "sketchy wireframe",
       "imageSources": ["sketchy-wireframe.png"],
       "keywords": ["ux", "ui", "wireframe", "sketch", "Google", "Android"]
     },
-    { "title": "four shipped Material emoji",
+    {
+      "title": "four shipped Material emoji",
       "imageSources": ["four-material-emoji.svg"],
       "keywords": ["illustration", "Material", "fun", "Google", "Android"]
     },
-    { "title": "imagery exploration",
+    {
+      "title": "imagery exploration",
       "imageSources": ["dichotomy-01.png"],
       "keywords": ["presentation", "conceptual", "communication", "Google", "Android"]
     },
-    { "title": "identity/branding illustrations",
+    {
+      "title": "identity/branding illustrations",
       "imageSources": ["droid-4-up.svg"],
       "keywords": ["illustration", "fun", "Google", "Android"]
     },
-    { "title": "concept for research logo",
+    {
+      "title": "concept for research logo",
       "imageSources": ["UERchives-magnifying-glass-exag_480.png"],
       "keywords": ["illustration", "Material", "fun", "Google", "Android"]
     },
-    { "title": "dancing t-rex",
+    {
+      "title": "dancing t-rex",
       "imageSources": ["dancing-dino.gif"],
       "keywords": ["fun", "Google", "Android"]
     },
@@ -160,9 +173,10 @@
       "keywords": ["urban design", "urban planning", "communication"]
 
     },
-    { "title": "not a real emoji",
+    {
+      "title": "not a real emoji",
       "imageSources": ["incredulous_goat.png"],
-      "keywords": ["fun"]
+      "keywords": ["fun", "goat", "emoji"]
     }
   ]
 }

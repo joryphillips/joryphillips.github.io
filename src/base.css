@@ -43,20 +43,50 @@ p {
   display: block;
   width: 100%;
   padding: .5rem;
-  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 /*	CSS ADDITIONS*/
 
-.input.error {
-  color: red;
-  border-color: red;
-  outline-color: red;
+.search.box {
+  position: relative;
+  margin-bottom: 1rem;
 }
 
-#visuals form {
+.input.error {
+  color: orange;
+  border-color: orange;
+  outline-color: orange;
+}
+
+.dropdown {
+  display: none;
+  background-color: #FFF;
+  border: 1px solid #ccc;
+}
+
+.dropdown, .dropdown .text  {
+  box-sizing: border-box;
+  width: 100%;
+}
+.dropdown.show {
+  display: block;
+  position: absolute; 
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.dropdown .text {
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown .text:last-of-type {
+  border-bottom: none;
+}
+
+#visuals .search.box {
   width: 50%;
 }
 
