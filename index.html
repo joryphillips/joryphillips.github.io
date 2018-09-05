@@ -300,12 +300,10 @@
 
       handleBlur(e) {
         e.preventDefault();
-        console.log('handleBlur');
         this.hideDropdown(e)
       }
 
       hideDropdown(e) {
-        e.preventDefault();
         const dropdown = document.querySelector('.search.box .dropdown');
         dropdown.classList.remove('show');
       }
@@ -410,6 +408,7 @@
       shouldShowProject(searchValue, keywords, title) {
         return this.listHasSearchValues(searchValue, keywords.join(' ')) || this.listHasSearchValues(searchValue, title.toLowerCase());
       }
+
       getFilteredPorfolio(portfolio, searchValue) {
         return portfolio.filter(project => {
           return this.shouldShowProject(searchValue, project.keywords, project.title);
@@ -438,7 +437,6 @@
             this.removeProjects();
             this.createProjects(this.DATA.PORTFOLIO, 0);
           } 
-          // else searchValue === this.savedSearch value; do nothing
         } 
       }
     }
