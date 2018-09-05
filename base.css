@@ -1,34 +1,35 @@
-
-/*@import 'normalize.css';
-@import 'basscss';*/
-/*@import url(http://fonts.googleapis.com/css?family=Syncopate:700);*/
-@import url(http://fonts.googleapis.com/css?family=Archivo+Narrow:400,700);
-
-:root {
-  --font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
-  --line-height: 2.2rem;
-}
+@import url(https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700);
 
 /*  CSS OVERRIDES*/
 body {
   background-color: #FFFCF7;
-	font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
   margin: 0;
 }
 
-*::-moz-selection { background: #0086B3; color: #fff; text-shadow: none; }
-*::selection { background: #0086B3; color: #fff; text-shadow: none; }
+*::-moz-selection {
+  background: #0086B3;
+  color: #fff;
+  text-shadow: none;
+}
 
+*::selection {
+  background: #0086B3;
+  color: #fff;
+  text-shadow: none;
+}
 
 .jumbo {
   font-size: 4rem;
   text-transform: uppercase;
   letter-spacing: .1rem;
 }
+
 p {
-	font-size: 1.05rem;
+  font-size: 1.05rem;
   line-height: 2.2rem;
 }
+
 .navy {
   color: #001f3f;
 }
@@ -48,7 +49,6 @@ p {
 }
 
 /*	CSS ADDITIONS*/
-
 .search.box {
   position: relative;
   margin-bottom: 1rem;
@@ -66,13 +66,14 @@ p {
   border: 1px solid #ccc;
 }
 
-.dropdown, .dropdown .text  {
+.dropdown, .dropdown .text {
   box-sizing: border-box;
   width: 100%;
 }
+
 .dropdown.show {
   display: block;
-  position: absolute; 
+  position: absolute;
   z-index: 10;
   max-height: 200px;
   overflow-y: scroll;
@@ -125,23 +126,6 @@ p {
   padding: 16px;
 }
 
-#description {
-  display: none;
-  opacity: 0;
-  will-change: opacity;
-  transition: all 0.35s ease-in;
-}
-
-#description.visible {
-  display: block;
-  opacity: 1;
-}
-
-/*internet explorer svg fix*/
-.width-100 {
-	width: 100%
-}
-
 .image-container {
   display: flex;
   height: 100%;
@@ -158,109 +142,70 @@ p {
   max-height: 100%;
 }
 
-.font-syncopate {
-	font-family: 'Syncopate';
-	font-size: 2.5rem;
-}
-.strikethrough {
-	text-decoration: line-through;
-}
 .border-bottom {
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(0,0,0,.125);
+  border-bottom-color: rgba(0, 0, 0, .125);
 }
+
 .border-top {
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-color: rgba(0,0,0,.125);
+  border-top-color: rgba(0, 0, 0, .125);
 }
+
 .off-white-warm-bg {
-	background-color: #FFFCF7;
+  background-color: #FFFCF7;
 }
+
 .off-white-cool-bg {
-	background-color: #F7FDFF;
+  background-color: #F7FDFF;
 }
+
 .dark-blue {
-	color: #0079a2;
+  color: #0079a2;
 }
+
 .bg-dark-blue {
-	background-color: #0079a2;
+  background-color: #0079a2;
 }
+
 .bg-silver {
   background-color: #ddd;
 }
+
 .electric-blue {
-	color: #1ac5ff
+  color: #1ac5ff
 }
 
 .bg-electric-blue {
-	background-color: #1ac5ff
-}
-
-.hover-shadow-grow {
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-box-shadow:  1px 1px 3px 0px rgba(50, 50, 50, 0.38);
-	box-shadow:  1px 1px 3px 0px rgba(50, 50, 50, 0.38);
-	-webkit-transition: all 0.15s ease-in;
-	transition: all 0.15s ease-in;
-}
-
-.hover-shadow-grow:hover {
-	-webkit-transform: scale(1.015);
-	transform: scale(1.015);
-	-webkit-box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.46);
-	box-shadow:  2px 2px 6px 0px rgba(50, 50, 50, 0.46);
-}
-
-.hover-shadow-grow:active {
-  -webkit-transform: scale(1.01);
-	transform: scale(1.01);
-	-webkit-box-shadow:  2px 2px 2px 0px rgba(50, 50, 50, 0.38);
-	box-shadow:  2px 2px 2px 0px rgba(50, 50, 50, 0.38);
-	-webkit-transition: all 0.05s ease-in;
-	transition: all 0.05s ease-in;
-}
-
-.hover-shadow-grow .hover-fade-in {
-	opacity: 0;
-	-webkit-transform: scale3d(1,1,1);
-	transform: scale3d(1,1,1);
-	-webkit-transition: all 0.175s ease-in;
-	transition: all 0.175s ease-in;
-}
-
-.hover-shadow-grow:hover .hover-fade-in {
-	-webkit-transform: scale3d(1,1,1);
-	transform: scale3d(1,1,1);
-	opacity: 0.95;
+  background-color: #1ac5ff
 }
 
 .cursor-pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .button-transparent {
-    position: relative;
-    z-index: 2;
-    color: inherit;
-    background-color: transparent;
-    border-radius: 0;
-    border: 1px solid transparent;
+  position: relative;
+  z-index: 2;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0;
+  border: 1px solid transparent;
 }
 
 .button, button {
-    font-family: inherit;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    line-height: 1.125rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin: 0;
-    height: auto;
-    border: 1px solid transparent;
-    vertical-align: middle;
-    -webkit-appearance: none;
+  font-family: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.125rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0;
+  height: auto;
+  border: 1px solid transparent;
+  vertical-align: middle;
+  -webkit-appearance: none;
 }
