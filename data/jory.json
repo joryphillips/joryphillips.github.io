@@ -145,7 +145,7 @@
       "keywords": ["urban design", "illustration", "fun", "communication"]
     },
     {
-      "title": "Conceptual Product Design/Prototype",
+      "title": "Wall Clock Product Design/Prototype",
       "date": "2010",
       "imageSources": ["heathrow-clock.svg"],
       "description": "Tasked with coming up with product ideas that could build upon notNeutral's (Rios Clementi Hale Studio's product design brand) successful CityPlates, I started analyzing aerial photographs of different cities for inspiration. I was especially drawn to the way airports look from above. This London Heathrow graphic was originally presented as an idea for a large-scale wall graphic and clock, with the runways as moving hands. Here I have streamlined the original Illustrator file with SVG and used Javascript to make it a functional time-telling graphic.",

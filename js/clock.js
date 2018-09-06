@@ -1,9 +1,9 @@
-function clock() {
+export function clock(fileName) {
   const imageHolders = document.querySelectorAll('.image-container');
-  // finds linked svg, swaps in the in-line version
+  // finds all refs to svg with fileName, swaps in the in-line version
   imageHolders.forEach( (holder)=>{
     const image = holder.querySelector('img');
-    if (image.src.indexOf('clock.svg') > -1) {
+    if (image.src.indexOf(fileName) > -1) {
       holder.removeChild(image);
       holder.innerHTML = CLOCKSVGHTML;
     }
@@ -27,9 +27,6 @@ function clock() {
 
   setInterval(clockWork, 1000);
 }
-
-// TODO: airplanes don't properly place in Safari 10.0.2 or Tech Preview 20 or Firefox 50.1.0; using deprecated xlink:href="#airplane" for now (change to just href="#airplane" in the near future)
-// see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/xlink:href
 
 const CLOCKSVGHTML = `
   <svg viewBox="269 -700 2200 2200" class="block width-100">
@@ -431,121 +428,121 @@ const CLOCKSVGHTML = `
     </g>
 
     <g id="airplanes">
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 792.1929 298.369)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 798.6164 191.5779)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 929.9149 189.4912)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 792.1929 338.3113)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 787.6756 367.7812)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 918.9741 367.7812)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 920.299 411.0862)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 927.6031 749.685)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.8511 0.6466 0.6466 0.8511 876.3555 776.5153)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 927.6031 724.4373)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 953.9154 487.519)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1327.8979 488.8607)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1068.3143 335.7893)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1075.4976 261.6775)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1071.929 234.4643)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 657.3317 287.6346)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 575.9851 278.0243)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 580.7099 312.4287)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 574.2864 335.4464)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 578.3495 367.8889)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.8117 0 0 0.8117 569.9359 435.8489)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 719.5055 450.6807)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 716.2938 421.8515)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 719.2379 394.625)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.4335 366.7611)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.9689 333.8977)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.9689 301.5125)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 718.5041 191.6858)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 847.5099 363.6065)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 847.2423 396.2596)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 848.0452 421.8515)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 848.3128 447.2779)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 421.8515)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 1060.9879 525.4474)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1083.5775 433.4123)"/>
-      <use xlink:href="#airplane" transform="matrix(0.5428 0.9208 0.9208 -0.5428 1302.2904 179.171)"/>
-      <use xlink:href="#airplane" transform="matrix(0.5428 0.9208 0.9208 -0.5428 1561.3773 237.249)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1124.8175 306.4005)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1565.8995 287.3196)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1600.5244 380.8938)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1618.9646 356.9116)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1643.6921 332.7269)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1662.9626 307.7296)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9269 -0.5323 -0.5323 0.9269 1535.6299 435.9661)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1133.7764 448.0038)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1116.8989 424.0495)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1089.1785 379.8877)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1202.3154 365.4217)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1188.4078 343.363)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1175.3617 323.5196)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1115.0477 352.566)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1160.1345 227.3793)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1174.6843 247.4019)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1188.2938 272.1508)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.4728 0.9586 0.9586 0.4728 1146.7362 210.1678)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1133.0989 369.4241)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1146.714 396.2198)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1187.7302 449.6401)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1160.812 301.4112)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1144.7886 282.4617)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1224.2061 217.7816)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1239.5953 240.4233)"/>
-      <use xlink:href="#airplane" transform="matrix(0.7987 -0.7103 -0.7103 -0.7987 1817.9717 325.0065)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0686 -2.569389e-02 -2.569389e-02 1.0686 1782.9442 487.798)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0686 -2.630535e-02 -2.630535e-02 -1.0686 1881.7062 483.9063)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8922 0.5887 0.5887 -0.8922 1965.5101 213.9453)"/>
-      <use xlink:href="#airplane" transform="matrix(3.776128e-02 1.0682 1.0682 -3.776128e-02 2021.9489 224.0901)"/>
-      <use xlink:href="#airplane" transform="matrix(0.5631 -0.9085 -0.9085 -0.5631 2070.7217 181.3388)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8068 0.7011 0.7011 -0.8068 1494.2382 772.3582)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1514.8621 753.1181)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1537.5317 734.7397)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1555.9102 716.2076)"/>
-      <use xlink:href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1574.3615 696.2062)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9588 -0.4724 -0.4724 0.9588 1614.6276 707.5872)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.9588 -0.4724 -0.4724 0.9588 1594.8217 762.5048)"/>
-      <use xlink:href="#airplane" transform="matrix(-0.781 -0.7298 -0.7298 0.781 1429.4031 757.2764)"/>
-      <use xlink:href="#airplane" transform="matrix(0.9629 0.4641 0.4641 -0.9629 1669.8564 737.0709)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.028361e-02 -1.0688 -1.0688 1.028361e-02 1745.8684 741.3726)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 391.086)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 364.0202)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 304.1604)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.0689 0 0 1.0689 1121.7856 178.8646)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 664.8258 316.8423)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 664.8258 339.9692)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 660.8111 394.5172)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 506.9582 419.4295)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 501.6364 455.2946)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 524.0727 455.6939)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 551.105 455.6939)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 573.2899 456.56)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 534.6992 419.1619)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 559.1475 419.5594)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 582.2968 418.7564)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 920.2448 453.7986)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 945.4036 453.7986)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 971.0794 453.7986)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1093.9524 210.4304)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1121.3333 212.0025)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1296.2137 453.7986)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1354.5775 197.4386)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1378.5745 197.4386)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1400.8345 197.4386)"/>
-      <use xlink:href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1434.786 197.4386)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1328.5558 450.8313)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1360.5309 450.8313)"/>
-      <use xlink:href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1470.3971 418.447)"/>
-      <use xlink:href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1488.9949 434.0925)"/>
-      <use xlink:href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1530.885 366.4704)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1095.2024 706.3478)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1125.5859 689.9429)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1147.3635 684.0495)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1204.7697 686.3127)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1232.1526 689.9429)"/>
-      <use xlink:href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1258.0254 689.9429)"/>
-      <use xlink:href="#airplane" transform="matrix(1.0689 0 0 -1.0689 663.4196 421.7436)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 792.1929 298.369)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 798.6164 191.5779)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 929.9149 189.4912)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 792.1929 338.3113)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 787.6756 367.7812)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 918.9741 367.7812)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 920.299 411.0862)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 927.6031 749.685)"/>
+      <use href="#airplane" transform="matrix(-0.8511 0.6466 0.6466 0.8511 876.3555 776.5153)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 927.6031 724.4373)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 953.9154 487.519)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1327.8979 488.8607)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1068.3143 335.7893)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1075.4976 261.6775)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 1071.929 234.4643)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 657.3317 287.6346)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 575.9851 278.0243)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 580.7099 312.4287)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 574.2864 335.4464)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 578.3495 367.8889)"/>
+      <use href="#airplane" transform="matrix(-0.8117 0 0 0.8117 569.9359 435.8489)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 719.5055 450.6807)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 716.2938 421.8515)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 719.2379 394.625)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.4335 366.7611)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.9689 333.8977)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 717.9689 301.5125)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 718.5041 191.6858)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 847.5099 363.6065)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 847.2423 396.2596)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 848.0452 421.8515)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 848.3128 447.2779)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 421.8515)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 1060.9879 525.4474)"/>
+      <use href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1083.5775 433.4123)"/>
+      <use href="#airplane" transform="matrix(0.5428 0.9208 0.9208 -0.5428 1302.2904 179.171)"/>
+      <use href="#airplane" transform="matrix(0.5428 0.9208 0.9208 -0.5428 1561.3773 237.249)"/>
+      <use href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1124.8175 306.4005)"/>
+      <use href="#airplane" transform="matrix(-0.5428 -0.9208 -0.9208 0.5428 1565.8995 287.3196)"/>
+      <use href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1600.5244 380.8938)"/>
+      <use href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1618.9646 356.9116)"/>
+      <use href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1643.6921 332.7269)"/>
+      <use href="#airplane" transform="matrix(-0.7753 -0.7358 -0.7358 0.7753 1662.9626 307.7296)"/>
+      <use href="#airplane" transform="matrix(-0.9269 -0.5323 -0.5323 0.9269 1535.6299 435.9661)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1133.7764 448.0038)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1116.8989 424.0495)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1089.1785 379.8877)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1202.3154 365.4217)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1188.4078 343.363)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1175.3617 323.5196)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1115.0477 352.566)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1160.1345 227.3793)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1174.6843 247.4019)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1188.2938 272.1508)"/>
+      <use href="#airplane" transform="matrix(-0.4728 0.9586 0.9586 0.4728 1146.7362 210.1678)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1133.0989 369.4241)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1146.714 396.2198)"/>
+      <use href="#airplane" transform="matrix(-0.9345 0.5189 0.5189 0.9345 1187.7302 449.6401)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1160.812 301.4112)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1144.7886 282.4617)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1224.2061 217.7816)"/>
+      <use href="#airplane" transform="matrix(0.9345 -0.5189 -0.5189 -0.9345 1239.5953 240.4233)"/>
+      <use href="#airplane" transform="matrix(0.7987 -0.7103 -0.7103 -0.7987 1817.9717 325.0065)"/>
+      <use href="#airplane" transform="matrix(-1.0686 -2.569389e-02 -2.569389e-02 1.0686 1782.9442 487.798)"/>
+      <use href="#airplane" transform="matrix(1.0686 -2.630535e-02 -2.630535e-02 -1.0686 1881.7062 483.9063)"/>
+      <use href="#airplane" transform="matrix(0.8922 0.5887 0.5887 -0.8922 1965.5101 213.9453)"/>
+      <use href="#airplane" transform="matrix(3.776128e-02 1.0682 1.0682 -3.776128e-02 2021.9489 224.0901)"/>
+      <use href="#airplane" transform="matrix(0.5631 -0.9085 -0.9085 -0.5631 2070.7217 181.3388)"/>
+      <use href="#airplane" transform="matrix(0.8068 0.7011 0.7011 -0.8068 1494.2382 772.3582)"/>
+      <use href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1514.8621 753.1181)"/>
+      <use href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1537.5317 734.7397)"/>
+      <use href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1555.9102 716.2076)"/>
+      <use href="#airplane" transform="matrix(0.8109 0.6964 0.6964 -0.8109 1574.3615 696.2062)"/>
+      <use href="#airplane" transform="matrix(-0.9588 -0.4724 -0.4724 0.9588 1614.6276 707.5872)"/>
+      <use href="#airplane" transform="matrix(-0.9588 -0.4724 -0.4724 0.9588 1594.8217 762.5048)"/>
+      <use href="#airplane" transform="matrix(-0.781 -0.7298 -0.7298 0.781 1429.4031 757.2764)"/>
+      <use href="#airplane" transform="matrix(0.9629 0.4641 0.4641 -0.9629 1669.8564 737.0709)"/>
+      <use href="#airplane" transform="matrix(-1.028361e-02 -1.0688 -1.0688 1.028361e-02 1745.8684 741.3726)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 391.086)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 364.0202)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 975.4157 304.1604)"/>
+      <use href="#airplane" transform="matrix(-1.0689 0 0 1.0689 1121.7856 178.8646)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 664.8258 316.8423)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 664.8258 339.9692)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 660.8111 394.5172)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 506.9582 419.4295)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 501.6364 455.2946)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 524.0727 455.6939)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 551.105 455.6939)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 573.2899 456.56)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 534.6992 419.1619)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 559.1475 419.5594)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 582.2968 418.7564)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 920.2448 453.7986)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 945.4036 453.7986)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 971.0794 453.7986)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1093.9524 210.4304)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1121.3333 212.0025)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1296.2137 453.7986)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1354.5775 197.4386)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1378.5745 197.4386)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1400.8345 197.4386)"/>
+      <use href="#airplane" transform="matrix(-1.439668e-10 1.0689 1.0689 1.439668e-10 1434.786 197.4386)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1328.5558 450.8313)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1360.5309 450.8313)"/>
+      <use href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1470.3971 418.447)"/>
+      <use href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1488.9949 434.0925)"/>
+      <use href="#airplane" transform="matrix(0.7607 -0.7509 -0.7509 -0.7607 1530.885 366.4704)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1095.2024 706.3478)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1125.5859 689.9429)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1147.3635 684.0495)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1204.7697 686.3127)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1232.1526 689.9429)"/>
+      <use href="#airplane" transform="matrix(4.798928e-11 -1.0689 -1.0689 -4.798928e-11 1258.0254 689.9429)"/>
+      <use href="#airplane" transform="matrix(1.0689 0 0 -1.0689 663.4196 421.7436)"/>
     </g>
     <g id="clock">
       <rect id="hour" x="1495" y="-26.6" fill="#414042" width="18" height="832"/>
