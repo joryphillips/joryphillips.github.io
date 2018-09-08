@@ -133,3 +133,15 @@ export function debounce(func, context, wait = 250) {
 export function isCheaplyEqual(list1, list2) {
   return JSON.stringify(list1) === JSON.stringify(list2);
 }
+
+export function getKeyWords(list, key) {
+  const keywords = new Set();
+  if (list) {
+    for (const item of list) {
+      for (const word of item[key]) {
+        keywords.add(word.toLowerCase());
+      }
+    };
+  }
+  return keywords;
+}

@@ -9,19 +9,21 @@ const DEBOUNCE_TIMEOUT = 350;
 
 class AwesomeWebPage {
   constructor(dataPath) {
-    this.addScrollClickHandlers();
     this.keywords = null;
+    this.fragMap = new Map();
     this.savedSearchResults = [];
     this.searchInput = document.querySelector('#search');
+    this.searchDropdown = document.querySelector('.search.box .dropdown');
+    this.addFocusHandler(this.searchInput);
+    this.addScrollClickHandlers();
     this.addKeyupHandler();
-    this.addFocusHandler();
     this.loadAndAppendData(dataPath);
   }
 
-  addFocusHandler() {
-    if (this.searchInput) {
-      this.searchInput.addEventListener('focus', (e) => this.showDropdown(e));
-      this.searchInput.addEventListener('blur', (e) => this.handleBlur(e));
+  addFocusHandler(searchInput) {
+    if (searchInput) {
+      searchInput.addEventListener('focus', (e) => this.toggleDropdown(e));
+      searchInput.addEventListener('blur', (e) => this.handleBlur(e));
     }
   }
 
@@ -38,7 +40,7 @@ class AwesomeWebPage {
     const text = e.target.innerText;
     if (this.searchInput && text) {
       this.searchInput.value = text;
-      this.hideDropdown(e);
+      this.toggleDropdown(e);
       this.handleInput();
     }
   }
@@ -59,40 +61,26 @@ class AwesomeWebPage {
     }
   }
 
-  showDropdown() {
-    const dropdown = document.querySelector('.search.box .dropdown');
-    dropdown.classList.add('show');
-  }
-
   handleBlur(e) {
     e.preventDefault();
-    this.hideDropdown(e)
+    if (this.searchDropdown && this.searchDropdown.classList.contains('show')) {
+      this.toggleDropdown(e)
+    }
   }
 
-  hideDropdown(e) {
-    const dropdown = document.querySelector('.search.box .dropdown');
-    dropdown.classList.remove('show');
+  toggleDropdown(e) {
+    this.searchDropdown.classList.toggle('show');
   }
 
   async loadAndAppendData(dataPath) {
     this.DATA = await util.loadData(dataPath);
     if (this.DATA) {
       this.createProjects(this.DATA.PORTFOLIO)
-      this.keywords = this.getKeyWords(this.DATA.PORTFOLIO);
+      this.keywords = util.getKeyWords(this.DATA.PORTFOLIO, 'keywords');
       this.createJobs(this.DATA.RESUME);
       this.appendKeywords(this.keywords);
       this.addDropdownClickHandler();
     }
-  }
-
-  getKeyWords(portfolio) {
-    const keywords = new Set();
-    if (portfolio) {
-      portfolio.forEach(project => {
-        project.keywords.forEach(word => keywords.add(word.toLowerCase()));
-      });
-    }
-    return keywords;
   }
 
   appendKeywords(keywords) {
