@@ -10,7 +10,7 @@ const VISIBILITY_TRANSITION = 200;
 class AwesomeWebPage {
   constructor(dataPath) {
     this.keywords = null;
-    this.fragMap = new Map();
+    this.fragmentWithNodeMap = new Map();
     this.savedSearchResults = [];
     this.searchInput = document.querySelector('#search');
     this.searchDropdown = document.querySelector('.search.box .dropdown');
@@ -75,7 +75,7 @@ class AwesomeWebPage {
   async loadAndAppendData(dataPath) {
     this.DATA = await util.loadData(dataPath);
     if (this.DATA) {
-      this.createFragMap(this.DATA.PORTFOLIO);
+      this.createfragmentWithNodeMap(this.DATA.PORTFOLIO);
       this.createProjects(this.DATA.PORTFOLIO)
       this.keywords = util.getKeyWords(this.DATA.PORTFOLIO, 'keywords');
       this.createJobs(this.DATA.RESUME);
@@ -99,9 +99,9 @@ class AwesomeWebPage {
     }
   }
 
-  createFragMap(portfolio) {
+  createfragmentWithNodeMap(portfolio) {
     for (const project of portfolio) {
-      this.fragMap.set(project, {
+      this.fragmentWithNodeMap.set(project, {
         documentFragment: this.getImportNode(project),
       });
     }
@@ -120,9 +120,9 @@ class AwesomeWebPage {
   }
   
   // appends fragment to DOM container element; adds reference to the created node to the map
-  appendClones(fragMap) {
+  appendClones(fragmentWithNodeMap) {
     const projectHolder = document.querySelector('.project-holder');
-    for (const [project, value] of fragMap) {
+    for (const [project, value] of fragmentWithNodeMap) {
       const projectId = util.kebabCase(project.title);
       projectHolder.appendChild(value.documentFragment);
       // when appending a documentFragment, it is the return value. 
@@ -133,8 +133,8 @@ class AwesomeWebPage {
   
   createProjects(portfolio) {
     if (portfolio) {
-      this.appendClones(this.fragMap);
-      const clones = Array.from(this.fragMap.values()).map(fragVal => fragVal.node);
+      this.appendClones(this.fragmentWithNodeMap);
+      const clones = Array.from(this.fragmentWithNodeMap.values()).map(fragVal => fragVal.node);
       const imageLoadedPromiseList = util.getImageLoadedPromiseList(clones);
       return Promise.all(imageLoadedPromiseList).then(elements => {
         // once all images are loaded, sequence fade in
@@ -195,8 +195,8 @@ class AwesomeWebPage {
     return this.listHasSearchValues(searchValue, keywords.join(' ')) || this.listHasSearchValues(searchValue, title.toLowerCase());
   }
 
-  getFilteredPorfolio(fragMap, searchValue) {
-    return Array.from(fragMap.keys()).filter(project => {
+  getFilteredPorfolio(fragmentWithNodeMap, searchValue) {
+    return Array.from(fragmentWithNodeMap.keys()).filter(project => {
       return this.shouldShowProject(searchValue, project.keywords, project.title);
     });
   }
@@ -225,8 +225,8 @@ class AwesomeWebPage {
       const elementsToFadeOut = [];
       const elementsToFadeIn = [];
 
-      // if the value is not in fragMap's projects' keywords, hide from the DOM
-      for (const [project, value] of this.fragMap) {
+      // if the value is not in fragmentWithNodeMap's projects' keywords, hide from the DOM
+      for (const [project, value] of this.fragmentWithNodeMap) {
         if (searchValue && !this.shouldShowProject(searchValue, project.keywords, project.title)) {
           elementsToFadeOut.push(value.node)
         } else {
