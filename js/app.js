@@ -3,8 +3,8 @@ import * as util from './util.js';
 
 const DATA_PATH = './data/jory.json';
 const CLOCK_PATH = 'heathrow-clock.svg'
-const IMAGE_FADE_IN_TIMEOUT = 200;
 const DEBOUNCE_TIMEOUT = 350;
+const VISIBILITY_TRANSITION = 200;
 
 
 class AwesomeWebPage {
@@ -75,6 +75,7 @@ class AwesomeWebPage {
   async loadAndAppendData(dataPath) {
     this.DATA = await util.loadData(dataPath);
     if (this.DATA) {
+      this.createFragMap(this.DATA.PORTFOLIO);
       this.createProjects(this.DATA.PORTFOLIO)
       this.keywords = util.getKeyWords(this.DATA.PORTFOLIO, 'keywords');
       this.createJobs(this.DATA.RESUME);
@@ -98,15 +99,46 @@ class AwesomeWebPage {
     }
   }
 
-  createProjects(portfolio, timeout = IMAGE_FADE_IN_TIMEOUT) {
+  createFragMap(portfolio) {
+    for (const project of portfolio) {
+      this.fragMap.set(project, {
+        documentFragment: this.getImportNode(project),
+      });
+    }
+  }
+
+  getImportNode(project) {
+    const projectTemplate = document.querySelector('#project');
+    const projectContainer = projectTemplate.content.querySelector('.proj');
+    const image = projectTemplate.content.querySelector('.image');
+    const title = projectTemplate.content.querySelector('.title');
+    image.alt = 'image of ' + project.title;
+    image.src = './images/' + project.imageSources[0];
+    title.textContent = project.title;
+    projectContainer.id = util.kebabCase(project.title);
+    return document.importNode(projectTemplate.content, true);
+  }
+  
+  // appends fragment to DOM container element; adds reference to the created node to the map
+  appendClones(fragMap) {
+    const projectHolder = document.querySelector('.project-holder');
+    for (const [project, value] of fragMap) {
+      const projectId = util.kebabCase(project.title);
+      projectHolder.appendChild(value.documentFragment);
+      // when appending a documentFragment, it is the return value. 
+      // so we need to query the dom for the project id to get the node
+      value.node = projectHolder.querySelector(`#${projectId}`);
+    }
+  }
+  
+  createProjects(portfolio) {
     if (portfolio) {
-      this.savedSearchResults = portfolio;
-      const nodes = util.getImportNodes(portfolio);
-      const clones = util.appendClones(nodes, portfolio);
+      this.appendClones(this.fragMap);
+      const clones = Array.from(this.fragMap.values()).map(fragVal => fragVal.node);
       const imageLoadedPromiseList = util.getImageLoadedPromiseList(clones);
       return Promise.all(imageLoadedPromiseList).then(elements => {
         // once all images are loaded, sequence fade in
-        util.fadeInSequence(0, elements, timeout);
+        util.fadeIn(elements, VISIBILITY_TRANSITION);
       }).then(() => {
         clock(CLOCK_PATH);
       });
@@ -163,9 +195,25 @@ class AwesomeWebPage {
     return this.listHasSearchValues(searchValue, keywords.join(' ')) || this.listHasSearchValues(searchValue, title.toLowerCase());
   }
 
-  getFilteredPorfolio(portfolio, searchValue) {
-    return portfolio.filter(project => {
+  getFilteredPorfolio(fragMap, searchValue) {
+    return Array.from(fragMap.keys()).filter(project => {
       return this.shouldShowProject(searchValue, project.keywords, project.title);
+    });
+  }
+
+  hideProject(node) {
+    Promise.resolve().then( ()=>{
+      node.classList.remove('visible');
+    }).then(()=>{
+      node.style.display = 'none';
+    });
+  }
+
+  showProject(node) {
+    Promise.resolve().then( ()=>{
+      node.style.display = 'block';
+    }).then(()=>{
+      node.classList.add('visible');
     });
   }
 
@@ -174,23 +222,23 @@ class AwesomeWebPage {
 
       this.hideInputErrorState();
       const searchValue = this.searchInput.value;
-      if (searchValue) {
-        // there is a search & it changed from the last search
-        const filteredPortfolio = this.getFilteredPorfolio(this.DATA.PORTFOLIO, searchValue);
+      const elementsToFadeOut = [];
+      const elementsToFadeIn = [];
 
-        if (!util.isCheaplyEqual(this.savedSearchResults, filteredPortfolio)) {
-          if (filteredPortfolio.length > 0) {
-            this.removeProjects();
-            this.createProjects(filteredPortfolio, 150);
-          } else {
-            this.showInputErrorState();
-          }
+      // if the value is not in fragMap's projects' keywords, hide from the DOM
+      for (const [project, value] of this.fragMap) {
+        if (searchValue && !this.shouldShowProject(searchValue, project.keywords, project.title)) {
+          elementsToFadeOut.push(value.node)
+        } else {
+          elementsToFadeIn.push(value.node)
         }
-      } else if (!searchValue) {
-        // there is no search
-        this.removeProjects();
-        this.createProjects(this.DATA.PORTFOLIO, 0);
       }
+
+      util.fadeOut(elementsToFadeOut, VISIBILITY_TRANSITION);
+      // setTimeout here ensures that we're in a new event loop and unneeded elements have faded out
+      setTimeout(() => {
+        util.fadeIn(elementsToFadeIn, VISIBILITY_TRANSITION);
+      }, VISIBILITY_TRANSITION);
     }
   }
 }

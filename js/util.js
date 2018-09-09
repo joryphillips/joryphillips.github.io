@@ -68,27 +68,6 @@ export async function loadData(source) {
   return;
 }
 
-export function getImportNodes(portfolio) {
-  return portfolio.map(project => {
-    const projectTemplate = document.querySelector('#project');
-    const image = projectTemplate.content.querySelector('.image');
-    const title = projectTemplate.content.querySelector('.title');
-    image.alt = 'image of ' + project.title;
-    image.src = './images/' + project.imageSources[0];
-    title.textContent = project.title;
-    return document.importNode(projectTemplate.content, true);
-  });
-}
-
-export function appendClones(cloneList) {
-  const projectHolder = document.querySelector('.project-holder');
-  cloneList.forEach((clone) => {
-    projectHolder.appendChild(clone);
-  });
-
-  return projectHolder.querySelectorAll('.proj');
-}
-
 function imageLoadedPromise(proj, image) {
   // resolve the promise when the image loads/errors
   return new Promise(resolve => {
@@ -97,21 +76,43 @@ function imageLoadedPromise(proj, image) {
   });
 }
 
-export  function getImageLoadedPromiseList(projects) {
+export function getImageLoadedPromiseList(projects, selector = 'img') {
   return Array.from(projects).map((proj) => {
-    const image = proj.querySelector('img');
+    const image = proj.querySelector(selector);
     return imageLoadedPromise(proj, image);
-  })
+  });
 }
 
-export function fadeInSequence(index, elements, timeout) {
-  setTimeout(() => {
-    const targetEl = elements[index];
-    if (index < elements.length) {
-      targetEl.classList.add('visible');
-      fadeInSequence(index + 1, elements, timeout);
+function onVisibilityMutation(mutations, timeout = 200) {
+  requestAnimationFrame(()=>{
+    for (const mutation of mutations) {  
+      if (mutation.oldValue.includes('display-none') && !mutation.target.classList.contains('display-none')) {
+        // display should now be block; assume we need to run fade in animation
+        mutation.target.classList.add('visible');
+      } else if (mutation.oldValue.includes('visible')&& !mutation.target.classList.contains('visible')) {
+        // use timeout to ensure we have faded out & can now set display to none
+        setTimeout(()=>{
+          mutation.target.classList.add('display-none');
+        }, timeout);
+      }
     }
-  }, timeout);
+  });
+}
+
+export function fadeOut(elements, timeout = 200) {
+  const visibilityMutation = (mutation) => onVisibilityMutation(mutation, timeout);
+  for (const el of elements) {
+    addMutationObserver(el, visibilityMutation);
+    el.classList.remove('visible');
+  }
+}
+
+export function fadeIn(elements, timeout = 200) {
+  const visibilityMutation = (mutation) => onVisibilityMutation(mutation, timeout);
+  for (const el of elements) {
+    addMutationObserver(el, visibilityMutation);
+    el.classList.remove('display-none');
+  }
 }
 
 // modified from Underscore
@@ -144,4 +145,17 @@ export function getKeyWords(list, key) {
     };
   }
   return keywords;
+}
+
+export function kebabCase(string) {
+  return string.toLowerCase().replace(/[^a-z0-9]+/gi, '-');
+}
+
+export function addMutationObserver(element, callback, config = {attributes: true, attributeOldValue: true}) {
+  if (element && callback && config) {
+    const mutationObserver = new MutationObserver(callback);
+    mutationObserver.observe(element, config);
+  } else {
+    console.error('invalid arguments used', arguments);
+  }
 }
