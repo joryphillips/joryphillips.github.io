@@ -1,33 +1,29 @@
-export function clock(fileName) {
-  const imageHolders = document.querySelectorAll('.image-container');
-  // finds all refs to svg with fileName, swaps in the in-line version
-  imageHolders.forEach( (holder)=>{
-    const image = holder.querySelector('img');
-    if (image.src.indexOf(fileName) > -1) {
-      holder.removeChild(image);
-      holder.innerHTML = CLOCKSVGHTML;
+function rotateHand(element, degree) {
+    if (element) {
+        element.setAttribute('transform', `rotate(${degree} 1504.5 593.2)`);
     }
-  });
-
-  const rotateHand = (el, deg)=> {
-    if (el) {
-      el.setAttribute('transform', 'rotate(' + deg + ' 1504.5 593.2)');
-    } else {
-      return false;
+    else {
+        return false;
     }
-  };
-
-  const clockWork = ()=> {
-    const d = new Date();
-    const min = document.querySelector('#min');
-    const hour = document.querySelector('#hour');
-    rotateHand(min, 6 * d.getMinutes());
-    rotateHand(hour, 30 * (d.getHours() % 12) + d.getMinutes() / 2);
-  };
-
-  setInterval(clockWork, 1000);
 }
-
+export function clock(fileName) {
+    const imageHolders = document.querySelectorAll('.image-container');
+    imageHolders.forEach((holder) => {
+        const image = holder.querySelector('img');
+        if (image.src.indexOf(fileName) > -1) {
+            holder.removeChild(image);
+            holder.innerHTML = CLOCKSVGHTML;
+        }
+    });
+    const clockWork = () => {
+        const d = new Date();
+        const min = document.querySelector('#min');
+        const hour = document.querySelector('#hour');
+        rotateHand(min, 6 * d.getMinutes());
+        rotateHand(hour, 30 * (d.getHours() % 12) + d.getMinutes() / 2);
+    };
+    setInterval(clockWork, 1000);
+}
 const CLOCKSVGHTML = `
   <svg viewBox="269 -700 2200 2200" class="block width-100">
     <svg id="airplane" width="20" height="20" x="-10" y="-10" viewBox="-10 -10 20 20">
@@ -551,3 +547,4 @@ const CLOCKSVGHTML = `
     <g id="specialAirplane" transform="matrix(-1.0689 0 0 1.0689 1158.358 592.7991)"/>
   </svg>
 `;
+//# sourceMappingURL=clock.js.map

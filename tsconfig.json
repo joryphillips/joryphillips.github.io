@@ -1,0 +1,11 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowJs": true,
+    "noImplicitAny": true,
+    "target": "ES6",
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "js"
+  }
+}
