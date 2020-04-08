@@ -3,9 +3,13 @@
   "compilerOptions": {
     "allowJs": true,
     "noImplicitAny": true,
-    "target": "ES6",
+    "target": "ES2018",
     "removeComments": true,
     "sourceMap": true,
-    "outDir": "js"
+    "outDir": "js",
+    "lib": [
+      "DOM", "DOM.Iterable", "ES2018"
+    ],
+    "module": "ES2015"
   }
 }

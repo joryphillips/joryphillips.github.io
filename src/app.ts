@@ -1,5 +1,11 @@
+// Imports work post-compilation as long as we specifiy the .js extension here.
+// It's a little weird but seems an acceptable tradeoff for the ease of only
+// using the TS compiler and not using a bundler.
+// https://github.com/microsoft/TypeScript/issues/16577
 import {clock} from './clock.js';
 import * as util from './util.js';
+import {Selector} from './selectors.js';
+
 import {AwesomeWebPageData, Job, Project} from '../data/interfaces';
 
 const IMAGE_PATH = './images/';
@@ -8,6 +14,10 @@ const CLOCK_PATH = 'heathrow-clock.svg'
 const DEBOUNCE_TIMEOUT = 350;
 const VISIBILITY_TRANSITION = 200;
 
+/**
+ * Object that holds a document fragment and its node. The node comes into
+ * existence once the document fragment is stamped into the DOM.
+ */
 interface DocumentFragmentWithNode {
   documentFragment?: DocumentFragment;
   node?: Node;
@@ -21,10 +31,10 @@ function appendKeywords(keywords?: Set<string>) {
     return;
   }
 
-  const keywordHolder = document.querySelector('[role="listbox"]');
-  const keywordTemplate = document.querySelector('#keywords') as HTMLTemplateElement;
+  const keywordHolder = document.querySelector(Selector.ROLE_LISTBOX);
+  const keywordTemplate = document.querySelector(Selector.KEYWORDS_TEMPLATE_ID) as HTMLTemplateElement;
   for (const keyword of keywords) {
-    const text = keywordTemplate.content.querySelector('[role="option"]');
+    const text = keywordTemplate.content.querySelector(Selector.ROLE_OPTION);
     if (text) {
       text.textContent = keyword;
       const clone = document.importNode(keywordTemplate.content, true);
@@ -34,10 +44,10 @@ function appendKeywords(keywords?: Set<string>) {
 }
 
 function getImportNode(project: Project) {
-  const projectTemplate = document.querySelector('#project') as HTMLTemplateElement;
-  const projectContainer = projectTemplate.content.querySelector('.proj');
-  const image = projectTemplate.content.querySelector('.image') as HTMLImageElement;
-  const title = projectTemplate.content.querySelector('.title');
+  const projectTemplate = document.querySelector(Selector.PROJECT_TEMPLATE_ID) as HTMLTemplateElement;
+  const projectContainer = projectTemplate.content.querySelector(Selector.PROJECT);
+  const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement;
+  const title = projectTemplate.content.querySelector(Selector.TITLE);
   image.alt = 'image of ' + project.title;
   image.src = IMAGE_PATH + project.imageSources[0];
   title.textContent = project.title;
@@ -45,9 +55,12 @@ function getImportNode(project: Project) {
   return document.importNode(projectTemplate.content, true);
 }
 
-// appends fragment to DOM container element; adds reference to the created node to the map
+/**
+ * Appends fragment to DOM container element; adds reference to the created node
+ * to the map.
+ */
 function appendClones(fragmentWithNodeMap: ProjectFragmentMap) {
-  const projectHolder = document.querySelector('.project-holder');
+  const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
   for (const [project, value] of fragmentWithNodeMap) {
     const projectId = util.kebabCase(project.title);
     projectHolder.appendChild(value.documentFragment);
@@ -71,8 +84,8 @@ function createProjects(fragmentWithNodeMap: ProjectFragmentMap) {
 }
 
 function createJobs(resume: Job[]) {
-  const jobHolder = document.querySelector('.job-holder');
-  const jobTemplate = document.querySelector('#job') as HTMLTemplateElement|null;
+  const jobHolder = document.querySelector(Selector.JOB_HOLDER);
+  const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE) as HTMLTemplateElement|null;
   if (!jobHolder || !jobTemplate) {
     return;
   }
@@ -110,13 +123,13 @@ function shouldShowProject(searchValue: string, keywords: string[], title: strin
 class AwesomeWebPage {
   keywords?: Set<string>;
   fragmentWithNodeMap: ProjectFragmentMap = new Map();
-  searchInput? = document.querySelector('#search') as HTMLInputElement;
-  searchDropdown = document.querySelector('[role="listbox"]');
-  data: AwesomeWebPageData;
+  searchInput? = document.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement;
+  searchDropdown? = document.querySelector(Selector.ROLE_LISTBOX);
+  data?: AwesomeWebPageData;
 
   constructor(dataPath: string) {
     this.addFocusHandler(this.searchInput);
-    util.addScrollClickHandlers('nav a');
+    util.addScrollClickHandlers(Selector.NAVIGATION_LINK);
     this.addKeyupHandler();
     this.loadAndAppendData(dataPath);
   }
@@ -129,7 +142,7 @@ class AwesomeWebPage {
   }
 
   addDropdownClickHandler() {
-    const dropdownButtons = document.querySelectorAll('[role="option"]');
+    const dropdownButtons = document.querySelectorAll(Selector.ROLE_OPTION);
     for (const button of dropdownButtons) {
       //use mousedown instead of click to get priorty over searchInput onblur
       button.addEventListener('mousedown', (e: MouseEvent) => this.onDropdownButtonClick(e));

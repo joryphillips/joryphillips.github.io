@@ -1,14 +1,6 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { clock } from './clock.js';
 import * as util from './util.js';
+import { Selector } from './selectors.js';
 const IMAGE_PATH = './images/';
 const DATA_PATH = './data/jory.json';
 const CLOCK_PATH = 'heathrow-clock.svg';
@@ -18,10 +10,10 @@ function appendKeywords(keywords) {
     if (!keywords) {
         return;
     }
-    const keywordHolder = document.querySelector('[role="listbox"]');
-    const keywordTemplate = document.querySelector('#keywords');
+    const keywordHolder = document.querySelector(Selector.ROLE_LISTBOX);
+    const keywordTemplate = document.querySelector(Selector.KEYWORDS_TEMPLATE_ID);
     for (const keyword of keywords) {
-        const text = keywordTemplate.content.querySelector('[role="option"]');
+        const text = keywordTemplate.content.querySelector(Selector.ROLE_OPTION);
         if (text) {
             text.textContent = keyword;
             const clone = document.importNode(keywordTemplate.content, true);
@@ -30,10 +22,10 @@ function appendKeywords(keywords) {
     }
 }
 function getImportNode(project) {
-    const projectTemplate = document.querySelector('#project');
-    const projectContainer = projectTemplate.content.querySelector('.proj');
-    const image = projectTemplate.content.querySelector('.image');
-    const title = projectTemplate.content.querySelector('.title');
+    const projectTemplate = document.querySelector(Selector.PROJECT_TEMPLATE_ID);
+    const projectContainer = projectTemplate.content.querySelector(Selector.PROJECT);
+    const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE);
+    const title = projectTemplate.content.querySelector(Selector.TITLE);
     image.alt = 'image of ' + project.title;
     image.src = IMAGE_PATH + project.imageSources[0];
     title.textContent = project.title;
@@ -41,7 +33,7 @@ function getImportNode(project) {
     return document.importNode(projectTemplate.content, true);
 }
 function appendClones(fragmentWithNodeMap) {
-    const projectHolder = document.querySelector('.project-holder');
+    const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
     for (const [project, value] of fragmentWithNodeMap) {
         const projectId = util.kebabCase(project.title);
         projectHolder.appendChild(value.documentFragment);
@@ -59,8 +51,8 @@ function createProjects(fragmentWithNodeMap) {
     });
 }
 function createJobs(resume) {
-    const jobHolder = document.querySelector('.job-holder');
-    const jobTemplate = document.querySelector('#job');
+    const jobHolder = document.querySelector(Selector.JOB_HOLDER);
+    const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE);
     if (!jobHolder || !jobTemplate) {
         return;
     }
@@ -91,10 +83,10 @@ function shouldShowProject(searchValue, keywords, title) {
 class AwesomeWebPage {
     constructor(dataPath) {
         this.fragmentWithNodeMap = new Map();
-        this.searchInput = document.querySelector('#search');
-        this.searchDropdown = document.querySelector('[role="listbox"]');
+        this.searchInput = document.querySelector(Selector.SEARCH_INPUT);
+        this.searchDropdown = document.querySelector(Selector.ROLE_LISTBOX);
         this.addFocusHandler(this.searchInput);
-        util.addScrollClickHandlers('nav a');
+        util.addScrollClickHandlers(Selector.NAVIGATION_LINK);
         this.addKeyupHandler();
         this.loadAndAppendData(dataPath);
     }
@@ -105,7 +97,7 @@ class AwesomeWebPage {
         }
     }
     addDropdownClickHandler() {
-        const dropdownButtons = document.querySelectorAll('[role="option"]');
+        const dropdownButtons = document.querySelectorAll(Selector.ROLE_OPTION);
         for (const button of dropdownButtons) {
             button.addEventListener('mousedown', (e) => this.onDropdownButtonClick(e));
         }
@@ -136,19 +128,17 @@ class AwesomeWebPage {
     toggleDropdown() {
         this.searchDropdown.classList.toggle('show');
     }
-    loadAndAppendData(dataPath) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.data = yield util.loadData(dataPath);
-            if (!this.data) {
-                return;
-            }
-            this.createFragmentWithNodeMap(this.data.PORTFOLIO);
-            createProjects(this.fragmentWithNodeMap);
-            this.keywords = util.getKeyWords(this.data.PORTFOLIO);
-            createJobs(this.data.RESUME);
-            appendKeywords(this.keywords);
-            this.addDropdownClickHandler();
-        });
+    async loadAndAppendData(dataPath) {
+        this.data = await util.loadData(dataPath);
+        if (!this.data) {
+            return;
+        }
+        this.createFragmentWithNodeMap(this.data.PORTFOLIO);
+        createProjects(this.fragmentWithNodeMap);
+        this.keywords = util.getKeyWords(this.data.PORTFOLIO);
+        createJobs(this.data.RESUME);
+        appendKeywords(this.keywords);
+        this.addDropdownClickHandler();
     }
     createFragmentWithNodeMap(portfolio) {
         for (const project of portfolio) {
