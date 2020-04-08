@@ -38,7 +38,7 @@ p {
   background-color: #001f3f;
 }
 
-.input, .select, .textarea {
+input[type="search"] {
   font-family: inherit;
   font-size: inherit;
   display: block;
@@ -48,30 +48,23 @@ p {
   border-radius: 3px;
 }
 
-/*	CSS ADDITIONS*/
 .search.box {
   position: relative;
   margin-bottom: 1rem;
 }
 
-.input.error {
-  color: orange;
-  border-color: orange;
-  outline-color: orange;
-}
-
-.dropdown {
+div[role="listbox"] {
   display: none;
   background-color: #FFF;
   border: 1px solid #ccc;
 }
 
-.dropdown, .dropdown .text {
+div[role="listbox"], button[role="option"] {
   box-sizing: border-box;
   width: 100%;
 }
 
-.dropdown.show {
+div[role="listbox"].show {
   display: block;
   position: absolute;
   z-index: 10;
@@ -79,11 +72,14 @@ p {
   overflow-y: scroll;
 }
 
-.dropdown .text {
+button[role="option"] {
+  background-color: #FFF;;
   border-bottom: 1px solid #ccc;
+  font-size: inherit;
+  text-align: left;
 }
 
-.dropdown .text:last-of-type {
+button[role="option"]:last-of-type {
   border-bottom: none;
 }
 

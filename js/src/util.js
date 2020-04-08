@@ -112,4 +112,10 @@ function addMutationObserver(element, callback, config = { attributes: true, att
         console.error('invalid arguments used', arguments);
     }
 }
+export function addScrollClickHandlers(selector) {
+    const links = document.querySelectorAll(selector);
+    for (const link of links) {
+        link.addEventListener('click', scrollToId, false);
+    }
+}
 //# sourceMappingURL=util.js.map

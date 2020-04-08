@@ -111,3 +111,10 @@ function addMutationObserver(element: HTMLElement, callback: MutationCallback, c
     console.error('invalid arguments used', arguments);
   }
 }
+
+export function addScrollClickHandlers(selector: string) {
+  const links = document.querySelectorAll(selector);
+  for (const link of links) {
+    link.addEventListener('click', scrollToId, false);
+  }
+}
