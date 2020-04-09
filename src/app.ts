@@ -2,7 +2,7 @@
 // It's a little weird but seems an acceptable tradeoff for the ease of only
 // using the TS compiler and not using a bundler.
 // https://github.com/microsoft/TypeScript/issues/16577
-import {clock} from './clock.js';
+import {addClockPrototype} from './clock.js';
 import * as util from './util.js';
 import {Selector} from './selectors.js';
 
@@ -14,17 +14,7 @@ const CLOCK_PATH = 'heathrow-clock.svg'
 const DEBOUNCE_TIMEOUT = 350;
 const VISIBILITY_TRANSITION = 200;
 
-/**
- * Object that holds a document fragment and its node. The node comes into
- * existence once the document fragment is stamped into the DOM.
- */
-interface DocumentFragmentWithNode {
-  documentFragment?: DocumentFragment;
-  node?: Node;
-}
-
-type ProjectFragmentMap = Map<Project, DocumentFragmentWithNode>;
-
+type ProjectNodeMap = Map<Project, Node>;
 
 function appendKeywords(keywords?: Set<string>) {
   if (!keywords) {
@@ -49,38 +39,27 @@ function getImportNode(project: Project) {
   const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement;
   const title = projectTemplate.content.querySelector(Selector.TITLE);
   image.alt = 'image of ' + project.title;
-  image.src = IMAGE_PATH + project.imageSources[0];
+  image.dataset.src = IMAGE_PATH + project.imageSources[0];
   title.textContent = project.title;
   projectContainer.id = util.kebabCase(project.title);
   return document.importNode(projectTemplate.content, true);
 }
 
-/**
- * Appends fragment to DOM container element; adds reference to the created node
- * to the map.
- */
-function appendClones(fragmentWithNodeMap: ProjectFragmentMap) {
+function getProjectNodeMap(portfolio: Project[]) {
+  const projectNodeMap = new Map<Project, Node>();
   const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
-  for (const [project, value] of fragmentWithNodeMap) {
-    const projectId = util.kebabCase(project.title);
-    projectHolder.appendChild(value.documentFragment);
-    // when appending a documentFragment, it is the return value.
-    // so we need to query the dom for the project id to get the node
-    value.node = projectHolder.querySelector(`#${projectId}`);
-  }
-}
 
-function createProjects(fragmentWithNodeMap: ProjectFragmentMap) {
-  appendClones(fragmentWithNodeMap);
-  const clones = Array.from(
-      fragmentWithNodeMap.values()).map(fragVal => fragVal.node) as HTMLElement[];
-  const imageLoadedPromiseList = util.getImageLoadedPromiseList(clones);
-  return Promise.all(imageLoadedPromiseList).then((elements) => {
-    // once all images are loaded, sequence fade in
-    util.fadeIn(elements, VISIBILITY_TRANSITION);
-  }).then(() => {
-    clock(CLOCK_PATH);
-  });
+  for (const project of portfolio) {
+    const projectId = util.kebabCase(project.title);
+    const documentFragment = getImportNode(project);
+
+    projectHolder.appendChild(documentFragment);
+    // when appending a documentFragment, it is the return value.
+    // so we need to query the DOM for the project id to get the actual node.
+    const node = projectHolder.querySelector(`#${projectId}`);
+    projectNodeMap.set(project, node);
+  }
+  return projectNodeMap;
 }
 
 function createJobs(resume: Job[]) {
@@ -117,15 +96,17 @@ function listHasSearchValues(searchValue: string, listString: string) {
 }
 
 function shouldShowProject(searchValue: string, keywords: string[], title: string) {
-  return listHasSearchValues(searchValue, keywords.join(' ')) || listHasSearchValues(searchValue, title.toLowerCase());
+  const stringToSearch = keywords.join(' ') + ' ' + title.toLowerCase();
+  return listHasSearchValues(searchValue, stringToSearch);
 }
 
 class AwesomeWebPage {
-  keywords?: Set<string>;
-  fragmentWithNodeMap: ProjectFragmentMap = new Map();
-  searchInput? = document.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement;
-  searchDropdown? = document.querySelector(Selector.ROLE_LISTBOX);
+  projectNodeMap?: ProjectNodeMap;
+  searchInput = document.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement;
+  searchDropdown = document.querySelector(Selector.ROLE_LISTBOX);
   data?: AwesomeWebPageData;
+  lazyImageObservers: IntersectionObserver[] = [];
+  firstSearch = true;
 
   constructor(dataPath: string) {
     this.addFocusHandler(this.searchInput);
@@ -158,7 +139,7 @@ class AwesomeWebPage {
 
     this.searchInput.value = text;
     this.toggleDropdown();
-    this.handleInput();
+    this.handleSearchInput();
   }
 
   addKeyupHandler() {
@@ -166,7 +147,7 @@ class AwesomeWebPage {
       return;
     }
 
-    const debounceInput = util.debounce(this.handleInput, this, DEBOUNCE_TIMEOUT);
+    const debounceInput = util.debounce(this.handleSearchInput, this, DEBOUNCE_TIMEOUT);
     this.searchInput.addEventListener('input', debounceInput);
   }
 
@@ -181,39 +162,87 @@ class AwesomeWebPage {
     this.searchDropdown.classList.toggle('show');
   }
 
+  showProject(element: Element) {
+    const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
+    element.classList.remove('display-none');
+
+    if (lazyImage) {
+      lazyImage.src = lazyImage?.dataset?.src;
+
+      // special case for prototype clock image
+      if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
+        addClockPrototype(element);
+      }
+      lazyImage.classList.add('visible');
+    }
+
+    element.classList.add('visible');
+  }
+
+  addIntersectionObserver(projectNodeMap: ProjectNodeMap) {
+    const nodes = projectNodeMap.values();
+
+    if ("IntersectionObserver" in window) {
+      const lazyImageObserver = new IntersectionObserver((entries)=> {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            this.showProject(element);
+            lazyImageObserver.unobserve(element);
+          }
+        }
+      });
+
+      this.lazyImageObservers.push(lazyImageObserver);
+
+      for (const node of nodes) {
+        lazyImageObserver.observe(node as Element);
+      }
+    }
+  }
+
   async loadAndAppendData(dataPath: string) {
     this.data = await util.loadData(dataPath);
     if (!this.data) {
       return;
     }
-    this.createFragmentWithNodeMap(this.data.PORTFOLIO);
-    createProjects(this.fragmentWithNodeMap)
-    this.keywords = util.getKeyWords(this.data.PORTFOLIO);
+    this.projectNodeMap = getProjectNodeMap(this.data.PORTFOLIO);
+    this.addIntersectionObserver(this.projectNodeMap);
     createJobs(this.data.RESUME);
-    appendKeywords(this.keywords);
+    appendKeywords(util.getKeyWords(this.data.PORTFOLIO));
     this.addDropdownClickHandler();
   }
 
-  createFragmentWithNodeMap(portfolio: Project[]) {
-    for (const project of portfolio) {
-      this.fragmentWithNodeMap.set(project, {
-        documentFragment: getImportNode(project),
-      });
+  /**
+   * If all projects are not loaded into the DOM yet and no search has taken
+   * place, it is possible that the intersection observer will fire and load
+   * more images as we filter projects from the DOM. To get around this, we show
+   * all projects on first search.
+   */
+  showAllProjectsOnFirstSearch() {
+    if (this.firstSearch) {
+      for (const node of this.projectNodeMap.values()) {
+        this.showProject(node as Element);
+      }
+      this.firstSearch = false;
     }
   }
 
-  handleInput() {
+  handleSearchInput() {
     if (this.searchInput) {
       const searchValue = this.searchInput.value;
       const elementsToFadeOut: HTMLElement[] = [];
       const elementsToFadeIn: HTMLElement[] = [];
 
-      // if the value is not in fragmentWithNodeMap's projects' keywords, hide from the DOM
-      for (const [project, value] of this.fragmentWithNodeMap) {
+      this.showAllProjectsOnFirstSearch();
+
+      // If the value is not in projectNodeMap's projects' keywords, hide from
+      // the DOM.
+      for (const [project, node] of this.projectNodeMap.entries()) {
         if (searchValue && !shouldShowProject(searchValue, project.keywords, project.title)) {
-          elementsToFadeOut.push(value.node as HTMLElement);
+          elementsToFadeOut.push(node as HTMLElement);
         } else {
-          elementsToFadeIn.push(value.node as HTMLElement);
+          elementsToFadeIn.push(node as HTMLElement);
         }
       }
 

@@ -1,4 +1,4 @@
-import { clock } from './clock.js';
+import { addClockPrototype } from './clock.js';
 import * as util from './util.js';
 import { Selector } from './selectors.js';
 const IMAGE_PATH = './images/';
@@ -27,28 +27,22 @@ function getImportNode(project) {
     const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE);
     const title = projectTemplate.content.querySelector(Selector.TITLE);
     image.alt = 'image of ' + project.title;
-    image.src = IMAGE_PATH + project.imageSources[0];
+    image.dataset.src = IMAGE_PATH + project.imageSources[0];
     title.textContent = project.title;
     projectContainer.id = util.kebabCase(project.title);
     return document.importNode(projectTemplate.content, true);
 }
-function appendClones(fragmentWithNodeMap) {
+function getProjectNodeMap(portfolio) {
+    const projectNodeMap = new Map();
     const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
-    for (const [project, value] of fragmentWithNodeMap) {
+    for (const project of portfolio) {
         const projectId = util.kebabCase(project.title);
-        projectHolder.appendChild(value.documentFragment);
-        value.node = projectHolder.querySelector(`#${projectId}`);
+        const documentFragment = getImportNode(project);
+        projectHolder.appendChild(documentFragment);
+        const node = projectHolder.querySelector(`#${projectId}`);
+        projectNodeMap.set(project, node);
     }
-}
-function createProjects(fragmentWithNodeMap) {
-    appendClones(fragmentWithNodeMap);
-    const clones = Array.from(fragmentWithNodeMap.values()).map(fragVal => fragVal.node);
-    const imageLoadedPromiseList = util.getImageLoadedPromiseList(clones);
-    return Promise.all(imageLoadedPromiseList).then((elements) => {
-        util.fadeIn(elements, VISIBILITY_TRANSITION);
-    }).then(() => {
-        clock(CLOCK_PATH);
-    });
+    return projectNodeMap;
 }
 function createJobs(resume) {
     const jobHolder = document.querySelector(Selector.JOB_HOLDER);
@@ -78,13 +72,15 @@ function listHasSearchValues(searchValue, listString) {
     return matches;
 }
 function shouldShowProject(searchValue, keywords, title) {
-    return listHasSearchValues(searchValue, keywords.join(' ')) || listHasSearchValues(searchValue, title.toLowerCase());
+    const stringToSearch = keywords.join(' ') + ' ' + title.toLowerCase();
+    return listHasSearchValues(searchValue, stringToSearch);
 }
 class AwesomeWebPage {
     constructor(dataPath) {
-        this.fragmentWithNodeMap = new Map();
         this.searchInput = document.querySelector(Selector.SEARCH_INPUT);
         this.searchDropdown = document.querySelector(Selector.ROLE_LISTBOX);
+        this.lazyImageObservers = [];
+        this.firstSearch = true;
         this.addFocusHandler(this.searchInput);
         util.addScrollClickHandlers(Selector.NAVIGATION_LINK);
         this.addKeyupHandler();
@@ -110,13 +106,13 @@ class AwesomeWebPage {
         }
         this.searchInput.value = text;
         this.toggleDropdown();
-        this.handleInput();
+        this.handleSearchInput();
     }
     addKeyupHandler() {
         if (!this.searchInput) {
             return;
         }
-        const debounceInput = util.debounce(this.handleInput, this, DEBOUNCE_TIMEOUT);
+        const debounceInput = util.debounce(this.handleSearchInput, this, DEBOUNCE_TIMEOUT);
         this.searchInput.addEventListener('input', debounceInput);
     }
     handleBlur(e) {
@@ -128,36 +124,68 @@ class AwesomeWebPage {
     toggleDropdown() {
         this.searchDropdown.classList.toggle('show');
     }
+    showProject(element) {
+        var _a;
+        const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
+        element.classList.remove('display-none');
+        if (lazyImage) {
+            lazyImage.src = (_a = lazyImage === null || lazyImage === void 0 ? void 0 : lazyImage.dataset) === null || _a === void 0 ? void 0 : _a.src;
+            if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
+                addClockPrototype(element);
+            }
+            lazyImage.classList.add('visible');
+        }
+        element.classList.add('visible');
+    }
+    addIntersectionObserver(projectNodeMap) {
+        const nodes = projectNodeMap.values();
+        if ("IntersectionObserver" in window) {
+            const lazyImageObserver = new IntersectionObserver((entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        this.showProject(element);
+                        lazyImageObserver.unobserve(element);
+                    }
+                }
+            });
+            this.lazyImageObservers.push(lazyImageObserver);
+            for (const node of nodes) {
+                lazyImageObserver.observe(node);
+            }
+        }
+    }
     async loadAndAppendData(dataPath) {
         this.data = await util.loadData(dataPath);
         if (!this.data) {
             return;
         }
-        this.createFragmentWithNodeMap(this.data.PORTFOLIO);
-        createProjects(this.fragmentWithNodeMap);
-        this.keywords = util.getKeyWords(this.data.PORTFOLIO);
+        this.projectNodeMap = getProjectNodeMap(this.data.PORTFOLIO);
+        this.addIntersectionObserver(this.projectNodeMap);
         createJobs(this.data.RESUME);
-        appendKeywords(this.keywords);
+        appendKeywords(util.getKeyWords(this.data.PORTFOLIO));
         this.addDropdownClickHandler();
     }
-    createFragmentWithNodeMap(portfolio) {
-        for (const project of portfolio) {
-            this.fragmentWithNodeMap.set(project, {
-                documentFragment: getImportNode(project),
-            });
+    showAllProjectsOnFirstSearch() {
+        if (this.firstSearch) {
+            for (const node of this.projectNodeMap.values()) {
+                this.showProject(node);
+            }
+            this.firstSearch = false;
         }
     }
-    handleInput() {
+    handleSearchInput() {
         if (this.searchInput) {
             const searchValue = this.searchInput.value;
             const elementsToFadeOut = [];
             const elementsToFadeIn = [];
-            for (const [project, value] of this.fragmentWithNodeMap) {
+            this.showAllProjectsOnFirstSearch();
+            for (const [project, node] of this.projectNodeMap.entries()) {
                 if (searchValue && !shouldShowProject(searchValue, project.keywords, project.title)) {
-                    elementsToFadeOut.push(value.node);
+                    elementsToFadeOut.push(node);
                 }
                 else {
-                    elementsToFadeIn.push(value.node);
+                    elementsToFadeIn.push(node);
                 }
             }
             util.fadeOut(elementsToFadeOut, VISIBILITY_TRANSITION);

@@ -1,6 +1,6 @@
 import {Project, AwesomeWebPageData} from '../data/interfaces';
 
-export function scrollToId(e: MouseEvent) {
+function scrollToId(e: MouseEvent) {
   e.preventDefault();
   const hash = (e.target as HTMLAnchorElement).hash;
   const scrollTargetEl = document.querySelector(hash) as HTMLElement;
@@ -21,21 +21,6 @@ export async function loadData(source: string): Promise<AwesomeWebPageData|undef
   } catch (error) {
     console.error('WHOOPSIE DAISY. Error loading data', error);
   }
-}
-
-function imageLoadedPromise(project: HTMLElement, image: HTMLImageElement) {
-  // resolve the promise when the image loads/errors
-  return new Promise<HTMLElement>(resolve => {
-    image.addEventListener('load', ()=> resolve(project), false);
-    image.addEventListener('error', ()=> resolve(project), false);
-  });
-}
-
-export function getImageLoadedPromiseList(projects: HTMLElement[], selector = 'img') {
-  return projects.map((proj) => {
-    const image = proj.querySelector(selector) as HTMLImageElement;
-    return imageLoadedPromise(proj, image);
-  });
 }
 
 function onVisibilityMutation(mutations: MutationRecord[], timeout = 200) {

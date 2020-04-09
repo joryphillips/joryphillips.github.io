@@ -103,22 +103,20 @@ button[role="option"]:last-of-type {
 
 .proj {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out, scale3d 0.2s ease-in-out;
-  transform: scale3d(1.05, 1.05, 1);
-  z-index: 1;
+  transition: opacity 0.2s ease-in-out;
+  min-height: 250px;
 }
 
 .proj.visible {
   opacity: 1;
-  transform: scale3d(1, 1, 1);
 }
 
-.proj.wide {
-  transform: scale3d(1, 1, 5);
-  z-index: 5;
-  width: 100%;
-  background-color: #FFF;
-  padding: 16px;
+.proj img {
+  opacity: 0;
+}
+
+.proj img.visible {
+  opacity: 1;
 }
 
 .width-100 {

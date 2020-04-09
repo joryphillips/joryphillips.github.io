@@ -6,21 +6,15 @@ function rotateHand(element, degree) {
         return false;
     }
 }
-export function clock(fileName) {
-    const imageHolders = document.querySelectorAll('.image-container');
-    imageHolders.forEach((holder) => {
-        const image = holder.querySelector('img');
-        if (image.src.indexOf(fileName) > -1) {
-            holder.removeChild(image);
-            holder.innerHTML = CLOCKSVGHTML;
-        }
-    });
+export function addClockPrototype(element) {
+    const imageHolder = element.querySelector('.image-container');
+    imageHolder.innerHTML = CLOCKSVGHTML;
     const clockWork = () => {
-        const d = new Date();
+        const date = new Date();
         const min = document.querySelector('#min');
         const hour = document.querySelector('#hour');
-        rotateHand(min, 6 * d.getMinutes());
-        rotateHand(hour, 30 * (d.getHours() % 12) + d.getMinutes() / 2);
+        rotateHand(min, 6 * date.getMinutes());
+        rotateHand(hour, 30 * (date.getHours() % 12) + date.getMinutes() / 2);
     };
     setInterval(clockWork, 1000);
 }
