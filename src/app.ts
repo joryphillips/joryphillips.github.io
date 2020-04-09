@@ -1,9 +1,16 @@
-import * as util from './util';
-import {Selector} from './selectors';
-import {Job, Project, RESUME, PORTFOLIO} from '../data/jory';
+// Imports work post-compilation as long as we specifiy the .js extension here.
+// It's a little weird but seems an acceptable tradeoff for the ease of only
+// using the TS compiler and not using a bundler.
+// https://github.com/microsoft/TypeScript/issues/16577
+import {addClockPrototype} from './clock.js';
+import * as util from './util.js';
+import {Selector} from './selectors.js';
+
+import {AwesomeWebPageData, Job, Project} from '../data/interfaces';
 
 const IMAGE_PATH = './images/';
-const CLOCK_PATH = 'heathrow-clock.svg';
+const DATA_PATH = './data/jory.json';
+const CLOCK_PATH = 'heathrow-clock.svg'
 const DEBOUNCE_TIMEOUT = 350;
 const VISIBILITY_TRANSITION = 200;
 
@@ -93,30 +100,19 @@ function shouldShowProject(searchValue: string, keywords: string[], title: strin
   return listHasSearchValues(searchValue, stringToSearch);
 }
 
-/**
- * Special case for prototype clock image. This conditionally loads the
- * prototype clock.ts code only when the original static SVG has been loaded,
- * allowing for code splitting.
- */
-async function conditionallyLoadClockPrototype(lazyImage: HTMLImageElement, parentEl: Element) {
-  if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
-    const clock = await import('./clock');
-    clock.addClockPrototype(parentEl);
-  }
-}
-
 class AwesomeWebPage {
   projectNodeMap?: ProjectNodeMap;
   searchInput = document.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement;
   searchDropdown = document.querySelector(Selector.ROLE_LISTBOX);
+  data?: AwesomeWebPageData;
   lazyImageObservers: IntersectionObserver[] = [];
   firstSearch = true;
 
-  constructor() {
+  constructor(dataPath: string) {
     this.addFocusHandler(this.searchInput);
     util.addScrollClickHandlers(Selector.NAVIGATION_LINK);
     this.addKeyupHandler();
-    this.loadAndAppendData();
+    this.loadAndAppendData(dataPath);
   }
 
   addFocusHandler(searchInput?: HTMLInputElement) {
@@ -172,7 +168,11 @@ class AwesomeWebPage {
 
     if (lazyImage) {
       lazyImage.src = lazyImage?.dataset?.src;
-      conditionallyLoadClockPrototype(lazyImage, element);
+
+      // special case for prototype clock image
+      if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
+        addClockPrototype(element);
+      }
       lazyImage.classList.add('visible');
     }
 
@@ -201,11 +201,15 @@ class AwesomeWebPage {
     }
   }
 
-  loadAndAppendData() {
-    this.projectNodeMap = getProjectNodeMap(PORTFOLIO);
+  async loadAndAppendData(dataPath: string) {
+    this.data = await util.loadData(dataPath);
+    if (!this.data) {
+      return;
+    }
+    this.projectNodeMap = getProjectNodeMap(this.data.PORTFOLIO);
     this.addIntersectionObserver(this.projectNodeMap);
-    createJobs(RESUME);
-    appendKeywords(util.getKeyWords(PORTFOLIO));
+    createJobs(this.data.RESUME);
+    appendKeywords(util.getKeyWords(this.data.PORTFOLIO));
     this.addDropdownClickHandler();
   }
 
@@ -251,4 +255,4 @@ class AwesomeWebPage {
   }
 }
 
-new AwesomeWebPage();
+new AwesomeWebPage(DATA_PATH);
