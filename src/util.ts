@@ -1,4 +1,4 @@
-import {Project, AwesomeWebPageData} from '../data/interfaces';
+import {Project} from '../data/jory';
 
 function scrollToId(e: MouseEvent) {
   e.preventDefault();
@@ -10,16 +10,6 @@ function scrollToId(e: MouseEvent) {
     const scrollTargetY = scrollTargetEl.offsetTop - headerHeight;
     window.scroll({top: scrollTargetY, behavior: 'smooth'});
     history.pushState(null, null, hash)
-  }
-}
-
-export async function loadData(source: string): Promise<AwesomeWebPageData|undefined> {
-  try {
-    const request = new Request(source);
-    const response = await fetch(request);
-    return response.json();
-  } catch (error) {
-    console.error('WHOOPSIE DAISY. Error loading data', error);
   }
 }
 

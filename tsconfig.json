@@ -6,10 +6,9 @@
     "target": "ES2018",
     "removeComments": true,
     "sourceMap": true,
-    "outDir": "js",
     "lib": [
       "DOM", "DOM.Iterable", "ES2018"
     ],
-    "module": "ES2015"
+    "module": "ES2020"
   }
 }
