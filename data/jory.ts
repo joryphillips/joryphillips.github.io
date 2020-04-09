@@ -1,5 +1,22 @@
-{
-  "RESUME": [{
+export interface Job {
+  date: string;
+  place: string;
+  summary: string;
+  detail: string;
+}
+
+export interface Project {
+  title: string;
+  imageSources: string[];
+  keywords: string[];
+  date?: string,
+  description?: string,
+  href?: string,
+  category?: string[],
+  special?: boolean,
+}
+
+export const RESUME: Job[] = [{
     "date": "Sept 2015 - present",
     "place": "Google, UX Engineer",
     "summary": "Designing & developing apps, UIs, widgets & ways to share & shape actionable information.",
@@ -34,8 +51,10 @@
     "place": "Arai/Jackson Architects & Planners",
     "summary": "Designed & produced posters and giant documents; learned to manage projects; made plenty of mistakes.",
     "detail": "Design, production, content of various urban design and planning projects."
-  }],
-  "PORTFOLIO": [{
+  }];
+
+
+export const PORTFOLIO: Project[] = [{
       "title": "comprehensive design + implementation",
       "imageSources": ["test-result-details.png"],
       "keywords": ["ux", "ui", "develop", "Google", "Android"]
@@ -112,7 +131,7 @@
       "description": "Erika Kimball Sustainable Healthcare is a website I designed and developed using a lightweight CSS library and the GreenSock Javascript animation library for subtle parallax scrolling effects. I researched and incorporated a custom CMS/blog solution to fit the client's needs, and designed the logo in Adobe Illustrator.",
       "href": "http://erikakimball.com/",
       "category": ["Design/Dev", "Communication"],
-      "special": "false",
+      "special": false,
       "keywords": ["ux", "ui", "develop", "communication", "freelance"]
     },
     {
@@ -122,7 +141,7 @@
       "description": "This is a web app that I designed and developed for a San Francisco-based DJ. It includes a music player featuring the DJ's productions and music sets and was designed with a particular focus on mobile UI. I designed the logo, but the DJ selects his own background pictures. :)",
       "href": "http://rumblemunk.com",
       "category": ["Design/Dev", "Communication", "freelance"],
-      "special": "false",
+      "special": false,
       "keywords": ["ux", "ui", "develop"]
     },
     {
@@ -132,7 +151,7 @@
       "description": "I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was created with custom HTML/CSS/Javascript/jQuery/PHP for interactivity and a contact form. I also produced brand color palettes and logo refinements in Illustrator. Further, I helped this boutique branding agency and their clients with general design, graphic, and presentation needs.",
       "href": "http://globalbrandworks.com/",
       "category": ["Design/Dev", "Communication"],
-      "special": "false",
+      "special": false,
       "keywords": ["ux", "ui", "develop", "communication", "freelance"]
     },
     {
@@ -141,7 +160,7 @@
       "imageSources": ["shanghai.jpg", "shanghai-full-width-section-trnsp.png"],
       "description": "As part of a competition to master plan a portion of a new theme park and entertainment destination in Shanghai, I digitally painted section and elevations line drawings to convey exiting, active retail, restaurant, and entertainment areas. Drawing from a variety of textures and patterns found in design and fashion magazines, I experimented with transparency, overlap, and varying hues to reach an appropriate balance. This is a small, zoomed-in portion of one of several drawings, which were presented on large-format presentation boards.",
       "category": ["Communication"],
-      "special": "false",
+      "special": false,
       "keywords": ["urban design", "illustration", "fun", "communication"]
     },
     {
@@ -150,7 +169,7 @@
       "imageSources": ["heathrow-clock.svg"],
       "description": "Tasked with coming up with product ideas that could build upon notNeutral's (Rios Clementi Hale Studio's product design brand) successful CityPlates, I started analyzing aerial photographs of different cities for inspiration. I was especially drawn to the way airports look from above. This London Heathrow graphic was originally presented as an idea for a large-scale wall graphic and clock, with the runways as moving hands. Here I have streamlined the original Illustrator file with SVG and used Javascript to make it a functional time-telling graphic.",
       "category": ["Communication"],
-      "special": "true",
+      "special": true,
       "keywords": ["conceptual", "prototyping", "maps"]
     },
     {
@@ -159,7 +178,7 @@
       "imageSources": ["pub-facilities-map.svg"],
       "description": "I designed and created this interactive map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent. I recently refined the map as an SVG and used Javascript to allow its layers to be toggled by clicking on elements in the legend.",
       "category": ["Urban Design & Planning", "Communication"],
-      "special": "true",
+      "special": false,
       "keywords": ["conceptual", "urban design", "urban planning", "communication", "maps"]
     },
     {
@@ -169,7 +188,7 @@
       "description": "While working at Rios Clementi Hale Studios, I produced materials and coordinated a team of multidisciplinary designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles.",
       "href": "http: //www.nbcuniversalevolution.com/",
       "category": ["Urban Design & Planning", "Communication"],
-      "special": "false",
+      "special": false,
       "keywords": ["urban design", "urban planning", "communication"]
 
     },
@@ -178,5 +197,4 @@
       "imageSources": ["incredulous_goat.png"],
       "keywords": ["fun", "goat", "emoji"]
     }
-  ]
-}
+  ];

@@ -6,7 +6,7 @@ function rotateHand(element, degree) {
         return false;
     }
 }
-export function addClockPrototype(element) {
+function addClockPrototype(element) {
     const imageHolder = element.querySelector('.image-container');
     imageHolder.innerHTML = CLOCKSVGHTML;
     const clockWork = () => {
@@ -541,4 +541,5 @@ const CLOCKSVGHTML = `
     <g id="specialAirplane" transform="matrix(-1.0689 0 0 1.0689 1158.358 592.7991)"/>
   </svg>
 `;
-//# sourceMappingURL=clock.js.map
+
+export { addClockPrototype };
