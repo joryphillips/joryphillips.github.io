@@ -9,7 +9,7 @@ function scrollToId(e: MouseEvent) {
   if (scrollTargetEl) {
     const scrollTargetY = scrollTargetEl.offsetTop - headerHeight;
     window.scroll({top: scrollTargetY, behavior: 'smooth'});
-    history.pushState(null, null, hash)
+    history.pushState(null, null, hash);
   }
 }
 
@@ -30,6 +30,13 @@ function onVisibilityMutation(mutations: MutationRecord[], timeout = 200) {
   });
 }
 
+function addMutationObserver(element: HTMLElement, callback: MutationCallback, config = {attributes: true, attributeOldValue: true}) {
+  if (element && callback && config) {
+    const mutationObserver = new MutationObserver(callback);
+    mutationObserver.observe(element, config);
+  }
+}
+
 export function fadeOut(elements: HTMLElement[], timeout = 200) {
   const visibilityMutation = (mutations: MutationRecord[]) => onVisibilityMutation(mutations, timeout);
   for (const el of elements) {
@@ -47,20 +54,20 @@ export function fadeIn(elements: HTMLElement[], timeout = 200) {
 }
 
 // modified from Underscore
-export function debounce(func: ()=>void, context: unknown, wait = 250) {
+export function debounce(func: ()=> void, context: unknown, wait = 250) {
   let timeout: number;
   return () => {
     const later = () => {
       timeout = null;
-      func.apply(context, arguments);
+      func.apply(context);
     };
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (!timeout) {
-      func.apply(context, arguments);
-    };
+      func.apply(context);
+    }
   };
-};
+}
 
 export function getKeyWords(list: Project[]) {
   const keywords = new Set<string>();
@@ -69,7 +76,7 @@ export function getKeyWords(list: Project[]) {
       for (const word of item.keywords) {
         keywords.add(word.toLowerCase());
       }
-    };
+    }
   }
   return keywords;
 }
@@ -78,14 +85,6 @@ export function kebabCase(str: string) {
   return str.toLowerCase().replace(/[^a-z0-9]+/gi, '-');
 }
 
-function addMutationObserver(element: HTMLElement, callback: MutationCallback, config = {attributes: true, attributeOldValue: true}) {
-  if (element && callback && config) {
-    const mutationObserver = new MutationObserver(callback);
-    mutationObserver.observe(element, config);
-  } else {
-    console.error('invalid arguments used', arguments);
-  }
-}
 
 export function addScrollClickHandlers(selector: string) {
   const links = document.querySelectorAll(selector);

@@ -25,6 +25,12 @@ function onVisibilityMutation(mutations, timeout = 200) {
         }
     });
 }
+function addMutationObserver(element, callback, config = { attributes: true, attributeOldValue: true }) {
+    if (element && callback && config) {
+        const mutationObserver = new MutationObserver(callback);
+        mutationObserver.observe(element, config);
+    }
+}
 function fadeOut(elements, timeout = 200) {
     const visibilityMutation = (mutations) => onVisibilityMutation(mutations, timeout);
     for (const el of elements) {
@@ -44,12 +50,12 @@ function debounce(func, context, wait = 250) {
     return () => {
         const later = () => {
             timeout = null;
-            func.apply(context, arguments);
+            func.apply(context);
         };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (!timeout) {
-            func.apply(context, arguments);
+            func.apply(context);
         }
     };
 }
@@ -66,15 +72,6 @@ function getKeyWords(list) {
 }
 function kebabCase(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/gi, '-');
-}
-function addMutationObserver(element, callback, config = { attributes: true, attributeOldValue: true }) {
-    if (element && callback && config) {
-        const mutationObserver = new MutationObserver(callback);
-        mutationObserver.observe(element, config);
-    }
-    else {
-        console.error('invalid arguments used', arguments);
-    }
 }
 function addScrollClickHandlers(selector) {
     const links = document.querySelectorAll(selector);
@@ -352,7 +349,7 @@ function shouldShowProject(searchValue, keywords, title) {
     const stringToSearch = keywords.join(' ') + ' ' + title.toLowerCase();
     return listHasSearchValues(searchValue, stringToSearch);
 }
-async function conditionalyLoadClockPrototype(lazyImage, parentEl) {
+async function conditionallyLoadClockPrototype(lazyImage, parentEl) {
     if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
         const clock = await import('./clock-1c916f0f.js');
         clock.addClockPrototype(parentEl);
@@ -371,7 +368,7 @@ class AwesomeWebPage {
     }
     addFocusHandler(searchInput) {
         if (searchInput) {
-            searchInput.addEventListener('focus', (e) => this.toggleDropdown());
+            searchInput.addEventListener('focus', () => this.toggleDropdown());
             searchInput.addEventListener('blur', (e) => this.handleBlur(e));
         }
     }
@@ -413,14 +410,14 @@ class AwesomeWebPage {
         element.classList.remove('display-none');
         if (lazyImage) {
             lazyImage.src = (_a = lazyImage === null || lazyImage === void 0 ? void 0 : lazyImage.dataset) === null || _a === void 0 ? void 0 : _a.src;
-            conditionalyLoadClockPrototype(lazyImage, element);
+            conditionallyLoadClockPrototype(lazyImage, element);
             lazyImage.classList.add('visible');
         }
         element.classList.add('visible');
     }
     addIntersectionObserver(projectNodeMap) {
         const nodes = projectNodeMap.values();
-        if ("IntersectionObserver" in window) {
+        if ('IntersectionObserver' in window) {
             const lazyImageObserver = new IntersectionObserver((entries) => {
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
@@ -435,6 +432,9 @@ class AwesomeWebPage {
                 lazyImageObserver.observe(node);
             }
         }
+        else {
+            this.showAllProjects();
+        }
     }
     loadAndAppendData() {
         this.projectNodeMap = getProjectNodeMap(PORTFOLIO);
@@ -443,11 +443,14 @@ class AwesomeWebPage {
         appendKeywords(getKeyWords(PORTFOLIO));
         this.addDropdownClickHandler();
     }
+    showAllProjects() {
+        for (const node of this.projectNodeMap.values()) {
+            this.showProject(node);
+        }
+    }
     showAllProjectsOnFirstSearch() {
         if (this.firstSearch) {
-            for (const node of this.projectNodeMap.values()) {
-                this.showProject(node);
-            }
+            this.showAllProjects();
             this.firstSearch = false;
         }
     }

@@ -5,13 +5,13 @@ export default {
   input: 'src/app.ts',
   output: [{
     dir: './js',
-    format: 'es'
+    format: 'es',
   },
   {
     dir: './js/min',
     format: 'es',
     sourcemap: true,
-    plugins: [terser()]
+    plugins: [terser()],
   }],
-  plugins: [typescript()]
+  plugins: [typescript()],
 };

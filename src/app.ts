@@ -121,7 +121,7 @@ class AwesomeWebPage {
 
   addFocusHandler(searchInput?: HTMLInputElement) {
     if (searchInput) {
-      searchInput.addEventListener('focus', (e: FocusEvent) => this.toggleDropdown());
+      searchInput.addEventListener('focus', () => this.toggleDropdown());
       searchInput.addEventListener('blur', (e: FocusEvent) => this.handleBlur(e));
     }
   }
@@ -129,7 +129,7 @@ class AwesomeWebPage {
   addDropdownClickHandler() {
     const dropdownButtons = document.querySelectorAll(Selector.ROLE_OPTION);
     for (const button of dropdownButtons) {
-      //use mousedown instead of click to get priorty over searchInput onblur
+      // use mousedown instead of click to get priorty over searchInput onblur
       button.addEventListener('mousedown', (e: MouseEvent) => this.onDropdownButtonClick(e));
     }
   }
@@ -182,7 +182,7 @@ class AwesomeWebPage {
   addIntersectionObserver(projectNodeMap: ProjectNodeMap) {
     const nodes = projectNodeMap.values();
 
-    if ("IntersectionObserver" in window) {
+    if ('IntersectionObserver' in window) {
       const lazyImageObserver = new IntersectionObserver((entries)=> {
         for (const entry of entries) {
           if (entry.isIntersecting) {
@@ -198,6 +198,8 @@ class AwesomeWebPage {
       for (const node of nodes) {
         lazyImageObserver.observe(node as Element);
       }
+    } else {
+      this.showAllProjects();
     }
   }
 
@@ -209,6 +211,12 @@ class AwesomeWebPage {
     this.addDropdownClickHandler();
   }
 
+  showAllProjects() {
+    for (const node of this.projectNodeMap.values()) {
+      this.showProject(node as Element);
+    }
+  }
+
   /**
    * If all projects are not loaded into the DOM yet and no search has taken
    * place, it is possible that the intersection observer will fire and load
@@ -217,9 +225,7 @@ class AwesomeWebPage {
    */
   showAllProjectsOnFirstSearch() {
     if (this.firstSearch) {
-      for (const node of this.projectNodeMap.values()) {
-        this.showProject(node as Element);
-      }
+      this.showAllProjects();
       this.firstSearch = false;
     }
   }
