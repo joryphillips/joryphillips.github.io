@@ -85,13 +85,13 @@ var Selector;
     Selector["SEARCH_INPUT"] = "input[type=\"search\"]";
     Selector["ROLE_LISTBOX"] = "[role=\"listbox\"]";
     Selector["ROLE_OPTION"] = "[role=\"option\"]";
-    Selector["JOB_TEMPLATE"] = "#job";
+    Selector["JOB_TEMPLATE_ID"] = "#job";
     Selector["KEYWORDS_TEMPLATE_ID"] = "#keywords";
     Selector["PROJECT_TEMPLATE_ID"] = "#project";
     Selector["PROJECT_HOLDER"] = ".project-holder";
     Selector["PROJECT_IMAGE"] = "img";
     Selector["PROJECT"] = ".proj";
-    Selector["TITLE"] = ".title";
+    Selector["PROJECT_TITLE"] = ".proj h5.title";
     Selector["JOB_HOLDER"] = ".job-holder";
     Selector["NAVIGATION_LINK"] = "nav a";
 })(Selector || (Selector = {}));
@@ -299,7 +299,7 @@ function getImportNode(project) {
     const projectTemplate = document.querySelector(Selector.PROJECT_TEMPLATE_ID);
     const projectContainer = projectTemplate.content.querySelector(Selector.PROJECT);
     const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE);
-    const title = projectTemplate.content.querySelector(Selector.TITLE);
+    const title = projectTemplate.content.querySelector(Selector.PROJECT_TITLE);
     image.alt = 'image of ' + project.title;
     image.dataset.src = IMAGE_PATH + project.imageSources[0];
     title.textContent = project.title;
@@ -320,7 +320,7 @@ function getProjectNodeMap(portfolio) {
 }
 function createJobs(resume) {
     const jobHolder = document.querySelector(Selector.JOB_HOLDER);
-    const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE);
+    const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE_ID);
     if (!jobHolder || !jobTemplate) {
         return;
     }

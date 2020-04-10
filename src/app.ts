@@ -30,7 +30,7 @@ function getImportNode(project: Project) {
   const projectTemplate = document.querySelector(Selector.PROJECT_TEMPLATE_ID) as HTMLTemplateElement;
   const projectContainer = projectTemplate.content.querySelector(Selector.PROJECT);
   const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement;
-  const title = projectTemplate.content.querySelector(Selector.TITLE);
+  const title = projectTemplate.content.querySelector(Selector.PROJECT_TITLE);
   image.alt = 'image of ' + project.title;
   image.dataset.src = IMAGE_PATH + project.imageSources[0];
   title.textContent = project.title;
@@ -57,7 +57,7 @@ function getProjectNodeMap(portfolio: Project[]) {
 
 function createJobs(resume: Job[]) {
   const jobHolder = document.querySelector(Selector.JOB_HOLDER);
-  const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE) as HTMLTemplateElement|null;
+  const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE_ID) as HTMLTemplateElement|null;
   if (!jobHolder || !jobTemplate) {
     return;
   }

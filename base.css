@@ -1,6 +1,5 @@
-/*  CSS OVERRIDES*/
 body {
-  background-color: #FFFCF7;
+  background-color: #fffaf7;
   font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
   margin: 0;
 }
@@ -17,23 +16,80 @@ body {
   text-shadow: none;
 }
 
-.jumbo {
+header {
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  background-color: #49ccff;
+}
+
+nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+nav a {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  float: left;
+}
+
+section.jumbo {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+  background-color: #49ccff;
+  background-image: linear-gradient(0deg, #b3cce0 0%, #49ccff 74%);
+}
+
+.jumbo h1 {
   font-size: 4rem;
   text-transform: uppercase;
   letter-spacing: .1rem;
+  margin-bottom: 1rem;
 }
 
-p {
+.jumbo h2 {
+  font-size: 1.5rem;
+}
+
+section.summary {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-image: linear-gradient(180deg, #fffaf7 62%, #e9e9e9 103%);
+}
+
+section.visuals {
+  background-color: #ddd;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.visuals-header {
+  display: flex;
+  align-items: baseline;
+}
+
+section.visuals h1 {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+section.visuals p {
   font-size: 1.05rem;
   line-height: 2.2rem;
-}
-
-.navy {
-  color: #001f3f;
-}
-
-.bg-navy {
-  background-color: #001f3f;
 }
 
 input[type="search"] {
@@ -46,9 +102,17 @@ input[type="search"] {
   border-radius: 3px;
 }
 
-.search.box {
+.search-box {
   position: relative;
-  margin-bottom: 1rem;
+  flex: 2 1 auto;
+}
+
+.search-box label.hide {
+  position: absolute!important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px,1px,1px,1px);
 }
 
 div[role="listbox"] {
@@ -75,14 +139,19 @@ button[role="option"] {
   border-bottom: 1px solid #ccc;
   font-size: inherit;
   text-align: left;
+  padding: .5rem;
 }
 
 button[role="option"]:last-of-type {
   border-bottom: none;
 }
 
-#visuals .search.box {
-  width: 50%;
+.project-holder {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  grid-auto-rows: minmax(300px, auto);
 }
 
 .container {
@@ -95,6 +164,12 @@ button[role="option"]:last-of-type {
   margin-top: 0.25rem;
 }
 
+.proj h5.title {
+  padding: .5rem;
+  margin: 0;
+  font-size: .875rem;
+}
+
 .date {
   margin-left: 0.5rem;
 }
@@ -102,7 +177,6 @@ button[role="option"]:last-of-type {
 .proj {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  min-height: 250px;
 }
 
 .proj.visible {
@@ -123,19 +197,62 @@ button[role="option"]:last-of-type {
 
 .image-container {
   display: flex;
-  height: 100%;
-  max-height: 400px;
+  height: 300px;
   padding: 8px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
   background-color: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.image-container img {
+.image-container > * {
+  display: block;
   max-width: 100%;
   max-height: 100%;
 }
+
+
+section.experience {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+section.experience h1 {
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+.job {
+  margin-bottom: 4rem;
+}
+
+.job h3.title {
+  margin-top: 0;
+}
+
+.job h3.summary {
+  margin-top: .5rem;
+}
+
+footer {
+  bottom: 0;
+  background-color: #49ccff;
+}
+
+footer .container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+footer a {
+  font-size: .75rem;
+}
+
 
 .border-bottom {
   border-bottom-style: solid;
@@ -149,32 +266,12 @@ button[role="option"]:last-of-type {
   border-top-color: rgba(0, 0, 0, .125);
 }
 
-.off-white-warm-bg {
-  background-color: #FFFCF7;
-}
-
-.off-white-cool-bg {
-  background-color: #F7FDFF;
-}
-
 .dark-blue {
   color: #0079a2;
 }
 
-.bg-dark-blue {
-  background-color: #0079a2;
-}
-
-.bg-silver {
-  background-color: #ddd;
-}
-
-.electric-blue {
-  color: #1ac5ff
-}
-
-.bg-electric-blue {
-  background-color: #1ac5ff
+.navy {
+  color: rgba(0, 32, 66, 0.9);
 }
 
 .cursor-pointer {
@@ -203,4 +300,8 @@ button[role="option"]:last-of-type {
   border: 1px solid transparent;
   vertical-align: middle;
   -webkit-appearance: none;
+}
+
+.display-none {
+  display: none;
 }

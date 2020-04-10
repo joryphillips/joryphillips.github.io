@@ -4,29 +4,27 @@
   <meta charset="utf-8">
   <title>Jory Phillips Portfolio and Resume</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./base.css">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;700&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;700&display=swap" rel="stylesheet">
   <script async src="./js/min/app.js" type="module"></script>
 </head>
 
 <body>
 
-  <header class="fixed z2 top-0 left-0 right-0 navy bg-electric-blue border-bottom">
+  <header class="navy">
     <nav class="container flex-auto">
-      <a href="/#home" class="sm-show left button py2 button-transparent">Home</a>
-      <a href="/#summary" class="sm-show left button py2 button-transparent">Summary</a>
-      <a href="/#visuals" class="button left py2 button-transparent">Visuals</a>
-      <a href="/#experience" class="sm-show left button py2 button-transparent">Experience</a>
+      <a href="/#summary" class="button button-transparent">Summary</a>
+      <a href="/#visuals" class="button button-transparent">Visuals</a>
+      <a href="/#experience" class="button button-transparent">Experience</a>
     </nav>
   </header>
 
-  <section class="bg-electric-blue bg-cover center px2 py4 navy border-bottom" id="home">
-    <h1 class="jumbo h0-responsive mb2">Jory Phillips</h1>
-    <h2 class="h2">designer & front-end developer</h2>
+  <section class="jumbo navy">
+    <h1>Jory Phillips</h1>
+    <h2>designer & front-end developer</h2>
   </section>
 
-  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="summary">
+  <section id="summary" class="summary">
     <div class="container">
       <p>My strength is bridging big-picture concepts with detailed implementation. I am especially interested in projects that
         help people navigate and understand complex things.</p>
@@ -37,57 +35,57 @@
     </div>
   </section>
 
-  <section class="clearfix py4 px2 sm-px3 bg-silver border-top border-bottom" id="visuals">
-    <div class="flex">
-      <h1 class="flex-auto mt0 mb3 navy">Visuals</h1>
+  <section id="visuals" class="visuals border-bottom border-top">
+    <div class="visuals-header">
+      <h1>Visuals</h1>
 
-      <div class="search box">
+      <div class="search-box">
         <label for="search" class="hide">Search</label>
         <input type="search" placeholder="search" autocomplete="off">
         <div role="listbox">
           <template id="keywords">
-            <button class="p1" role="option"></button>
+            <button role="option"></button>
           </template>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-wrap mxn1 project-holder">
+    <div class="project-holder">
       <template id="project">
-        <div class="proj col col-6 sm-col-6 md-col-4 lg-col-3 px1 lg-px2 lg-p1 mb4">
+        <div class="proj">
           <div class="image-container">
             <img class="image block" src="" alt="">
           </div>
-          <div class="text-container absolute col-12">
-            <h5 class="title h5 p1 m0 navy"></h5>
+          <div class="text-container">
+            <h5 class="title"></h5>
           </div>
         </div>
       </template>
     </div>
   </section>
 
-  <section class="clearfix py4 px2 sm-px3 off-white-warm-bg" id="experience">
+  <section id="experience" class="experience">
     <div class="container">
-      <h1 class="mt0 mb3">Experience</h1>
+      <h1>Experience</h1>
       <div class="job-holder">
         <template id="job">
-          <div class="mb4">
-            <h3 class="mt0">
+          <div class="job">
+            <h3 class="title">
               <span id="place" class="dark-blue"></span>
               <span id="date" class="regular date"></span>
             </h3>
-            <h3 id="summary" class="mt1"></h3>
+            <h3 id="summary" class="summary"></h3>
           </div>
         </template>
       </div>
     </div>
   </section>
 
-  <footer class="navy bg-electric-blue border-top bottom-0 full-width">
-    <div class="px2 py1 container">
-      <a href="https://www.linkedin.com/in/joryphillips" class="button button-transparent h6">linkedin</a>
-      <a class="button button-transparent h6" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
-      <a href="https://github.com/joryphillips/joryphillips.github.io" class="button button-transparent h6">src</a>
+  <footer class="navy border-top">
+    <div class="container">
+      <a href="https://www.linkedin.com/in/joryphillips" class="button button-transparent">linkedin</a>
+      <a class="button button-transparent" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
+      <a href="https://github.com/joryphillips/joryphillips.github.io" class="button button-transparent">src</a>
     </div>
   </footer>
 
