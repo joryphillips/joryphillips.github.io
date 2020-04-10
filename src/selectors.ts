@@ -1,4 +1,4 @@
-export enum  Selector {
+export enum Selector {
   SEARCH_INPUT = 'input[type="search"]',
   ROLE_LISTBOX = '[role="listbox"]',
   ROLE_OPTION = '[role="option"]',
