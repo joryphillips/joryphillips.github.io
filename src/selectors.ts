@@ -1,4 +1,5 @@
 export enum Selector {
+  SEARCH_BOX = '.search-box',
   SEARCH_INPUT = 'input[type="search"]',
   ROLE_LISTBOX = '[role="listbox"]',
   ROLE_OPTION = '[role="option"]',
@@ -11,6 +12,9 @@ export enum Selector {
   PROJECT_LINK_ICON = '.info-icons .link',
   PROJECT = '.proj',
   PROJECT_TITLE = '.proj h5.title',
+  PROJECT_DESCRIPTION = '.description',
+  PROJECT_DESCRIPTION_CLOSE = 'button.close',
   JOB_HOLDER = '.job-holder',
   NAVIGATION_LINK = 'nav a',
+  VISUALS_HEADER = '.visuals-header',
 }

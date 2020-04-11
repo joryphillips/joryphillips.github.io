@@ -47,6 +47,7 @@ function addScrollClickHandlers(selector) {
 
 var Selector;
 (function (Selector) {
+    Selector["SEARCH_BOX"] = ".search-box";
     Selector["SEARCH_INPUT"] = "input[type=\"search\"]";
     Selector["ROLE_LISTBOX"] = "[role=\"listbox\"]";
     Selector["ROLE_OPTION"] = "[role=\"option\"]";
@@ -59,8 +60,11 @@ var Selector;
     Selector["PROJECT_LINK_ICON"] = ".info-icons .link";
     Selector["PROJECT"] = ".proj";
     Selector["PROJECT_TITLE"] = ".proj h5.title";
+    Selector["PROJECT_DESCRIPTION"] = ".description";
+    Selector["PROJECT_DESCRIPTION_CLOSE"] = "button.close";
     Selector["JOB_HOLDER"] = ".job-holder";
     Selector["NAVIGATION_LINK"] = "nav a";
+    Selector["VISUALS_HEADER"] = ".visuals-header";
 })(Selector || (Selector = {}));
 
 const RESUME = [
@@ -245,6 +249,9 @@ const PORTFOLIO = [
 
 const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
+const CONTAINER = 'container';
+const DISPLAY_NONE = 'display-none';
+const SHOW = 'show';
 const DEBOUNCE_TIMEOUT = 350;
 function appendKeywords(keywords) {
     if (!keywords) {
@@ -272,21 +279,21 @@ function getImportNode(project) {
     const infoButton = projectTemplate.content.querySelector(Selector.PROJECT_INFO_ICON);
     const descriptionEl = projectTemplate.content.querySelector('.description');
     if (project.description) {
-        infoButton.classList.remove('display-none');
+        infoButton.classList.remove(DISPLAY_NONE);
         descriptionEl.textContent = project.description;
     }
     else {
-        infoButton.classList.add('display-none');
+        infoButton.classList.add(DISPLAY_NONE);
         descriptionEl.textContent = '';
     }
     const link = projectTemplate.content.querySelector(Selector.PROJECT_LINK_ICON);
     if (project.href) {
-        link.classList.remove('display-none');
+        link.classList.remove(DISPLAY_NONE);
         link.href = project.href;
     }
     else {
         link.href = '';
-        link.classList.add('display-none');
+        link.classList.add(DISPLAY_NONE);
     }
     projectContainer.id = kebabCase(project.title);
     return document.importNode(projectTemplate.content, true);
@@ -328,11 +335,51 @@ async function conditionallyLoadClockPrototype(lazyImage, parentEl) {
         clock.addClockPrototype(parentEl);
     }
 }
+function showProjectAndLoadImage(element) {
+    var _a;
+    const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
+    element.classList.remove(DISPLAY_NONE);
+    if (lazyImage) {
+        lazyImage.src = (_a = lazyImage === null || lazyImage === void 0 ? void 0 : lazyImage.dataset) === null || _a === void 0 ? void 0 : _a.src;
+        conditionallyLoadClockPrototype(lazyImage, element);
+        lazyImage.classList.add('visible');
+    }
+}
+function showProjects(elements) {
+    for (const el of elements) {
+        el.classList.remove(DISPLAY_NONE);
+    }
+}
+function hideProjects(elements) {
+    for (const el of elements) {
+        el.classList.add(DISPLAY_NONE);
+    }
+}
+function scrollToVisualsSectionHeader() {
+    const projectSection = document.querySelector(Selector.VISUALS_HEADER);
+    const scrollTargetY = projectSection.offsetTop;
+    window.scroll({ top: scrollTargetY });
+}
+function getElementsToShowProjectInfo(projectId) {
+    const projectEl = document.querySelector(`#${projectId}`);
+    const descriptionEl = projectEl.querySelector(Selector.PROJECT_DESCRIPTION);
+    const searchInput = document.querySelector(Selector.KEYWORDS_TEMPLATE_ID);
+    const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
+    const infoButton = projectEl.querySelector(Selector.PROJECT_INFO_ICON);
+    const closeDescriptionButton = projectEl.querySelector(Selector.PROJECT_DESCRIPTION_CLOSE);
+    return {
+        projectEl,
+        descriptionEl,
+        searchInput,
+        projectHolder,
+        infoButton,
+        closeDescriptionButton,
+    };
+}
 class AwesomeWebPage {
     constructor() {
         this.searchInput = document.querySelector(Selector.SEARCH_INPUT);
         this.searchDropdown = document.querySelector(Selector.ROLE_LISTBOX);
-        this.lazyImageObservers = [];
         this.firstSearch = true;
         this.addFocusHandler(this.searchInput);
         addScrollClickHandlers(Selector.NAVIGATION_LINK);
@@ -370,22 +417,12 @@ class AwesomeWebPage {
     }
     handleBlur(e) {
         e.preventDefault();
-        if (this.searchDropdown && this.searchDropdown.classList.contains('show')) {
+        if (this.searchDropdown && this.searchDropdown.classList.contains(SHOW)) {
             this.toggleDropdown();
         }
     }
     toggleDropdown() {
-        this.searchDropdown.classList.toggle('show');
-    }
-    showProject(element) {
-        var _a;
-        const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
-        element.classList.remove('display-none');
-        if (lazyImage) {
-            lazyImage.src = (_a = lazyImage === null || lazyImage === void 0 ? void 0 : lazyImage.dataset) === null || _a === void 0 ? void 0 : _a.src;
-            conditionallyLoadClockPrototype(lazyImage, element);
-            lazyImage.classList.add('visible');
-        }
+        this.searchDropdown.classList.toggle(SHOW);
     }
     addIntersectionObserver(projectNodeMap) {
         const nodes = projectNodeMap.values();
@@ -394,18 +431,17 @@ class AwesomeWebPage {
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
                         const element = entry.target;
-                        this.showProject(element);
+                        showProjectAndLoadImage(element);
                         lazyImageObserver.unobserve(element);
                     }
                 }
             });
-            this.lazyImageObservers.push(lazyImageObserver);
             for (const node of nodes) {
                 lazyImageObserver.observe(node);
             }
         }
         else {
-            this.showAllProjects();
+            this.showAllProjectsAndLoadImages();
         }
     }
     getProjectNodeMap(portfolio) {
@@ -431,24 +467,14 @@ class AwesomeWebPage {
         appendKeywords(getKeyWords(PORTFOLIO));
         this.addDropdownClickHandler();
     }
-    showAllProjects() {
+    showAllProjectsAndLoadImages() {
         for (const node of this.projectNodeMap.values()) {
-            this.showProject(node);
+            showProjectAndLoadImage(node);
         }
     }
-    showProjects(elements) {
-        for (const el of elements) {
-            el.classList.remove('display-none');
-        }
-    }
-    hideProjects(elements) {
-        for (const el of elements) {
-            el.classList.add('display-none');
-        }
-    }
-    showAllProjectsOnFirstSearch() {
+    showAllProjectsOnFirstFilter() {
         if (this.firstSearch) {
-            this.showAllProjects();
+            this.showAllProjectsAndLoadImages();
             this.firstSearch = false;
         }
     }
@@ -457,7 +483,7 @@ class AwesomeWebPage {
             const searchValue = this.searchInput.value;
             const elementsToFadeOut = [];
             const elementsToFadeIn = [];
-            this.showAllProjectsOnFirstSearch();
+            this.showAllProjectsOnFirstFilter();
             for (const [project, node] of this.projectNodeMap.entries()) {
                 if (searchValue && !shouldShowProject(searchValue, project.keywords, project.title)) {
                     elementsToFadeOut.push(node);
@@ -466,39 +492,41 @@ class AwesomeWebPage {
                     elementsToFadeIn.push(node);
                 }
             }
-            this.hideProjects(elementsToFadeOut);
-            this.showProjects(elementsToFadeIn);
+            hideProjects(elementsToFadeOut);
+            showProjects(elementsToFadeIn);
         }
     }
-    handleCloseInfoClick(e, { projectEl, closeDescriptionButton, searchInput, infoButtons, projectHolder }) {
-        const descriptionEl = projectEl.querySelector('.description');
-        descriptionEl.classList.add('display-none');
-        closeDescriptionButton.classList.add('display-none');
-        searchInput.classList.remove('display-none');
-        infoButtons.classList.remove('display-none');
+    handleCloseInfoClick(e, { descriptionEl, closeDescriptionButton, searchInput, infoButton, projectHolder, }) {
+        descriptionEl.classList.add(DISPLAY_NONE);
+        closeDescriptionButton.classList.add(DISPLAY_NONE);
+        searchInput.classList.remove(DISPLAY_NONE);
+        infoButton.classList.remove(DISPLAY_NONE);
         this.handleSearchInput();
-        projectHolder.classList.remove('container');
+        projectHolder.classList.remove(CONTAINER);
+    }
+    getAllShowingProjects() {
+        return Array.from(this.projectNodeMap.values())
+            .filter((node) => !node.classList.contains(DISPLAY_NONE));
     }
     handleInfoClick(e, projectId) {
-        const projectEl = document.querySelector(`#${projectId}`);
-        const descriptionEl = projectEl.querySelector('.description');
-        this.showAllProjectsOnFirstSearch();
-        const allShowingProjects = [...Array.from(this.projectNodeMap.values())].filter((node) => !node.classList.contains('display-none'));
+        const { descriptionEl, searchInput, projectHolder, infoButton, closeDescriptionButton, } = getElementsToShowProjectInfo(projectId);
+        this.showAllProjectsOnFirstFilter();
+        const allShowingProjects = this.getAllShowingProjects();
         const showingProjects = allShowingProjects.filter((el) => el.id !== projectId);
-        this.hideProjects(showingProjects);
-        const projectSection = document.querySelector('.visuals-header');
-        const scrollTargetY = projectSection.offsetTop;
-        window.scroll({ top: scrollTargetY });
-        const searchInput = document.querySelector('.search-box');
-        searchInput.classList.add('display-none');
-        const projectHolder = document.querySelector('.project-holder');
-        projectHolder.classList.add('container');
-        const infoButtons = projectEl.querySelector('.info-icons');
-        infoButtons.classList.add('display-none');
-        descriptionEl.classList.remove('display-none');
-        const closeDescriptionButton = projectEl.querySelector('button.close');
-        closeDescriptionButton.classList.remove('display-none');
-        closeDescriptionButton.addEventListener('click', (closeEvent) => this.handleCloseInfoClick(closeEvent, { projectEl, closeDescriptionButton, searchInput, infoButtons, projectHolder }));
+        hideProjects(showingProjects);
+        scrollToVisualsSectionHeader();
+        searchInput.classList.add(DISPLAY_NONE);
+        infoButton.classList.add(DISPLAY_NONE);
+        descriptionEl.classList.remove(DISPLAY_NONE);
+        closeDescriptionButton.classList.remove(DISPLAY_NONE);
+        projectHolder.classList.add(CONTAINER);
+        closeDescriptionButton.addEventListener('click', (closeEvent) => this.handleCloseInfoClick(closeEvent, {
+            descriptionEl,
+            closeDescriptionButton,
+            searchInput,
+            infoButton,
+            projectHolder,
+        }));
     }
 }
 new AwesomeWebPage();
