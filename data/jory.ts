@@ -12,7 +12,6 @@ export interface Project {
   date?: string;
   description?: string;
   href?: string;
-  category?: string[];
 }
 
 export const RESUME: Job[] = [
@@ -66,13 +65,14 @@ export const PORTFOLIO: Project[] = [
   {
     title: 'web performance analysis',
     date: '2020',
+    href: 'https://github.com/joryphillips/joryphillips.github.io/issues/8#issuecomment-611778792',
     imageSources: ['web-perf.png'],
     keywords: ['software', 'develop', 'engineer', 'performance', 'tooling'],
   },
   {
     title: 'comprehensive design + implementation',
     imageSources: ['test-result-details.png'],
-    keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
+    keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
   },
   {
     title: 'web component wireframe',
@@ -87,7 +87,7 @@ export const PORTFOLIO: Project[] = [
   {
     title: 'notification CRUD app',
     imageSources: ['notification-crud-edit.png'],
-    keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
+    keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
   },
   {
     title: 'lightweight webpage generator',
@@ -143,35 +143,28 @@ export const PORTFOLIO: Project[] = [
     title: 'sustainable healthcare website',
     date: '2015',
     imageSources: ['eksh-desktop.jpg'],
-    description: `Erika Kimball Sustainable Healthcare is a website I designed and developed using a lightweight CSS library and the GreenSock Javascript animation library for subtle parallax scrolling effects. I researched and incorporated a custom CMS/blog solution to fit the client's needs, and designed the logo in Adobe Illustrator.`,
-    href: 'http://erikakimball.com/',
-    'category': ['Design/Dev', 'Communication'],
+    description: `Erika Kimball Sustainable Healthcare is a website I designed and developed using a lightweight animation library for subtle parallax scrolling effects. I researched and incorporated a custom CMS/blog solution to fit the client's needs, and designed the logo in Adobe Illustrator.`,
     keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
   },
   {
     title: 'mobile web app',
     date: '2014',
     imageSources: ['rumblemunk-mobile.jpg'],
-    description: `This is a web app that I designed and developed for a San Francisco-based DJ. It includes a music player featuring the DJ's productions and music sets and was designed with a particular focus on mobile UI. I designed the logo, but the DJ selects his own background pictures. :)`,
-    href: 'http://rumblemunk.com',
-    'category': ['Design/Dev', 'Communication', 'freelance'],
     keywords: ['ux', 'ui', 'develop'],
   },
   {
     title: 'Global Brand Works Website',
     date: '2015',
     imageSources: ['gbw.jpg'],
-    description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was created with custom HTML/CSS/Javascript/jQuery/PHP for interactivity and a contact form. I also produced brand color palettes and logo refinements in Illustrator. Further, I helped this boutique branding agency and their clients with general design, graphic, and presentation needs.',
+    description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built with HTML/CSS/JavaScript/PHP for interactivity. For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
     href: 'http://globalbrandworks.com/',
-    'category': ['Design/Dev', 'Communication'],
     keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
   },
   {
     title: 'Illustration',
     date: '2009',
-    imageSources: ['shanghai.jpg', 'shanghai-full-width-section-trnsp.png'],
-    description: 'As part of a competition to master plan a portion of a new theme park and entertainment destination in Shanghai, I digitally painted section and elevations line drawings to convey exiting, active retail, restaurant, and entertainment areas. Drawing from a variety of textures and patterns found in design and fashion magazines, I experimented with transparency, overlap, and varying hues to reach an appropriate balance. This is a small, zoomed-in portion of one of several drawings, which were presented on large-format presentation boards.',
-    'category': ['Communication'],
+    imageSources: ['shanghai-outlines.jpg', 'shanghai-full-width-section-trnsp.png'],
+    description: 'As part of a competition to master plan a portion of a new theme park and entertainment destination, I digitally painted section and elevations line drawings to convey exiting, active retail, restaurant, and entertainment areas. Drawing from a variety of textures and patterns found in design and fashion magazines, I experimented with transparency, overlap, and varying hues to reach an appropriate balance. This is a small, zoomed-in portion of one of several drawings, which were presented on large-format presentation boards.',
     keywords: ['urban design', 'illustration', 'fun', 'communication'],
   },
   {
@@ -179,15 +172,13 @@ export const PORTFOLIO: Project[] = [
     date: '2010',
     imageSources: ['heathrow-clock.svg'],
     description: `Tasked with coming up with product ideas that could build upon notNeutral's (Rios Clementi Hale Studio's product design brand) successful CityPlates, I started analyzing aerial photographs of different cities for inspiration. I was especially drawn to the way airports look from above. This London Heathrow graphic was originally presented as an idea for a large-scale wall graphic and clock, with the runways as moving hands. Here I have streamlined the original Illustrator file with SVG and used Javascript to make it a functional time-telling graphic.`,
-    'category': ['Communication'],
     keywords: ['conceptual', 'prototyping', 'maps'],
   },
   {
     title: 'Mapping & Data Analysis',
     date: '2009',
     imageSources: ['pub-facilities-map.svg'],
-    description: 'I designed and created this interactive map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent. I recently refined the map as an SVG and used Javascript to allow its layers to be toggled by clicking on elements in the legend.',
-    'category': ['Urban Design & Planning', 'Communication'],
+    description: 'I designed and created this interactive map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.',
     keywords: ['conceptual', 'urban design', 'urban planning', 'communication', 'maps'],
   },
   {
@@ -195,8 +186,6 @@ export const PORTFOLIO: Project[] = [
     date: '2011',
     imageSources: ['usmp.png'],
     description: `While working at Rios Clementi Hale Studios, I produced materials and coordinated a team of multidisciplinary designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles.`,
-    href: 'http: //www.nbcuniversalevolution.com/',
-    'category': ['Urban Design & Planning', 'Communication'],
     keywords: ['urban design', 'urban planning', 'communication'],
   },
   {

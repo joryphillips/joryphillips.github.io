@@ -5,9 +5,16 @@ import {Job, Project, RESUME, PORTFOLIO} from '../data/jory';
 const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
 const DEBOUNCE_TIMEOUT = 350;
-const VISIBILITY_TRANSITION = 200;
 
 type ProjectNodeMap = Map<Project, Node>;
+
+interface CloseInfoEventPayload {
+  projectEl: HTMLElement;
+  closeDescriptionButton: HTMLButtonElement;
+  searchInput: HTMLInputElement;
+  infoButtons: Element;
+  projectHolder: HTMLElement;
+}
 
 function appendKeywords(keywords?: Set<string>) {
   if (!keywords) {
@@ -34,25 +41,28 @@ function getImportNode(project: Project) {
   image.alt = 'image of ' + project.title;
   image.dataset.src = IMAGE_PATH + project.imageSources[0];
   title.textContent = project.title;
+
+  const infoButton = projectTemplate.content.querySelector(Selector.PROJECT_INFO_ICON) as HTMLButtonElement;
+  const descriptionEl = projectTemplate.content.querySelector('.description') as HTMLElement;
+  if (project.description) {
+    infoButton.classList.remove('display-none');
+    descriptionEl.textContent = project.description;
+  } else {
+    infoButton.classList.add('display-none');
+    descriptionEl.textContent = '';
+  }
+
+  const link = projectTemplate.content.querySelector(Selector.PROJECT_LINK_ICON) as HTMLAnchorElement;
+  if (project.href) {
+    link.classList.remove('display-none');
+    link.href = project.href;
+  } else {
+    link.href = '';
+    link.classList.add('display-none');
+  }
+
   projectContainer.id = util.kebabCase(project.title);
   return document.importNode(projectTemplate.content, true);
-}
-
-function getProjectNodeMap(portfolio: Project[]) {
-  const projectNodeMap = new Map<Project, Node>();
-  const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
-
-  for (const project of portfolio) {
-    const projectId = util.kebabCase(project.title);
-    const documentFragment = getImportNode(project);
-
-    projectHolder.appendChild(documentFragment);
-    // when appending a documentFragment, it is the return value.
-    // so we need to query the DOM for the project id to get the actual node.
-    const node = projectHolder.querySelector(`#${projectId}`);
-    projectNodeMap.set(project, node);
-  }
-  return projectNodeMap;
 }
 
 function createJobs(resume: Job[]) {
@@ -167,7 +177,7 @@ class AwesomeWebPage {
   }
 
   showProject(element: Element) {
-    const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
+    const lazyImage = element.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement;
     element.classList.remove('display-none');
 
     if (lazyImage) {
@@ -175,8 +185,6 @@ class AwesomeWebPage {
       conditionallyLoadClockPrototype(lazyImage, element);
       lazyImage.classList.add('visible');
     }
-
-    element.classList.add('visible');
   }
 
   addIntersectionObserver(projectNodeMap: ProjectNodeMap) {
@@ -203,8 +211,31 @@ class AwesomeWebPage {
     }
   }
 
+  getProjectNodeMap(portfolio: Project[]) {
+    const projectNodeMap = new Map<Project, Node>();
+    const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
+
+    for (const project of portfolio) {
+      const projectId = util.kebabCase(project.title);
+      const documentFragment = getImportNode(project);
+
+      projectHolder.appendChild(documentFragment);
+      // when appending a documentFragment, it is the return value.
+      // so we need to query the DOM for the project id to get the actual node.
+      const node = projectHolder.querySelector(`#${projectId}`);
+
+      if (project.description) {
+        const infoButton = node.querySelector(Selector.PROJECT_INFO_ICON) as HTMLButtonElement;
+        infoButton.addEventListener('click', (e)=> this.handleInfoClick(e, node.id));
+      }
+
+      projectNodeMap.set(project, node);
+    }
+    return projectNodeMap;
+  }
+
   loadAndAppendData() {
-    this.projectNodeMap = getProjectNodeMap(PORTFOLIO);
+    this.projectNodeMap = this.getProjectNodeMap(PORTFOLIO);
     this.addIntersectionObserver(this.projectNodeMap);
     createJobs(RESUME);
     appendKeywords(util.getKeyWords(PORTFOLIO));
@@ -214,6 +245,18 @@ class AwesomeWebPage {
   showAllProjects() {
     for (const node of this.projectNodeMap.values()) {
       this.showProject(node as Element);
+    }
+  }
+
+  showProjects(elements: Element[]) {
+    for (const el of elements) {
+      el.classList.remove('display-none');
+    }
+  }
+
+  hideProjects(elements: Element[]) {
+    for (const el of elements) {
+      el.classList.add('display-none');
     }
   }
 
@@ -248,12 +291,71 @@ class AwesomeWebPage {
         }
       }
 
-      util.fadeOut(elementsToFadeOut, VISIBILITY_TRANSITION);
-      // setTimeout here ensures that we're in a new event loop and unneeded elements have faded out
-      setTimeout(() => {
-        util.fadeIn(elementsToFadeIn, VISIBILITY_TRANSITION);
-      }, VISIBILITY_TRANSITION);
+      this.hideProjects(elementsToFadeOut);
+      this.showProjects(elementsToFadeIn);
     }
+  }
+
+  // TODO: Clean this up.
+  handleCloseInfoClick(e: Event, {projectEl, closeDescriptionButton, searchInput, infoButtons, projectHolder}: CloseInfoEventPayload) {
+    // hide description
+    const descriptionEl = projectEl.querySelector('.description') as HTMLElement;
+    descriptionEl.classList.add('display-none');
+
+    // hide 'close' button
+    closeDescriptionButton.classList.add('display-none');
+
+    // show search input
+    searchInput.classList.remove('display-none');
+
+    // show info buttons
+    infoButtons.classList.remove('display-none');
+
+    // show projects that we hid and make sure we return to any prior filtered
+    // state.
+    this.handleSearchInput();
+
+    // revert to grid display
+    projectHolder.classList.remove('container');
+  }
+
+  // TODO: Clean this up.
+  handleInfoClick(e: Event, projectId: string) {
+    const projectEl = document.querySelector(`#${projectId}`) as HTMLElement;
+    const descriptionEl = projectEl.querySelector('.description') as HTMLElement;
+
+    this.showAllProjectsOnFirstSearch();
+
+    // store new list of showing projects
+    const allShowingProjects = [...Array.from(this.projectNodeMap.values())].filter((node: Node)=> !(node as HTMLElement).classList.contains('display-none')) as HTMLElement[];
+    const showingProjects = allShowingProjects.filter((el: HTMLElement) => el.id !== projectId);
+
+    // hide showing projects that aren't this one
+    this.hideProjects(showingProjects);
+
+    const projectSection = document.querySelector('.visuals-header') as HTMLElement;
+    const scrollTargetY = projectSection.offsetTop;
+    window.scroll({top: scrollTargetY});
+
+    // hide search input
+    const searchInput = document.querySelector('.search-box') as HTMLInputElement;
+    searchInput.classList.add('display-none');
+
+    // update styles for single-project presentation
+    const projectHolder = document.querySelector('.project-holder') as HTMLElement;
+    projectHolder.classList.add('container');
+
+    // hide info buttons
+    const infoButtons = projectEl.querySelector('.info-icons');
+    infoButtons.classList.add('display-none');
+
+    // show description
+    descriptionEl.classList.remove('display-none');
+
+    // show 'close' button to get back to prior state
+    const closeDescriptionButton = projectEl.querySelector('button.close') as HTMLButtonElement;
+    closeDescriptionButton.classList.remove('display-none');
+    closeDescriptionButton.addEventListener('click', (closeEvent: Event)=> this.handleCloseInfoClick(closeEvent, {projectEl, closeDescriptionButton, searchInput, infoButtons, projectHolder}));
   }
 }
 
