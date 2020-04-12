@@ -97,6 +97,7 @@ export const PORTFOLIO: Project[] = [
   {
     title: 'mojibrush.co ui/ux + oss contributions',
     imageSources: ['moji-brush.png'],
+    href: 'https://mojibrush.co',
     keywords: ['ux', 'ui', 'develop', 'fun'],
   },
   {
@@ -157,7 +158,7 @@ export const PORTFOLIO: Project[] = [
     date: '2015',
     imageSources: ['gbw.jpg'],
     description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built with HTML/CSS/JavaScript/PHP for interactivity. For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
-    href: 'http://globalbrandworks.com/',
+    href: 'https://globalbrandworks.com/',
     keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
   },
   {
