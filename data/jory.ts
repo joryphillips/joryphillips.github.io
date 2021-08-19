@@ -55,6 +55,13 @@ export const RESUME: Job[] = [
 
 export const PORTFOLIO: Project[] = [
   {
+    title: 'Mock for plan review UI',
+    date: '2021',
+    description: `A high-fidelity mock for a user interface allowing fluid communication between an agency and applicant.`,
+    imageSources: ['plan_review_mock.png'],
+    keywords: ['software', 'ux', 'ui', 'mock', 'communication'],
+  },
+  {
     title: 'Gallery.io web engineering',
     date: '2019',
     description: `Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, starting with the need to update how it was being built and bundled. This unblocked a TypeScript migration, which I also led, along with efforts to componentize the application and update state management using more modern libraries. As a result, thousands of tech debt issues have been closed and the application's bundle size has been reduced by at least 33%.`,
