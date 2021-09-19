@@ -15,7 +15,7 @@ function scrollToId(e: MouseEvent) {
 
 // modified from Underscore
 export function debounce(func: ()=> void, context: unknown, wait = 250) {
-  let timeout: number;
+  let timeout: number|null;
   return () => {
     const later = () => {
       timeout = null;

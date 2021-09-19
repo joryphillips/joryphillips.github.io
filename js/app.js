@@ -339,16 +339,15 @@ function shouldShowProject(searchValue, keywords, title) {
 }
 async function conditionallyLoadClockPrototype(lazyImage, parentEl) {
     if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
-        const clock = await import('./clock-1c916f0f.js');
+        const clock = await import('./clock-bbc21d42.js');
         clock.addClockPrototype(parentEl);
     }
 }
 function showProjectAndLoadImage(element) {
-    var _a;
     const lazyImage = element.querySelector(Selector.PROJECT_IMAGE);
     element.classList.remove(DISPLAY_NONE);
     if (lazyImage) {
-        lazyImage.src = (_a = lazyImage === null || lazyImage === void 0 ? void 0 : lazyImage.dataset) === null || _a === void 0 ? void 0 : _a.src;
+        lazyImage.src = lazyImage?.dataset?.src;
         conditionallyLoadClockPrototype(lazyImage, element);
         lazyImage.classList.add('visible');
     }

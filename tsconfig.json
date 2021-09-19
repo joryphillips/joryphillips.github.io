@@ -3,12 +3,13 @@
   "compilerOptions": {
     "allowJs": true,
     "noImplicitAny": true,
-    "target": "ES2018",
+    "target": "ES2020",
     "removeComments": true,
     "sourceMap": true,
     "lib": [
       "DOM", "DOM.Iterable", "ES2018"
     ],
-    "module": "ES2020"
+    "module": "ES2020",
+    "types": []
   }
 }
