@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import {terser} from 'rollup-plugin-terser';
+import del from 'rollup-plugin-delete';
 
 export default {
   input: 'src/app.ts',
@@ -13,5 +14,8 @@ export default {
     sourcemap: true,
     plugins: [terser()],
   }],
-  plugins: [typescript()],
+  plugins: [
+    del({targets: 'js/*'}),
+    typescript(),
+  ],
 };
