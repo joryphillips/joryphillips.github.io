@@ -7,9 +7,10 @@ function rotateHand(element: Element, degree: number): void {
 const ONE_SEC = 1000;
 
 export function addClockPrototype(element: Element): void {
-  const imageHolder = element.querySelector('.image-container');
-  if (!imageHolder) return;
-  imageHolder.innerHTML = CLOCK_SVG_HTML;
+  const image = element.querySelector('.image-container').querySelector('img');
+  if (!image) return;
+  const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
+  image.replaceWith(fragment);
 
   const clockWork = ()=> {
     const date = new Date();
@@ -21,6 +22,7 @@ export function addClockPrototype(element: Element): void {
     rotateHand(hour, 30 * (date.getHours() % 12) + date.getMinutes() / 2);
   };
 
+  clockWork();
   setInterval(clockWork, ONE_SEC);
 }
 

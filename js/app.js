@@ -330,7 +330,7 @@ function shouldShowProject(searchValue, keywords, title) {
 }
 async function conditionallyLoadClockPrototype(lazyImage, parentEl) {
     if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
-        const clock = await import('./clock-bbc21d42.js');
+        const clock = await import('./clock-5d794df8.js');
         clock.addClockPrototype(parentEl);
     }
 }

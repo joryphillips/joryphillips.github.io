@@ -527,10 +527,11 @@ function rotateHand(element, degree) {
 }
 const ONE_SEC = 1000;
 function addClockPrototype(element) {
-    const imageHolder = element.querySelector('.image-container');
-    if (!imageHolder)
+    const image = element.querySelector('.image-container').querySelector('img');
+    if (!image)
         return;
-    imageHolder.innerHTML = CLOCK_SVG_HTML;
+    const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
+    image.replaceWith(fragment);
     const clockWork = () => {
         const date = new Date();
         const min = document.querySelector('#min');
@@ -540,6 +541,7 @@ function addClockPrototype(element) {
         rotateHand(min, 6 * date.getMinutes());
         rotateHand(hour, 30 * (date.getHours() % 12) + date.getMinutes() / 2);
     };
+    clockWork();
     setInterval(clockWork, ONE_SEC);
 }
 
