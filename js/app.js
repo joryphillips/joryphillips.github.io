@@ -276,52 +276,43 @@ function appendKeywords(keywords) {
         }
     }
 }
-function getImportNode(project) {
-    const projectTemplate = document.querySelector(Selector.PROJECT_TEMPLATE_ID);
-    const projectContainer = projectTemplate.content.querySelector(Selector.PROJECT);
-    const image = projectTemplate.content.querySelector(Selector.PROJECT_IMAGE);
-    const title = projectTemplate.content.querySelector(Selector.PROJECT_TITLE);
-    image.alt = 'image of ' + project.title;
-    image.dataset.src = IMAGE_PATH + project.imageSources[0];
-    title.textContent = project.title;
-    const infoButton = projectTemplate.content.querySelector(Selector.PROJECT_INFO_ICON);
-    const descriptionEl = projectTemplate.content.querySelector('.description');
-    if (project.description) {
-        infoButton.classList.remove(DISPLAY_NONE);
-        descriptionEl.textContent = project.description;
-    }
-    else {
-        infoButton.classList.add(DISPLAY_NONE);
-        descriptionEl.textContent = '';
-    }
-    const link = projectTemplate.content.querySelector(Selector.PROJECT_LINK_ICON);
-    if (project.href) {
-        link.classList.remove(DISPLAY_NONE);
-        link.href = project.href;
-    }
-    else {
-        link.href = '';
-        link.classList.add(DISPLAY_NONE);
-    }
-    projectContainer.id = kebabCase(project.title);
-    return document.importNode(projectTemplate.content, true);
+function createProject(project) {
+    const imagePath = IMAGE_PATH + project.imageSources[0];
+    const projectHtml = `
+    <div class="proj" id="${kebabCase(project.title)}">
+      <div class="image-container">
+        <img class="image block" data-src="${imagePath}" alt="image of ${project.title}">
+      </div>
+      <div class="project-card-title">
+        <h5 class="title">${project.title}</h5>
+        <div class="info-icons">
+          <button class="info ${project.description ? `` : `display-none`}"><img src="./images/info-black-18dp.svg"></button>
+          <a class="link ${project.href ? `` : `display-none`}" href="${project.href}"><img src="./images/launch-black-18dp.svg"></a>
+        </div>
+      </div>
+      <p class="description display-none">${project.description}</p>
+      <button class="close display-none">Close</button>
+    </div>
+  `;
+    return document.createRange().createContextualFragment(projectHtml);
 }
 function createJobs(resume) {
     const jobHolder = document.querySelector(Selector.JOB_HOLDER);
-    const jobTemplate = document.querySelector(Selector.JOB_TEMPLATE_ID);
-    if (!jobHolder || !jobTemplate) {
+    if (!jobHolder) {
         return;
     }
     for (const job of resume) {
-        const keys = Object.keys(job);
-        for (const key of keys) {
-            const domId = jobTemplate.content.querySelector(`#${key}`);
-            if (domId) {
-                domId.textContent = job[key];
-            }
-        }
-        const clone = document.importNode(jobTemplate.content, true);
-        jobHolder.appendChild(clone);
+        const jobHtml = `
+      <div class="job">
+        <h3 class="title">
+          <span id="place" class="dark-blue">${job.place}</span>
+          <span id="date" class="regular date">${job.date}</span>
+        </h3>
+        <h3 id="summary" class="summary">${job.summary}</h3>
+      </div>
+    `;
+        const fragment = document.createRange().createContextualFragment(jobHtml);
+        jobHolder.appendChild(fragment);
     }
 }
 function listHasSearchValues(searchValue, listString) {
@@ -456,7 +447,7 @@ class AwesomeWebPage {
         const projectHolder = document.querySelector(Selector.PROJECT_HOLDER);
         for (const project of portfolio) {
             const projectId = kebabCase(project.title);
-            const documentFragment = getImportNode(project);
+            const documentFragment = createProject(project);
             projectHolder.appendChild(documentFragment);
             const node = projectHolder.querySelector(`#${projectId}`);
             if (project.description) {
