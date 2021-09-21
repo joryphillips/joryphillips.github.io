@@ -88,7 +88,7 @@ const styles = html`
       display: none;
     }
 
-    h5.title {
+    h2.title {
       margin: 0;
       font-size: 1.1rem;
     }
@@ -141,7 +141,14 @@ const styles = html`
       display: none;
     }
 
-
+    .visible-hidden {
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
   </style>
 `;
 
@@ -158,23 +165,36 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
     ${styles}
 
     <div class="image-container">
-      <img class="image visible block" data-src="${imageSourcePath}" alt="image of ${project.title}">
+      <img
+        class="image visible block"
+        data-src="${imageSourcePath}"
+        alt="image of ${project.title}">
     </div>
     <div class="project-card-title">
-      <h5 class="title">${project.title}</h5>
+      <h2 class="title">${project.title}</h2>
       <div class="info-icons">
-        <button
-          ?hidden=${!project.description}
-          class="info"
-          @click=${()=> handleInfoClick(project)}
-        ><img src="${IMAGE_PATH}info-black-18dp.svg"></button>
-        <a ?hidden=${!project.href} class="link" href="${project.href}">
-          <img src="${IMAGE_PATH}launch-black-18dp.svg">
-        </a>
+        ${project.description ? html`
+          <button
+            class="info"
+            aria-label="Get more project info"
+            @click=${()=> handleInfoClick(project)}
+          ><img src="${IMAGE_PATH}info-black-18dp.svg" alt="More info"></button>
+        ` : ''}
+        ${project.href ? html `
+          <a class="link" href="${project.href}">
+            <img src="${IMAGE_PATH}launch-black-18dp.svg" alt="External link">
+            <span class="visible-hidden">Go to project reference</span>
+          </a>
+        ` : ''}
       </div>
     </div>
     <p ?hidden=${!selected} class="description">${project.description}</p>
-    <button ?hidden=${!selected} class="close" @click=${handleInfoCloseClick}>Close</button>
+    <button
+      ?hidden=${!selected}
+      class="close"
+      aria-label="Close detail and return to full project list"
+      @click=${handleInfoCloseClick}
+    >Close</button>
   `;
 }
 

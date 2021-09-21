@@ -125,5 +125,4 @@ export function ProjectList() {
 
 const {component} = haunted({render});
 
-// any is needed to deal with typing issue in haunted
-customElements.define('project-list', component(ProjectList as any));
+customElements.define('project-list', component(ProjectList));

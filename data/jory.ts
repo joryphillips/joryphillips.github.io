@@ -58,7 +58,7 @@ export const PORTFOLIO: Project[] = [
     title: 'Mock for plan review UI',
     date: '2021',
     description: `A high-fidelity mock for a user interface allowing fluid communication between an agency and applicant.`,
-    imageSources: ['plan_review_mock.png'],
+    imageSources: ['plan_review_mock.jpg'],
     keywords: ['software', 'ux', 'ui', 'mock', 'communication'],
   },
   {

@@ -4,11 +4,11 @@ import {Job, RESUME} from '../data/jory';
 function renderJob(job: Job) {
   return html`
     <div class="job">
-      <h3 class="title">
+      <h2 class="title">
         <span class="dark-blue">${job.place}</span>
         <span class="regular date">${job.date}</span>
-      </h3>
-      <h3 class="summary">${job.summary}</h3>
+      </h2>
+      <h2 class="summary">${job.summary}</h2>
     </div>
   `;
 }

@@ -97,12 +97,14 @@ section.experience h1 {
   margin-bottom: 4rem;
 }
 
-.job h3.title {
+.job h2.title {
   margin-top: 0;
+  font-size: 1.17em;
 }
 
-.job h3.summary {
+.job h2.summary {
   margin-top: .5rem;
+  font-size: 1.17em;
 }
 
 footer {

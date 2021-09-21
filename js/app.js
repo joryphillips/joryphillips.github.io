@@ -860,7 +860,7 @@ const styles$1 = y `
       display: none;
     }
 
-    h5.title {
+    h2.title {
       margin: 0;
       font-size: 1.1rem;
     }
@@ -913,7 +913,14 @@ const styles$1 = y `
       display: none;
     }
 
-
+    .visible-hidden {
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
   </style>
 `;
 function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected }) {
@@ -925,23 +932,36 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
     ${styles$1}
 
     <div class="image-container">
-      <img class="image visible block" data-src="${imageSourcePath}" alt="image of ${project.title}">
+      <img
+        class="image visible block"
+        data-src="${imageSourcePath}"
+        alt="image of ${project.title}">
     </div>
     <div class="project-card-title">
-      <h5 class="title">${project.title}</h5>
+      <h2 class="title">${project.title}</h2>
       <div class="info-icons">
-        <button
-          ?hidden=${!project.description}
-          class="info"
-          @click=${() => handleInfoClick(project)}
-        ><img src="${IMAGE_PATH}info-black-18dp.svg"></button>
-        <a ?hidden=${!project.href} class="link" href="${project.href}">
-          <img src="${IMAGE_PATH}launch-black-18dp.svg">
-        </a>
+        ${project.description ? y `
+          <button
+            class="info"
+            aria-label="Get more project info"
+            @click=${() => handleInfoClick(project)}
+          ><img src="${IMAGE_PATH}info-black-18dp.svg" alt="More info"></button>
+        ` : ''}
+        ${project.href ? y `
+          <a class="link" href="${project.href}">
+            <img src="${IMAGE_PATH}launch-black-18dp.svg" alt="External link">
+            <span class="visible-hidden">Go to project reference</span>
+          </a>
+        ` : ''}
       </div>
     </div>
     <p ?hidden=${!selected} class="description">${project.description}</p>
-    <button ?hidden=${!selected} class="close" @click=${handleInfoCloseClick}>Close</button>
+    <button
+      ?hidden=${!selected}
+      class="close"
+      aria-label="Close detail and return to full project list"
+      @click=${handleInfoCloseClick}
+    >Close</button>
   `;
 }
 const { component: component$1 } = haunted({ render: A });
@@ -990,7 +1010,7 @@ const PORTFOLIO = [
         title: 'Mock for plan review UI',
         date: '2021',
         description: `A high-fidelity mock for a user interface allowing fluid communication between an agency and applicant.`,
-        imageSources: ['plan_review_mock.png'],
+        imageSources: ['plan_review_mock.jpg'],
         keywords: ['software', 'ux', 'ui', 'mock', 'communication'],
     },
     {
@@ -1286,11 +1306,11 @@ const summary = y `
 function renderJob(job) {
     return y `
     <div class="job">
-      <h3 class="title">
+      <h2 class="title">
         <span class="dark-blue">${job.place}</span>
         <span class="regular date">${job.date}</span>
-      </h3>
-      <h3 class="summary">${job.summary}</h3>
+      </h2>
+      <h2 class="summary">${job.summary}</h2>
     </div>
   `;
 }
@@ -1319,7 +1339,7 @@ const mainPage = y `
   ${navBar}
   ${jumbotron}
   ${summary}
-  <project-list></project-list>
+  <project-list id="visuals"></project-list>
   ${jobs}
   ${footer}
 `;
