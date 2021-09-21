@@ -71,181 +71,15 @@ section.summary p {
   line-height: 2.2rem;
 }
 
-section.visuals {
-  background-color: #ddd;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.visuals-header {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-section.visuals h1 {
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 0;
-  margin: 0 1rem .25rem 0;
-  white-space: nowrap;
-}
-
-input[type="search"] {
-  font-family: inherit;
-  font-size: inherit;
-  display: block;
-  width: 100%;
-  padding: .5rem;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.search-box {
-  position: relative;
-  flex: 2 1 auto;
-  min-width: 200px;
-}
-
-.search-box label.hide {
-  position: absolute!important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px,1px,1px,1px);
-}
-
-div[role="listbox"] {
-  display: none;
-  background-color: #FFF;
-  border: 1px solid #ccc;
-}
-
-div[role="listbox"], button[role="option"] {
-  box-sizing: border-box;
-  width: 100%;
-}
-
-div[role="listbox"].show {
-  display: block;
-  position: absolute;
-  z-index: 10;
-  max-height: 200px;
-  overflow-y: scroll;
-}
-
-button[role="option"] {
-  background-color: #FFF;;
-  border-bottom: 1px solid #ccc;
-  font-size: inherit;
-  text-align: left;
-  padding: .5rem;
-}
-
-button[role="option"]:last-of-type {
-  border-bottom: none;
-}
-
-.project-holder {
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-  grid-auto-rows: minmax(300px, auto);
-}
-
 .container {
   display: block;
   max-width: 48rem;
   margin: 0 auto;
 }
 
-.project-holder.container .image-container {
-  height: auto;
-}
-
-.project-card-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: .5rem;
-}
-
-.proj .description {
-  margin: .5rem;
-  line-height: 1.7;
-}
-
-.info-icons, .info-icons .info, .info-icons .link {
-  display: flex;
-  align-items: center;
-}
-
-.info-icons .info, .info-icons .link {
-  background-color: transparent;
-  opacity: .7;
-  padding: 0 0 0 0.7rem;
-}
-
-.info-icons .info:hover, .info-icons .link:hover {
-  opacity: 1;
-}
-
-.info img, .link img {
-  width: 1.6rem;
-  height: 1.6rem;
-}
-
-.info.display-none, .link.display-none {
-  display: none;
-}
-
-.proj h5.title {
-  margin: 0;
-  font-size: 1.1rem;
-}
-
 .date {
   margin-left: 0.5rem;
 }
-
-.proj {
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-}
-
-.proj .image-container img {
-  opacity: 0;
-}
-
-.proj .image-container img.visible {
-  opacity: 1;
-}
-
-.width-100 {
-  width: 100%
-}
-
-.image-container {
-  display: flex;
-  height: 300px;
-  padding: 8px;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.image-container > * {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-}
-
 
 section.experience {
   padding-top: 4rem;
@@ -286,7 +120,6 @@ footer .container {
 footer a {
   font-size: .75rem;
 }
-
 
 .border-bottom {
   border-bottom-style: solid;

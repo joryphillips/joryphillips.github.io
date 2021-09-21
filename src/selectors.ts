@@ -1,20 +1,9 @@
+/**
+ * Used to help keep track of things used in query selectors, which are
+ * notoriously easy to break when making CSS changes.
+ */
 export enum Selector {
-  SEARCH_BOX = '.search-box',
-  SEARCH_INPUT = 'input[type="search"]',
-  ROLE_LISTBOX = '[role="listbox"]',
-  ROLE_OPTION = '[role="option"]',
-  JOB_TEMPLATE_ID = '#job',
-  KEYWORDS_TEMPLATE_ID = '#keywords',
-  PROJECT_TEMPLATE_ID = '#project',
-  PROJECT_HOLDER = '.project-holder',
+  HEADER = 'header',
   PROJECT_IMAGE = '.image-container img',
-  PROJECT_INFO_ICON = '.info-icons .info',
-  PROJECT_LINK_ICON = '.info-icons .link',
-  PROJECT = '.proj',
-  PROJECT_TITLE = '.proj h5.title',
-  PROJECT_DESCRIPTION = '.description',
-  PROJECT_DESCRIPTION_CLOSE = 'button.close',
-  JOB_HOLDER = '.job-holder',
-  NAVIGATION_LINK = 'nav a',
-  VISUALS_HEADER = '.visuals-header',
+  SEARCH_INPUT = 'input[type="search"]',
 }
