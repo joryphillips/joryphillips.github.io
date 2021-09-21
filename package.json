@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Resume and Portfolio Static Page with native HTML Templates",
   "main": "./src/app.ts",
-  "dependencies": {},
+  "dependencies": {
+    "haunted": "^4.8.2",
+    "lit-html": "^1.4.1"
+  },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.5",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",

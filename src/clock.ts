@@ -6,16 +6,15 @@ function rotateHand(element: Element, degree: number): void {
 
 const ONE_SEC = 1000;
 
-export function addClockPrototype(element: Element): void {
-  const image = element.querySelector('.image-container').querySelector('img');
+export function addClockPrototype(image: HTMLImageElement|undefined, parentEl: Element): void {
   if (!image) return;
   const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
   image.replaceWith(fragment);
 
   const clockWork = ()=> {
     const date = new Date();
-    const min = document.querySelector('#min');
-    const hour = document.querySelector('#hour');
+    const min = parentEl.shadowRoot.querySelector('#min');
+    const hour = parentEl.shadowRoot.querySelector('#hour');
     if (!min || !hour) return;
 
     rotateHand(min, 6 * date.getMinutes());

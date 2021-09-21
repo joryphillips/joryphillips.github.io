@@ -526,16 +526,15 @@ function rotateHand(element, degree) {
     element.setAttribute('transform', `rotate(${degree} 1504.5 593.2)`);
 }
 const ONE_SEC = 1000;
-function addClockPrototype(element) {
-    const image = element.querySelector('.image-container').querySelector('img');
+function addClockPrototype(image, parentEl) {
     if (!image)
         return;
     const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
     image.replaceWith(fragment);
     const clockWork = () => {
         const date = new Date();
-        const min = document.querySelector('#min');
-        const hour = document.querySelector('#hour');
+        const min = parentEl.shadowRoot.querySelector('#min');
+        const hour = parentEl.shadowRoot.querySelector('#hour');
         if (!min || !hour)
             return;
         rotateHand(min, 6 * date.getMinutes());
