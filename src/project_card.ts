@@ -1,4 +1,6 @@
-import {html, component, useEffect} from 'haunted';
+import {html, render} from 'lit';
+import haunted, {useEffect} from 'haunted';
+
 
 import {Project} from '../data/jory';
 import {Selector} from './selectors';
@@ -175,6 +177,8 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
     <button ?hidden=${!selected} class="close" @click=${handleInfoCloseClick}>Close</button>
   `;
 }
+
+const {component} = haunted({render});
 
 // any is needed to deal with typing issue in haunted
 customElements.define('project-card', component(ProjectCard as any));

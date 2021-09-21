@@ -1,5 +1,6 @@
-import {html, component, useState} from 'haunted';
-import {repeat} from 'lit-html/directives/repeat';
+import {html, render} from 'lit';
+import {repeat} from 'lit/directives/repeat.js';
+import haunted, {useState} from 'haunted';
 
 import './search_input';
 import './project_card';
@@ -90,7 +91,7 @@ export function ProjectList() {
   };
 
   const projects = PORTFOLIO
-  .filter(project => shouldShowProject(searchValue, project));
+    .filter(project => shouldShowProject(searchValue, project));
 
   return html`
     ${styles}
@@ -121,6 +122,8 @@ export function ProjectList() {
     </section>
   `;
 }
+
+const {component} = haunted({render});
 
 // any is needed to deal with typing issue in haunted
 customElements.define('project-list', component(ProjectList as any));

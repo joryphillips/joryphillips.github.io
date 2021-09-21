@@ -1,132 +1,48 @@
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
  */
-const directives = new WeakMap();
-/**
- * Brands a function as a directive factory function so that lit-html will call
- * the function during template rendering, rather than passing as a value.
- *
- * A _directive_ is a function that takes a Part as an argument. It has the
- * signature: `(part: Part) => void`.
- *
- * A directive _factory_ is a function that takes arguments for data and
- * configuration and returns a directive. Users of directive usually refer to
- * the directive factory as the directive. For example, "The repeat directive".
- *
- * Usually a template author will invoke a directive factory in their template
- * with relevant arguments, which will then return a directive function.
- *
- * Here's an example of using the `repeat()` directive factory that takes an
- * array and a function to render an item:
- *
- * ```js
- * html`<ul><${repeat(items, (item) => html`<li>${item}</li>`)}</ul>`
- * ```
- *
- * When `repeat` is invoked, it returns a directive function that closes over
- * `items` and the template function. When the outer template is rendered, the
- * return directive function is called with the Part for the expression.
- * `repeat` then performs it's custom logic to render multiple items.
- *
- * @param f The directive factory function. Must be a function that returns a
- * function of the signature `(part: Part) => void`. The returned function will
- * be called with the part object.
- *
- * @example
- *
- * import {directive, html} from 'lit-html';
- *
- * const immutable = directive((v) => (part) => {
- *   if (part.value !== v) {
- *     part.setValue(v)
- *   }
- * });
- */
-const directive = (f) => ((...args) => {
-    const d = f(...args);
-    directives.set(d, true);
-    return d;
-});
-const isDirective = (o) => {
-    return typeof o === 'function' && directives.has(o);
-};
+const t$2=window.ShadowRoot&&(void 0===window.ShadyCSS||window.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,e$4=Symbol(),n$3=new Map;class s$3{constructor(t,n){if(this._$cssResult$=!0,n!==e$4)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t;}get styleSheet(){let e=n$3.get(this.cssText);return t$2&&void 0===e&&(n$3.set(this.cssText,e=new CSSStyleSheet),e.replaceSync(this.cssText)),e}toString(){return this.cssText}}const o$4=t=>new s$3("string"==typeof t?t:t+"",e$4),i$3=(e,n)=>{t$2?e.adoptedStyleSheets=n.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):n.forEach((t=>{const n=document.createElement("style"),s=window.litNonce;void 0!==s&&n.setAttribute("nonce",s),n.textContent=t.cssText,e.appendChild(n);}));},S$1=t$2?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const n of t.cssRules)e+=n.cssText;return o$4(e)})(t):t;
 
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * True if the custom elements polyfill is in use.
- */
-const isCEPolyfill = typeof window !== 'undefined' &&
-    window.customElements != null &&
-    window.customElements.polyfillWrapFlushCallback !==
-        undefined;
-/**
- * Reparents nodes, starting from `start` (inclusive) to `end` (exclusive),
- * into another container (could be the same container), before `before`. If
- * `before` is null, it appends the nodes to the container.
- */
-const reparentNodes = (container, start, end = null, before = null) => {
-    while (start !== end) {
-        const n = start.nextSibling;
-        container.insertBefore(start, before);
-        start = n;
-    }
-};
-/**
- * Removes nodes, starting from `start` (inclusive) to `end` (exclusive), from
- * `container`.
- */
-const removeNodes = (container, start, end = null) => {
-    while (start !== end) {
-        const n = start.nextSibling;
-        container.removeChild(start);
-        start = n;
-    }
-};
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */var s$2,e$3;const r$2={toAttribute(t,i){switch(i){case Boolean:t=t?"":null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,i){let s=t;switch(i){case Boolean:s=null!==t;break;case Number:s=null===t?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t);}catch(t){s=null;}}return s}},h$1=(t,i)=>i!==t&&(i==i||t==t),o$3={attribute:!0,type:String,converter:r$2,reflect:!1,hasChanged:h$1};class n$2 extends HTMLElement{constructor(){super(),this._$Et=new Map,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Ei=null,this.o();}static addInitializer(t){var i;null!==(i=this.l)&&void 0!==i||(this.l=[]),this.l.push(t);}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,s)=>{const e=this._$Eh(s,i);void 0!==e&&(this._$Eu.set(e,s),t.push(e));})),t}static createProperty(t,i=o$3){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const s="symbol"==typeof t?Symbol():"__"+t,e=this.getPropertyDescriptor(t,s,i);void 0!==e&&Object.defineProperty(this.prototype,t,e);}}static getPropertyDescriptor(t,i,s){return {get(){return this[i]},set(e){const r=this[t];this[i]=e,this.requestUpdate(t,r,s);},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||o$3}static finalize(){if(this.hasOwnProperty("finalized"))return !1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this._$Eu=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const s of i)this.createProperty(s,t[s]);}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(i){const s=[];if(Array.isArray(i)){const e=new Set(i.flat(1/0).reverse());for(const i of e)s.unshift(S$1(i));}else void 0!==i&&s.push(S$1(i));return s}static _$Eh(t,i){const s=i.attribute;return !1===s?void 0:"string"==typeof s?s:"string"==typeof t?t.toLowerCase():void 0}o(){var t;this._$Ev=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$Ep(),this.requestUpdate(),null===(t=this.constructor.l)||void 0===t||t.forEach((t=>t(this)));}addController(t){var i,s;(null!==(i=this._$Em)&&void 0!==i?i:this._$Em=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(s=t.hostConnected)||void 0===s||s.call(t));}removeController(t){var i;null===(i=this._$Em)||void 0===i||i.splice(this._$Em.indexOf(t)>>>0,1);}_$Ep(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this._$Et.set(i,this[i]),delete this[i]);}));}createRenderRoot(){var t;const s=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return i$3(s,this.constructor.elementStyles),s}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this._$Em)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)}));}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this._$Em)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)}));}attributeChangedCallback(t,i,s){this._$AK(t,s);}_$Eg(t,i,s=o$3){var e,h;const n=this.constructor._$Eh(t,s);if(void 0!==n&&!0===s.reflect){const o=(null!==(h=null===(e=s.converter)||void 0===e?void 0:e.toAttribute)&&void 0!==h?h:r$2.toAttribute)(i,s.type);this._$Ei=t,null==o?this.removeAttribute(n):this.setAttribute(n,o),this._$Ei=null;}}_$AK(t,i){var s,e,h;const o=this.constructor,n=o._$Eu.get(t);if(void 0!==n&&this._$Ei!==n){const t=o.getPropertyOptions(n),l=t.converter,a=null!==(h=null!==(e=null===(s=l)||void 0===s?void 0:s.fromAttribute)&&void 0!==e?e:"function"==typeof l?l:null)&&void 0!==h?h:r$2.fromAttribute;this._$Ei=n,this[n]=a(i,t.type),this._$Ei=null;}}requestUpdate(t,i,s){let e=!0;void 0!==t&&(((s=s||this.constructor.getPropertyOptions(t)).hasChanged||h$1)(this[t],i)?(this._$AL.has(t)||this._$AL.set(t,i),!0===s.reflect&&this._$Ei!==t&&(void 0===this._$ES&&(this._$ES=new Map),this._$ES.set(t,s))):e=!1),!this.isUpdatePending&&e&&(this._$Ev=this._$EC());}async _$EC(){this.isUpdatePending=!0;try{await this._$Ev;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this._$Et&&(this._$Et.forEach(((t,i)=>this[i]=t)),this._$Et=void 0);let i=!1;const s=this._$AL;try{i=this.shouldUpdate(s),i?(this.willUpdate(s),null===(t=this._$Em)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(s)):this._$ET();}catch(t){throw i=!1,this._$ET(),t}i&&this._$AE(s);}willUpdate(t){}_$AE(t){var i;null===(i=this._$Em)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t);}_$ET(){this._$AL=new Map,this.isUpdatePending=!1;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$Ev}shouldUpdate(t){return !0}update(t){void 0!==this._$ES&&(this._$ES.forEach(((t,i)=>this._$Eg(i,this[i],t))),this._$ES=void 0),this._$ET();}updated(t){}firstUpdated(t){}}n$2.finalized=!0,n$2.elementProperties=new Map,n$2.elementStyles=[],n$2.shadowRootOptions={mode:"open"},null===(s$2=globalThis.reactiveElementPolyfillSupport)||void 0===s$2||s$2.call(globalThis,{ReactiveElement:n$2}),(null!==(e$3=globalThis.reactiveElementVersions)&&void 0!==e$3?e$3:globalThis.reactiveElementVersions=[]).push("1.0.0");
 
 /**
  * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
  */
+var t$1,i$2;const s$1=globalThis.trustedTypes,e$2=s$1?s$1.createPolicy("lit-html",{createHTML:t=>t}):void 0,o$2=`lit$${(Math.random()+"").slice(9)}$`,n$1="?"+o$2,l$1=`<${n$1}>`,h=document,r$1=(t="")=>h.createComment(t),d=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$2=Array.isArray,v=t=>{var i;return u$2(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])},c$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,a$1=/-->/g,f$1=/>/g,_=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,g=/'/g,m$1=/"/g,$=/^(?:script|style|textarea)$/i,p=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),y=p(1),T=Symbol.for("lit-noChange"),x=Symbol.for("lit-nothing"),w=new WeakMap,A=(t,i,s)=>{var e,o;const n=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let l=n._$litPart$;if(void 0===l){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;n._$litPart$=l=new S(i.insertBefore(r$1(),t),t,void 0,null!=s?s:{});}return l._$AI(t),l},C=h.createTreeWalker(h,129,null,!1),P=(t,i)=>{const s=t.length-1,n=[];let h,r=2===i?"<svg>":"",d=c$2;for(let i=0;i<s;i++){const s=t[i];let e,u,v=-1,p=0;for(;p<s.length&&(d.lastIndex=p,u=d.exec(s),null!==u);)p=d.lastIndex,d===c$2?"!--"===u[1]?d=a$1:void 0!==u[1]?d=f$1:void 0!==u[2]?($.test(u[2])&&(h=RegExp("</"+u[2],"g")),d=_):void 0!==u[3]&&(d=_):d===_?">"===u[0]?(d=null!=h?h:c$2,v=-1):void 0===u[1]?v=-2:(v=d.lastIndex-u[2].length,e=u[1],d=void 0===u[3]?_:'"'===u[3]?m$1:g):d===m$1||d===g?d=_:d===a$1||d===f$1?d=c$2:(d=_,h=void 0);const y=d===_&&t[i+1].startsWith("/>")?" ":"";r+=d===c$2?s+l$1:v>=0?(n.push(e),s.slice(0,v)+"$lit$"+s.slice(v)+o$2+y):s+o$2+(-2===v?(n.push(void 0),i):y);}const u=r+(t[s]||"<?>")+(2===i?"</svg>":"");return [void 0!==e$2?e$2.createHTML(u):u,n]};class V{constructor({strings:t,_$litType$:i},e){let l;this.parts=[];let h=0,d=0;const u=t.length-1,v=this.parts,[c,a]=P(t,i);if(this.el=V.createElement(c,e),C.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(l=C.nextNode())&&v.length<u;){if(1===l.nodeType){if(l.hasAttributes()){const t=[];for(const i of l.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(o$2)){const s=a[d++];if(t.push(i),void 0!==s){const t=l.getAttribute(s.toLowerCase()+"$lit$").split(o$2),i=/([.?@])?(.*)/.exec(s);v.push({type:1,index:h,name:i[2],strings:t,ctor:"."===i[1]?k:"?"===i[1]?H:"@"===i[1]?I:M});}else v.push({type:6,index:h});}for(const i of t)l.removeAttribute(i);}if($.test(l.tagName)){const t=l.textContent.split(o$2),i=t.length-1;if(i>0){l.textContent=s$1?s$1.emptyScript:"";for(let s=0;s<i;s++)l.append(t[s],r$1()),C.nextNode(),v.push({type:2,index:++h});l.append(t[i],r$1());}}}else if(8===l.nodeType)if(l.data===n$1)v.push({type:2,index:h});else {let t=-1;for(;-1!==(t=l.data.indexOf(o$2,t+1));)v.push({type:7,index:h}),t+=o$2.length-1;}h++;}}static createElement(t,i){const s=h.createElement("template");return s.innerHTML=t,s}}function E(t,i,s=t,e){var o,n,l,h;if(i===T)return i;let r=void 0!==e?null===(o=s._$Cl)||void 0===o?void 0:o[e]:s._$Cu;const u=d(i)?void 0:i._$litDirective$;return (null==r?void 0:r.constructor)!==u&&(null===(n=null==r?void 0:r._$AO)||void 0===n||n.call(r,!1),void 0===u?r=void 0:(r=new u(t),r._$AT(t,s,e)),void 0!==e?(null!==(l=(h=s)._$Cl)&&void 0!==l?l:h._$Cl=[])[e]=r:s._$Cu=r),void 0!==r&&(i=E(t,r._$AS(t,i.values),r,e)),i}class N{constructor(t,i){this.v=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}p(t){var i;const{el:{content:s},parts:e}=this._$AD,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:h).importNode(s,!0);C.currentNode=o;let n=C.nextNode(),l=0,r=0,d=e[0];for(;void 0!==d;){if(l===d.index){let i;2===d.type?i=new S(n,n.nextSibling,this,t):1===d.type?i=new d.ctor(n,d.name,d.strings,this,t):6===d.type&&(i=new L(n,this,t)),this.v.push(i),d=e[++r];}l!==(null==d?void 0:d.index)&&(n=C.nextNode(),l++);}return o}m(t){let i=0;for(const s of this.v)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class S{constructor(t,i,s,e){var o;this.type=2,this._$AH=x,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cg=null===(o=null==e?void 0:e.isConnected)||void 0===o||o;}get _$AU(){var t,i;return null!==(i=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==i?i:this._$Cg}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=E(this,t,i),d(t)?t===x||null==t||""===t?(this._$AH!==x&&this._$AR(),this._$AH=x):t!==this._$AH&&t!==T&&this.$(t):void 0!==t._$litType$?this.T(t):void 0!==t.nodeType?this.S(t):v(t)?this.M(t):this.$(t);}A(t,i=this._$AB){return this._$AA.parentNode.insertBefore(t,i)}S(t){this._$AH!==t&&(this._$AR(),this._$AH=this.A(t));}$(t){this._$AH!==x&&d(this._$AH)?this._$AA.nextSibling.data=t:this.S(h.createTextNode(t)),this._$AH=t;}T(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this._$AC(t):(void 0===e.el&&(e.el=V.createElement(e.h,this.options)),e);if((null===(i=this._$AH)||void 0===i?void 0:i._$AD)===o)this._$AH.m(s);else {const t=new N(o,this),i=t.p(this.options);t.m(s),this.S(i),this._$AH=t;}}_$AC(t){let i=w.get(t.strings);return void 0===i&&w.set(t.strings,i=new V(t)),i}M(t){u$2(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const o of t)e===i.length?i.push(s=new S(this.A(r$1()),this.A(r$1()),this,this.options)):s=i[e],s._$AI(o),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){var s;for(null===(s=this._$AP)||void 0===s||s.call(this,!1,!0,i);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){var i;void 0===this._$AM&&(this._$Cg=t,null===(i=this._$AP)||void 0===i||i.call(this,t));}}class M{constructor(t,i,s,e,o){this.type=1,this._$AH=x,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=x;}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,i=this,s,e){const o=this.strings;let n=!1;if(void 0===o)t=E(this,t,i,0),n=!d(t)||t!==this._$AH&&t!==T,n&&(this._$AH=t);else {const e=t;let l,h;for(t=o[0],l=0;l<o.length-1;l++)h=E(this,e[s+l],i,l),h===T&&(h=this._$AH[l]),n||(n=!d(h)||h!==this._$AH[l]),h===x?t=x:t!==x&&(t+=(null!=h?h:"")+o[l+1]),this._$AH[l]=h;}n&&!e&&this.k(t);}k(t){t===x?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class k extends M{constructor(){super(...arguments),this.type=3;}k(t){this.element[this.name]=t===x?void 0:t;}}class H extends M{constructor(){super(...arguments),this.type=4;}k(t){t&&t!==x?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name);}}class I extends M{constructor(t,i,s,e,o){super(t,i,s,e,o),this.type=5;}_$AI(t,i=this){var s;if((t=null!==(s=E(this,t,i,0))&&void 0!==s?s:x)===T)return;const e=this._$AH,o=t===x&&e!==x||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,n=t!==x&&(e===x||o);o&&this.element.removeEventListener(this.name,this,e),n&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){var i,s;"function"==typeof this._$AH?this._$AH.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this._$AH.handleEvent(t);}}class L{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){E(this,t);}}const R={P:"$lit$",V:o$2,L:n$1,I:1,N:P,R:N,D:v,j:E,H:S,O:M,F:H,B:I,W:k,Z:L};null===(t$1=globalThis.litHtmlPolyfillSupport)||void 0===t$1||t$1.call(globalThis,V,S),(null!==(i$2=globalThis.litHtmlVersions)&&void 0!==i$2?i$2:globalThis.litHtmlVersions=[]).push("2.0.0");
+
 /**
- * A sentinel value that signals that a value was handled by a directive and
- * should not be written to the DOM.
- */
-const noChange = {};
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */var l,o$1,r;class n extends n$2{constructor(){super(...arguments),this.renderOptions={host:this},this._$Dt=void 0;}createRenderRoot(){var t,e;const i=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=i.firstChild),i}update(t){const i=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Dt=A(i,this.renderRoot,this.renderOptions);}connectedCallback(){var t;super.connectedCallback(),null===(t=this._$Dt)||void 0===t||t.setConnected(!0);}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this._$Dt)||void 0===t||t.setConnected(!1);}render(){return T}}n.finalized=!0,n._$litElement$=!0,null===(l=globalThis.litElementHydrateSupport)||void 0===l||l.call(globalThis,{LitElement:n}),null===(o$1=globalThis.litElementPolyfillSupport)||void 0===o$1||o$1.call(globalThis,{LitElement:n});(null!==(r=globalThis.litElementVersions)&&void 0!==r?r:globalThis.litElementVersions=[]).push("3.0.0");
+
 /**
- * A sentinel value that signals a NodePart to fully clear its content.
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
  */
-const nothing = {};
+const t={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},e$1=t=>(...e)=>({_$litDirective$:t,values:e});class i$1{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const {H:i}=R,e=()=>document.createComment(""),u$1=(o,t,n)=>{var v;const l=o._$AA.parentNode,d=void 0===t?o._$AB:t._$AA;if(void 0===n){const t=l.insertBefore(e(),d),v=l.insertBefore(e(),d);n=new i(t,v,o,o.options);}else {const i=n._$AB.nextSibling,t=n._$AM,r=t!==o;if(r){let i;null===(v=n._$AQ)||void 0===v||v.call(n,o),n._$AM=o,void 0!==n._$AP&&(i=o._$AU)!==t._$AU&&n._$AP(i);}if(i!==d||r){let o=n._$AA;for(;o!==i;){const i=o.nextSibling;l.insertBefore(o,d),o=i;}}}return n},c$1=(o,i,t=o)=>(o._$AI(i,t),o),f={},s=(o,i=f)=>o._$AH=i,a=o=>o._$AH,m=o=>{var i;null===(i=o._$AP)||void 0===i||i.call(o,!1,!0);let t=o._$AA;const n=o._$AB.nextSibling;for(;t!==n;){const o=t.nextSibling;t.remove(),t=o;}};
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const u=(e,s,t)=>{const r=new Map;for(let l=s;l<=t;l++)r.set(e[l],l);return r},c=e$1(class extends i$1{constructor(e){if(super(e),e.type!==t.CHILD)throw Error("repeat() can only be used in text expressions")}dt(e,s,t){let r;void 0===t?t=s:void 0!==s&&(r=s);const l=[],o=[];let i=0;for(const s of e)l[i]=r?r(s,i):i,o[i]=t(s,i),i++;return {values:o,keys:l}}render(e,s,t){return this.dt(e,s,t).values}update(s$1,[t,r,c]){var d;const a$1=a(s$1),{values:p,keys:v}=this.dt(t,r,c);if(!Array.isArray(a$1))return this.ct=v,p;const h=null!==(d=this.ct)&&void 0!==d?d:this.ct=[],m$1=[];let y,x,j=0,k=a$1.length-1,w=0,A=p.length-1;for(;j<=k&&w<=A;)if(null===a$1[j])j++;else if(null===a$1[k])k--;else if(h[j]===v[w])m$1[w]=c$1(a$1[j],p[w]),j++,w++;else if(h[k]===v[A])m$1[A]=c$1(a$1[k],p[A]),k--,A--;else if(h[j]===v[A])m$1[A]=c$1(a$1[j],p[A]),u$1(s$1,m$1[A+1],a$1[j]),j++,A--;else if(h[k]===v[w])m$1[w]=c$1(a$1[k],p[w]),u$1(s$1,a$1[j],a$1[k]),k--,w++;else if(void 0===y&&(y=u(v,w,A),x=u(h,j,k)),y.has(h[j]))if(y.has(h[k])){const e=x.get(v[w]),t=void 0!==e?a$1[e]:null;if(null===t){const e=u$1(s$1,a$1[j]);c$1(e,p[w]),m$1[w]=e;}else m$1[w]=c$1(t,p[w]),u$1(s$1,a$1[j],t),a$1[e]=null;w++;}else m(a$1[k]),k--;else m(a$1[j]),j++;for(;w<=A;){const e=u$1(s$1,m$1[A+1]);c$1(e,p[w]),m$1[w++]=e;}for(;j<=k;){const e=a$1[j++];null!==e&&m(e);}return this.ct=v,s(s$1,m$1),T}});
 
 /**
  * @license
@@ -145,335 +61,7 @@ const nothing = {};
  * An expression marker with embedded unique key to avoid collision with
  * possible text in templates.
  */
-const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
-/**
- * An expression marker used text-positions, multi-binding attributes, and
- * attributes with markup-like text values.
- */
-const nodeMarker = `<!--${marker}-->`;
-const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
-/**
- * Suffix appended to all bound attribute names.
- */
-const boundAttributeSuffix = '$lit$';
-/**
- * An updatable Template that tracks the location of dynamic parts.
- */
-class Template {
-    constructor(result, element) {
-        this.parts = [];
-        this.element = element;
-        const nodesToRemove = [];
-        const stack = [];
-        // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-        const walker = document.createTreeWalker(element.content, 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */, null, false);
-        // Keeps track of the last index associated with a part. We try to delete
-        // unnecessary nodes, but we never want to associate two different parts
-        // to the same index. They must have a constant node between.
-        let lastPartIndex = 0;
-        let index = -1;
-        let partIndex = 0;
-        const { strings, values: { length } } = result;
-        while (partIndex < length) {
-            const node = walker.nextNode();
-            if (node === null) {
-                // We've exhausted the content inside a nested template element.
-                // Because we still have parts (the outer for-loop), we know:
-                // - There is a template in the stack
-                // - The walker will find a nextNode outside the template
-                walker.currentNode = stack.pop();
-                continue;
-            }
-            index++;
-            if (node.nodeType === 1 /* Node.ELEMENT_NODE */) {
-                if (node.hasAttributes()) {
-                    const attributes = node.attributes;
-                    const { length } = attributes;
-                    // Per
-                    // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
-                    // attributes are not guaranteed to be returned in document order.
-                    // In particular, Edge/IE can return them out of order, so we cannot
-                    // assume a correspondence between part index and attribute index.
-                    let count = 0;
-                    for (let i = 0; i < length; i++) {
-                        if (endsWith(attributes[i].name, boundAttributeSuffix)) {
-                            count++;
-                        }
-                    }
-                    while (count-- > 0) {
-                        // Get the template literal section leading up to the first
-                        // expression in this attribute
-                        const stringForPart = strings[partIndex];
-                        // Find the attribute name
-                        const name = lastAttributeNameRegex.exec(stringForPart)[2];
-                        // Find the corresponding attribute
-                        // All bound attributes have had a suffix added in
-                        // TemplateResult#getHTML to opt out of special attribute
-                        // handling. To look up the attribute value we also need to add
-                        // the suffix.
-                        const attributeLookupName = name.toLowerCase() + boundAttributeSuffix;
-                        const attributeValue = node.getAttribute(attributeLookupName);
-                        node.removeAttribute(attributeLookupName);
-                        const statics = attributeValue.split(markerRegex);
-                        this.parts.push({ type: 'attribute', index, name, strings: statics });
-                        partIndex += statics.length - 1;
-                    }
-                }
-                if (node.tagName === 'TEMPLATE') {
-                    stack.push(node);
-                    walker.currentNode = node.content;
-                }
-            }
-            else if (node.nodeType === 3 /* Node.TEXT_NODE */) {
-                const data = node.data;
-                if (data.indexOf(marker) >= 0) {
-                    const parent = node.parentNode;
-                    const strings = data.split(markerRegex);
-                    const lastIndex = strings.length - 1;
-                    // Generate a new text node for each literal section
-                    // These nodes are also used as the markers for node parts
-                    for (let i = 0; i < lastIndex; i++) {
-                        let insert;
-                        let s = strings[i];
-                        if (s === '') {
-                            insert = createMarker();
-                        }
-                        else {
-                            const match = lastAttributeNameRegex.exec(s);
-                            if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
-                                s = s.slice(0, match.index) + match[1] +
-                                    match[2].slice(0, -boundAttributeSuffix.length) + match[3];
-                            }
-                            insert = document.createTextNode(s);
-                        }
-                        parent.insertBefore(insert, node);
-                        this.parts.push({ type: 'node', index: ++index });
-                    }
-                    // If there's no text, we must insert a comment to mark our place.
-                    // Else, we can trust it will stick around after cloning.
-                    if (strings[lastIndex] === '') {
-                        parent.insertBefore(createMarker(), node);
-                        nodesToRemove.push(node);
-                    }
-                    else {
-                        node.data = strings[lastIndex];
-                    }
-                    // We have a part for each match found
-                    partIndex += lastIndex;
-                }
-            }
-            else if (node.nodeType === 8 /* Node.COMMENT_NODE */) {
-                if (node.data === marker) {
-                    const parent = node.parentNode;
-                    // Add a new marker node to be the startNode of the Part if any of
-                    // the following are true:
-                    //  * We don't have a previousSibling
-                    //  * The previousSibling is already the start of a previous part
-                    if (node.previousSibling === null || index === lastPartIndex) {
-                        index++;
-                        parent.insertBefore(createMarker(), node);
-                    }
-                    lastPartIndex = index;
-                    this.parts.push({ type: 'node', index });
-                    // If we don't have a nextSibling, keep this node so we have an end.
-                    // Else, we can remove it to save future costs.
-                    if (node.nextSibling === null) {
-                        node.data = '';
-                    }
-                    else {
-                        nodesToRemove.push(node);
-                        index--;
-                    }
-                    partIndex++;
-                }
-                else {
-                    let i = -1;
-                    while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
-                        // Comment node has a binding marker inside, make an inactive part
-                        // The binding won't work, but subsequent bindings will
-                        // TODO (justinfagnani): consider whether it's even worth it to
-                        // make bindings in comments work
-                        this.parts.push({ type: 'node', index: -1 });
-                        partIndex++;
-                    }
-                }
-            }
-        }
-        // Remove text binding nodes after the walk to not disturb the TreeWalker
-        for (const n of nodesToRemove) {
-            n.parentNode.removeChild(n);
-        }
-    }
-}
-const endsWith = (str, suffix) => {
-    const index = str.length - suffix.length;
-    return index >= 0 && str.slice(index) === suffix;
-};
-const isTemplatePartActive = (part) => part.index !== -1;
-// Allows `document.createComment('')` to be renamed for a
-// small manual size-savings.
-const createMarker = () => document.createComment('');
-/**
- * This regex extracts the attribute name preceding an attribute-position
- * expression. It does this by matching the syntax allowed for attributes
- * against the string literal directly preceding the expression, assuming that
- * the expression is in an attribute-value position.
- *
- * See attributes in the HTML spec:
- * https://www.w3.org/TR/html5/syntax.html#elements-attributes
- *
- * " \x09\x0a\x0c\x0d" are HTML space characters:
- * https://www.w3.org/TR/html5/infrastructure.html#space-characters
- *
- * "\0-\x1F\x7F-\x9F" are Unicode control characters, which includes every
- * space character except " ".
- *
- * So an attribute is:
- *  * The name: any character except a control character, space character, ('),
- *    ("), ">", "=", or "/"
- *  * Followed by zero or more space characters
- *  * Followed by "="
- *  * Followed by zero or more space characters
- *  * Followed by:
- *    * Any character except space, ('), ("), "<", ">", "=", (`), or
- *    * (") then any non-("), or
- *    * (') then any non-(')
- */
-const lastAttributeNameRegex = 
-// eslint-disable-next-line no-control-regex
-/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * An instance of a `Template` that can be attached to the DOM and updated
- * with new values.
- */
-class TemplateInstance {
-    constructor(template, processor, options) {
-        this.__parts = [];
-        this.template = template;
-        this.processor = processor;
-        this.options = options;
-    }
-    update(values) {
-        let i = 0;
-        for (const part of this.__parts) {
-            if (part !== undefined) {
-                part.setValue(values[i]);
-            }
-            i++;
-        }
-        for (const part of this.__parts) {
-            if (part !== undefined) {
-                part.commit();
-            }
-        }
-    }
-    _clone() {
-        // There are a number of steps in the lifecycle of a template instance's
-        // DOM fragment:
-        //  1. Clone - create the instance fragment
-        //  2. Adopt - adopt into the main document
-        //  3. Process - find part markers and create parts
-        //  4. Upgrade - upgrade custom elements
-        //  5. Update - set node, attribute, property, etc., values
-        //  6. Connect - connect to the document. Optional and outside of this
-        //     method.
-        //
-        // We have a few constraints on the ordering of these steps:
-        //  * We need to upgrade before updating, so that property values will pass
-        //    through any property setters.
-        //  * We would like to process before upgrading so that we're sure that the
-        //    cloned fragment is inert and not disturbed by self-modifying DOM.
-        //  * We want custom elements to upgrade even in disconnected fragments.
-        //
-        // Given these constraints, with full custom elements support we would
-        // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
-        //
-        // But Safari does not implement CustomElementRegistry#upgrade, so we
-        // can not implement that order and still have upgrade-before-update and
-        // upgrade disconnected fragments. So we instead sacrifice the
-        // process-before-upgrade constraint, since in Custom Elements v1 elements
-        // must not modify their light DOM in the constructor. We still have issues
-        // when co-existing with CEv0 elements like Polymer 1, and with polyfills
-        // that don't strictly adhere to the no-modification rule because shadow
-        // DOM, which may be created in the constructor, is emulated by being placed
-        // in the light DOM.
-        //
-        // The resulting order is on native is: Clone, Adopt, Upgrade, Process,
-        // Update, Connect. document.importNode() performs Clone, Adopt, and Upgrade
-        // in one step.
-        //
-        // The Custom Elements v1 polyfill supports upgrade(), so the order when
-        // polyfilled is the more ideal: Clone, Process, Adopt, Upgrade, Update,
-        // Connect.
-        const fragment = isCEPolyfill ?
-            this.template.element.content.cloneNode(true) :
-            document.importNode(this.template.element.content, true);
-        const stack = [];
-        const parts = this.template.parts;
-        // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-        const walker = document.createTreeWalker(fragment, 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */, null, false);
-        let partIndex = 0;
-        let nodeIndex = 0;
-        let part;
-        let node = walker.nextNode();
-        // Loop through all the nodes and parts of a template
-        while (partIndex < parts.length) {
-            part = parts[partIndex];
-            if (!isTemplatePartActive(part)) {
-                this.__parts.push(undefined);
-                partIndex++;
-                continue;
-            }
-            // Progress the tree walker until we find our next part's node.
-            // Note that multiple parts may share the same node (attribute parts
-            // on a single element), so this loop may not run at all.
-            while (nodeIndex < part.index) {
-                nodeIndex++;
-                if (node.nodeName === 'TEMPLATE') {
-                    stack.push(node);
-                    walker.currentNode = node.content;
-                }
-                if ((node = walker.nextNode()) === null) {
-                    // We've exhausted the content inside a nested template element.
-                    // Because we still have parts (the outer for-loop), we know:
-                    // - There is a template in the stack
-                    // - The walker will find a nextNode outside the template
-                    walker.currentNode = stack.pop();
-                    node = walker.nextNode();
-                }
-            }
-            // We've arrived at our part's node.
-            if (part.type === 'node') {
-                const part = this.processor.handleTextExpression(this.options);
-                part.insertAfterNode(node.previousSibling);
-                this.__parts.push(part);
-            }
-            else {
-                this.__parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings, this.options));
-            }
-            partIndex++;
-        }
-        if (isCEPolyfill) {
-            document.adoptNode(fragment);
-            customElements.upgrade(fragment);
-        }
-        return fragment;
-    }
-}
+`{{lit-${String(Math.random()).slice(2)}}}`;
 
 /**
  * @license
@@ -496,90 +84,8 @@ class TemplateInstance {
  * before any untrusted expressions have been mixed in. Therefor it is
  * considered safe by construction.
  */
-const policy = window.trustedTypes &&
+window.trustedTypes &&
     trustedTypes.createPolicy('lit-html', { createHTML: (s) => s });
-const commentMarker = ` ${marker} `;
-/**
- * The return type of `html`, which holds a Template and the values from
- * interpolated expressions.
- */
-class TemplateResult {
-    constructor(strings, values, type, processor) {
-        this.strings = strings;
-        this.values = values;
-        this.type = type;
-        this.processor = processor;
-    }
-    /**
-     * Returns a string of HTML used to create a `<template>` element.
-     */
-    getHTML() {
-        const l = this.strings.length - 1;
-        let html = '';
-        let isCommentBinding = false;
-        for (let i = 0; i < l; i++) {
-            const s = this.strings[i];
-            // For each binding we want to determine the kind of marker to insert
-            // into the template source before it's parsed by the browser's HTML
-            // parser. The marker type is based on whether the expression is in an
-            // attribute, text, or comment position.
-            //   * For node-position bindings we insert a comment with the marker
-            //     sentinel as its text content, like <!--{{lit-guid}}-->.
-            //   * For attribute bindings we insert just the marker sentinel for the
-            //     first binding, so that we support unquoted attribute bindings.
-            //     Subsequent bindings can use a comment marker because multi-binding
-            //     attributes must be quoted.
-            //   * For comment bindings we insert just the marker sentinel so we don't
-            //     close the comment.
-            //
-            // The following code scans the template source, but is *not* an HTML
-            // parser. We don't need to track the tree structure of the HTML, only
-            // whether a binding is inside a comment, and if not, if it appears to be
-            // the first binding in an attribute.
-            const commentOpen = s.lastIndexOf('<!--');
-            // We're in comment position if we have a comment open with no following
-            // comment close. Because <-- can appear in an attribute value there can
-            // be false positives.
-            isCommentBinding = (commentOpen > -1 || isCommentBinding) &&
-                s.indexOf('-->', commentOpen + 1) === -1;
-            // Check to see if we have an attribute-like sequence preceding the
-            // expression. This can match "name=value" like structures in text,
-            // comments, and attribute values, so there can be false-positives.
-            const attributeMatch = lastAttributeNameRegex.exec(s);
-            if (attributeMatch === null) {
-                // We're only in this branch if we don't have a attribute-like
-                // preceding sequence. For comments, this guards against unusual
-                // attribute values like <div foo="<!--${'bar'}">. Cases like
-                // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
-                // below.
-                html += s + (isCommentBinding ? commentMarker : nodeMarker);
-            }
-            else {
-                // For attributes we use just a marker sentinel, and also append a
-                // $lit$ suffix to the name to opt-out of attribute-specific parsing
-                // that IE and Edge do for style and certain SVG attributes.
-                html += s.substr(0, attributeMatch.index) + attributeMatch[1] +
-                    attributeMatch[2] + boundAttributeSuffix + attributeMatch[3] +
-                    marker;
-            }
-        }
-        html += this.strings[l];
-        return html;
-    }
-    getTemplateElement() {
-        const template = document.createElement('template');
-        let value = this.getHTML();
-        if (policy !== undefined) {
-            // this is secure because `this.strings` is a TemplateStringsArray.
-            // TODO: validate this when
-            // https://github.com/tc39/proposal-array-is-template-object is
-            // implemented.
-            value = policy.createHTML(value);
-        }
-        template.innerHTML = value;
-        return template;
-    }
-}
 
 /**
  * @license
@@ -594,383 +100,6 @@ class TemplateResult {
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-const isPrimitive = (value) => {
-    return (value === null ||
-        !(typeof value === 'object' || typeof value === 'function'));
-};
-const isIterable = (value) => {
-    return Array.isArray(value) ||
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        !!(value && value[Symbol.iterator]);
-};
-/**
- * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attribute. The value is only set once even if there are multiple parts
- * for an attribute.
- */
-class AttributeCommitter {
-    constructor(element, name, strings) {
-        this.dirty = true;
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-        this.parts = [];
-        for (let i = 0; i < strings.length - 1; i++) {
-            this.parts[i] = this._createPart();
-        }
-    }
-    /**
-     * Creates a single part. Override this to create a differnt type of part.
-     */
-    _createPart() {
-        return new AttributePart(this);
-    }
-    _getValue() {
-        const strings = this.strings;
-        const l = strings.length - 1;
-        const parts = this.parts;
-        // If we're assigning an attribute via syntax like:
-        //    attr="${foo}"  or  attr=${foo}
-        // but not
-        //    attr="${foo} ${bar}" or attr="${foo} baz"
-        // then we don't want to coerce the attribute value into one long
-        // string. Instead we want to just return the value itself directly,
-        // so that sanitizeDOMValue can get the actual value rather than
-        // String(value)
-        // The exception is if v is an array, in which case we do want to smash
-        // it together into a string without calling String() on the array.
-        //
-        // This also allows trusted values (when using TrustedTypes) being
-        // assigned to DOM sinks without being stringified in the process.
-        if (l === 1 && strings[0] === '' && strings[1] === '') {
-            const v = parts[0].value;
-            if (typeof v === 'symbol') {
-                return String(v);
-            }
-            if (typeof v === 'string' || !isIterable(v)) {
-                return v;
-            }
-        }
-        let text = '';
-        for (let i = 0; i < l; i++) {
-            text += strings[i];
-            const part = parts[i];
-            if (part !== undefined) {
-                const v = part.value;
-                if (isPrimitive(v) || !isIterable(v)) {
-                    text += typeof v === 'string' ? v : String(v);
-                }
-                else {
-                    for (const t of v) {
-                        text += typeof t === 'string' ? t : String(t);
-                    }
-                }
-            }
-        }
-        text += strings[l];
-        return text;
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            this.element.setAttribute(this.name, this._getValue());
-        }
-    }
-}
-/**
- * A Part that controls all or part of an attribute value.
- */
-class AttributePart {
-    constructor(committer) {
-        this.value = undefined;
-        this.committer = committer;
-    }
-    setValue(value) {
-        if (value !== noChange && (!isPrimitive(value) || value !== this.value)) {
-            this.value = value;
-            // If the value is a not a directive, dirty the committer so that it'll
-            // call setAttribute. If the value is a directive, it'll dirty the
-            // committer if it calls setValue().
-            if (!isDirective(value)) {
-                this.committer.dirty = true;
-            }
-        }
-    }
-    commit() {
-        while (isDirective(this.value)) {
-            const directive = this.value;
-            this.value = noChange;
-            directive(this);
-        }
-        if (this.value === noChange) {
-            return;
-        }
-        this.committer.commit();
-    }
-}
-/**
- * A Part that controls a location within a Node tree. Like a Range, NodePart
- * has start and end locations and can set and update the Nodes between those
- * locations.
- *
- * NodeParts support several value types: primitives, Nodes, TemplateResults,
- * as well as arrays and iterables of those types.
- */
-class NodePart {
-    constructor(options) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        this.options = options;
-    }
-    /**
-     * Appends this part into a container.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    appendInto(container) {
-        this.startNode = container.appendChild(createMarker());
-        this.endNode = container.appendChild(createMarker());
-    }
-    /**
-     * Inserts this part after the `ref` node (between `ref` and `ref`'s next
-     * sibling). Both `ref` and its next sibling must be static, unchanging nodes
-     * such as those that appear in a literal section of a template.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    insertAfterNode(ref) {
-        this.startNode = ref;
-        this.endNode = ref.nextSibling;
-    }
-    /**
-     * Appends this part into a parent part.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    appendIntoPart(part) {
-        part.__insert(this.startNode = createMarker());
-        part.__insert(this.endNode = createMarker());
-    }
-    /**
-     * Inserts this part after the `ref` part.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    insertAfterPart(ref) {
-        ref.__insert(this.startNode = createMarker());
-        this.endNode = ref.endNode;
-        ref.endNode = this.startNode;
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        if (this.startNode.parentNode === null) {
-            return;
-        }
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        const value = this.__pendingValue;
-        if (value === noChange) {
-            return;
-        }
-        if (isPrimitive(value)) {
-            if (value !== this.value) {
-                this.__commitText(value);
-            }
-        }
-        else if (value instanceof TemplateResult) {
-            this.__commitTemplateResult(value);
-        }
-        else if (value instanceof Node) {
-            this.__commitNode(value);
-        }
-        else if (isIterable(value)) {
-            this.__commitIterable(value);
-        }
-        else if (value === nothing) {
-            this.value = nothing;
-            this.clear();
-        }
-        else {
-            // Fallback, will render the string representation
-            this.__commitText(value);
-        }
-    }
-    __insert(node) {
-        this.endNode.parentNode.insertBefore(node, this.endNode);
-    }
-    __commitNode(value) {
-        if (this.value === value) {
-            return;
-        }
-        this.clear();
-        this.__insert(value);
-        this.value = value;
-    }
-    __commitText(value) {
-        const node = this.startNode.nextSibling;
-        value = value == null ? '' : value;
-        // If `value` isn't already a string, we explicitly convert it here in case
-        // it can't be implicitly converted - i.e. it's a symbol.
-        const valueAsString = typeof value === 'string' ? value : String(value);
-        if (node === this.endNode.previousSibling &&
-            node.nodeType === 3 /* Node.TEXT_NODE */) {
-            // If we only have a single text node between the markers, we can just
-            // set its value, rather than replacing it.
-            // TODO(justinfagnani): Can we just check if this.value is primitive?
-            node.data = valueAsString;
-        }
-        else {
-            this.__commitNode(document.createTextNode(valueAsString));
-        }
-        this.value = value;
-    }
-    __commitTemplateResult(value) {
-        const template = this.options.templateFactory(value);
-        if (this.value instanceof TemplateInstance &&
-            this.value.template === template) {
-            this.value.update(value.values);
-        }
-        else {
-            // Make sure we propagate the template processor from the TemplateResult
-            // so that we use its syntax extension, etc. The template factory comes
-            // from the render function options so that it can control template
-            // caching and preprocessing.
-            const instance = new TemplateInstance(template, value.processor, this.options);
-            const fragment = instance._clone();
-            instance.update(value.values);
-            this.__commitNode(fragment);
-            this.value = instance;
-        }
-    }
-    __commitIterable(value) {
-        // For an Iterable, we create a new InstancePart per item, then set its
-        // value to the item. This is a little bit of overhead for every item in
-        // an Iterable, but it lets us recurse easily and efficiently update Arrays
-        // of TemplateResults that will be commonly returned from expressions like:
-        // array.map((i) => html`${i}`), by reusing existing TemplateInstances.
-        // If _value is an array, then the previous render was of an
-        // iterable and _value will contain the NodeParts from the previous
-        // render. If _value is not an array, clear this part and make a new
-        // array for NodeParts.
-        if (!Array.isArray(this.value)) {
-            this.value = [];
-            this.clear();
-        }
-        // Lets us keep track of how many items we stamped so we can clear leftover
-        // items from a previous render
-        const itemParts = this.value;
-        let partIndex = 0;
-        let itemPart;
-        for (const item of value) {
-            // Try to reuse an existing part
-            itemPart = itemParts[partIndex];
-            // If no existing part, create a new one
-            if (itemPart === undefined) {
-                itemPart = new NodePart(this.options);
-                itemParts.push(itemPart);
-                if (partIndex === 0) {
-                    itemPart.appendIntoPart(this);
-                }
-                else {
-                    itemPart.insertAfterPart(itemParts[partIndex - 1]);
-                }
-            }
-            itemPart.setValue(item);
-            itemPart.commit();
-            partIndex++;
-        }
-        if (partIndex < itemParts.length) {
-            // Truncate the parts array so _value reflects the current state
-            itemParts.length = partIndex;
-            this.clear(itemPart && itemPart.endNode);
-        }
-    }
-    clear(startNode = this.startNode) {
-        removeNodes(this.startNode.parentNode, startNode.nextSibling, this.endNode);
-    }
-}
-/**
- * Implements a boolean attribute, roughly as defined in the HTML
- * specification.
- *
- * If the value is truthy, then the attribute is present with a value of
- * ''. If the value is falsey, the attribute is removed.
- */
-class BooleanAttributePart {
-    constructor(element, name, strings) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-            throw new Error('Boolean attributes can only contain a single expression');
-        }
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const value = !!this.__pendingValue;
-        if (this.value !== value) {
-            if (value) {
-                this.element.setAttribute(this.name, '');
-            }
-            else {
-                this.element.removeAttribute(this.name);
-            }
-            this.value = value;
-        }
-        this.__pendingValue = noChange;
-    }
-}
-/**
- * Sets attribute values for PropertyParts, so that the value is only set once
- * even if there are multiple parts for a property.
- *
- * If an expression controls the whole property value, then the value is simply
- * assigned to the property under control. If there are string literals or
- * multiple expressions, then the strings are expressions are interpolated into
- * a string first.
- */
-class PropertyCommitter extends AttributeCommitter {
-    constructor(element, name, strings) {
-        super(element, name, strings);
-        this.single =
-            (strings.length === 2 && strings[0] === '' && strings[1] === '');
-    }
-    _createPart() {
-        return new PropertyPart(this);
-    }
-    _getValue() {
-        if (this.single) {
-            return this.parts[0].value;
-        }
-        return super._getValue();
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this.element[this.name] = this._getValue();
-        }
-    }
-}
-class PropertyPart extends AttributePart {
-}
 // Detect event listener options support. If the `capture` property is read
 // from the options object, then options are supported. If not, then the third
 // argument to add/removeEventListener is interpreted as the boolean capture
@@ -995,199 +124,6 @@ let eventOptionsSupported = false;
         // event options not supported
     }
 })();
-class EventPart {
-    constructor(element, eventName, eventContext) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        this.element = element;
-        this.eventName = eventName;
-        this.eventContext = eventContext;
-        this.__boundHandleEvent = (e) => this.handleEvent(e);
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const newListener = this.__pendingValue;
-        const oldListener = this.value;
-        const shouldRemoveListener = newListener == null ||
-            oldListener != null &&
-                (newListener.capture !== oldListener.capture ||
-                    newListener.once !== oldListener.once ||
-                    newListener.passive !== oldListener.passive);
-        const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
-        if (shouldRemoveListener) {
-            this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        if (shouldAddListener) {
-            this.__options = getOptions(newListener);
-            this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        this.value = newListener;
-        this.__pendingValue = noChange;
-    }
-    handleEvent(event) {
-        if (typeof this.value === 'function') {
-            this.value.call(this.eventContext || this.element, event);
-        }
-        else {
-            this.value.handleEvent(event);
-        }
-    }
-}
-// We copy options because of the inconsistent behavior of browsers when reading
-// the third argument of add/removeEventListener. IE11 doesn't support options
-// at all. Chrome 41 only reads `capture` if the argument is an object.
-const getOptions = (o) => o &&
-    (eventOptionsSupported ?
-        { capture: o.capture, passive: o.passive, once: o.once } :
-        o.capture);
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Creates Parts when a template is instantiated.
- */
-class DefaultTemplateProcessor {
-    /**
-     * Create parts for an attribute-position binding, given the event, attribute
-     * name, and string literals.
-     *
-     * @param element The element containing the binding
-     * @param name  The attribute name
-     * @param strings The string literals. There are always at least two strings,
-     *   event for fully-controlled bindings with a single expression.
-     */
-    handleAttributeExpressions(element, name, strings, options) {
-        const prefix = name[0];
-        if (prefix === '.') {
-            const committer = new PropertyCommitter(element, name.slice(1), strings);
-            return committer.parts;
-        }
-        if (prefix === '@') {
-            return [new EventPart(element, name.slice(1), options.eventContext)];
-        }
-        if (prefix === '?') {
-            return [new BooleanAttributePart(element, name.slice(1), strings)];
-        }
-        const committer = new AttributeCommitter(element, name, strings);
-        return committer.parts;
-    }
-    /**
-     * Create parts for a text-position binding.
-     * @param templateFactory
-     */
-    handleTextExpression(options) {
-        return new NodePart(options);
-    }
-}
-const defaultTemplateProcessor = new DefaultTemplateProcessor();
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * The default TemplateFactory which caches Templates keyed on
- * result.type and result.strings.
- */
-function templateFactory(result) {
-    let templateCache = templateCaches.get(result.type);
-    if (templateCache === undefined) {
-        templateCache = {
-            stringsArray: new WeakMap(),
-            keyString: new Map()
-        };
-        templateCaches.set(result.type, templateCache);
-    }
-    let template = templateCache.stringsArray.get(result.strings);
-    if (template !== undefined) {
-        return template;
-    }
-    // If the TemplateStringsArray is new, generate a key from the strings
-    // This key is shared between all templates with identical content
-    const key = result.strings.join(marker);
-    // Check if we already have a Template for this key
-    template = templateCache.keyString.get(key);
-    if (template === undefined) {
-        // If we have not seen this key before, create a new Template
-        template = new Template(result, result.getTemplateElement());
-        // Cache the Template for this key
-        templateCache.keyString.set(key, template);
-    }
-    // Cache all future queries for this TemplateStringsArray
-    templateCache.stringsArray.set(result.strings, template);
-    return template;
-}
-const templateCaches = new Map();
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const parts = new WeakMap();
-/**
- * Renders a template result or other value to a container.
- *
- * To update a container with new values, reevaluate the template literal and
- * call `render` with the new result.
- *
- * @param result Any value renderable by NodePart - typically a TemplateResult
- *     created by evaluating a template tag like `html` or `svg`.
- * @param container A DOM parent to render to. The entire contents are either
- *     replaced, or efficiently updated if the same result type was previous
- *     rendered there.
- * @param options RenderOptions for the entire render tree rendered to this
- *     container. Render options must *not* change between renders to the same
- *     container, as those changes will not effect previously rendered DOM.
- */
-const render = (result, container, options) => {
-    let part = parts.get(container);
-    if (part === undefined) {
-        removeNodes(container, container.firstChild);
-        parts.set(container, part = new NodePart(Object.assign({ templateFactory }, options)));
-        part.appendInto(container);
-    }
-    part.setValue(result);
-    part.commit();
-};
 
 /**
  * @license
@@ -1208,11 +144,6 @@ const render = (result, container, options) => {
 if (typeof window !== 'undefined') {
     (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.1');
 }
-/**
- * Interprets a template literal as an HTML template that can efficiently
- * render to and update a container.
- */
-const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
 
 let current;
 let currentId = 0;
@@ -1712,521 +643,11 @@ function haunted({ render }) {
     return { component, createContext };
 }
 
-const { component, createContext } = haunted({ render });
-
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-// Helper functions for manipulating parts
-// TODO(kschaaf): Refactor into Part API?
-const createAndInsertPart = (containerPart, beforePart) => {
-    const container = containerPart.startNode.parentNode;
-    const beforeNode = beforePart === undefined ? containerPart.endNode :
-        beforePart.startNode;
-    const startNode = container.insertBefore(createMarker(), beforeNode);
-    container.insertBefore(createMarker(), beforeNode);
-    const newPart = new NodePart(containerPart.options);
-    newPart.insertAfterNode(startNode);
-    return newPart;
-};
-const updatePart = (part, value) => {
-    part.setValue(value);
-    part.commit();
-    return part;
-};
-const insertPartBefore = (containerPart, part, ref) => {
-    const container = containerPart.startNode.parentNode;
-    const beforeNode = ref ? ref.startNode : containerPart.endNode;
-    const endNode = part.endNode.nextSibling;
-    if (endNode !== beforeNode) {
-        reparentNodes(container, part.startNode, endNode, beforeNode);
-    }
-};
-const removePart = (part) => {
-    removeNodes(part.startNode.parentNode, part.startNode, part.endNode.nextSibling);
-};
-// Helper for generating a map of array item to its index over a subset
-// of an array (used to lazily generate `newKeyToIndexMap` and
-// `oldKeyToIndexMap`)
-const generateMap = (list, start, end) => {
-    const map = new Map();
-    for (let i = start; i <= end; i++) {
-        map.set(list[i], i);
-    }
-    return map;
-};
-// Stores previous ordered list of parts and map of key to index
-const partListCache = new WeakMap();
-const keyListCache = new WeakMap();
-/**
- * A directive that repeats a series of values (usually `TemplateResults`)
- * generated from an iterable, and updates those items efficiently when the
- * iterable changes based on user-provided `keys` associated with each item.
- *
- * Note that if a `keyFn` is provided, strict key-to-DOM mapping is maintained,
- * meaning previous DOM for a given key is moved into the new position if
- * needed, and DOM will never be reused with values for different keys (new DOM
- * will always be created for new keys). This is generally the most efficient
- * way to use `repeat` since it performs minimum unnecessary work for insertions
- * and removals.
- *
- * IMPORTANT: If providing a `keyFn`, keys *must* be unique for all items in a
- * given call to `repeat`. The behavior when two or more items have the same key
- * is undefined.
- *
- * If no `keyFn` is provided, this directive will perform similar to mapping
- * items to values, and DOM will be reused against potentially different items.
- */
-const repeat = directive((items, keyFnOrTemplate, template) => {
-    let keyFn;
-    if (template === undefined) {
-        template = keyFnOrTemplate;
-    }
-    else if (keyFnOrTemplate !== undefined) {
-        keyFn = keyFnOrTemplate;
-    }
-    return (containerPart) => {
-        if (!(containerPart instanceof NodePart)) {
-            throw new Error('repeat can only be used in text bindings');
-        }
-        // Old part & key lists are retrieved from the last update
-        // (associated with the part for this instance of the directive)
-        const oldParts = partListCache.get(containerPart) || [];
-        const oldKeys = keyListCache.get(containerPart) || [];
-        // New part list will be built up as we go (either reused from
-        // old parts or created for new keys in this update). This is
-        // saved in the above cache at the end of the update.
-        const newParts = [];
-        // New value list is eagerly generated from items along with a
-        // parallel array indicating its key.
-        const newValues = [];
-        const newKeys = [];
-        let index = 0;
-        for (const item of items) {
-            newKeys[index] = keyFn ? keyFn(item, index) : index;
-            newValues[index] = template(item, index);
-            index++;
-        }
-        // Maps from key to index for current and previous update; these
-        // are generated lazily only when needed as a performance
-        // optimization, since they are only required for multiple
-        // non-contiguous changes in the list, which are less common.
-        let newKeyToIndexMap;
-        let oldKeyToIndexMap;
-        // Head and tail pointers to old parts and new values
-        let oldHead = 0;
-        let oldTail = oldParts.length - 1;
-        let newHead = 0;
-        let newTail = newValues.length - 1;
-        // Overview of O(n) reconciliation algorithm (general approach
-        // based on ideas found in ivi, vue, snabbdom, etc.):
-        //
-        // * We start with the list of old parts and new values (and
-        //   arrays of their respective keys), head/tail pointers into
-        //   each, and we build up the new list of parts by updating
-        //   (and when needed, moving) old parts or creating new ones.
-        //   The initial scenario might look like this (for brevity of
-        //   the diagrams, the numbers in the array reflect keys
-        //   associated with the old parts or new values, although keys
-        //   and parts/values are actually stored in parallel arrays
-        //   indexed using the same head/tail pointers):
-        //
-        //      oldHead v                 v oldTail
-        //   oldKeys:  [0, 1, 2, 3, 4, 5, 6]
-        //   newParts: [ ,  ,  ,  ,  ,  ,  ]
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6] <- reflects the user's new
-        //                                      item order
-        //      newHead ^                 ^ newTail
-        //
-        // * Iterate old & new lists from both sides, updating,
-        //   swapping, or removing parts at the head/tail locations
-        //   until neither head nor tail can move.
-        //
-        // * Example below: keys at head pointers match, so update old
-        //   part 0 in-place (no need to move it) and record part 0 in
-        //   the `newParts` list. The last thing we do is advance the
-        //   `oldHead` and `newHead` pointers (will be reflected in the
-        //   next diagram).
-        //
-        //      oldHead v                 v oldTail
-        //   oldKeys:  [0, 1, 2, 3, 4, 5, 6]
-        //   newParts: [0,  ,  ,  ,  ,  ,  ] <- heads matched: update 0
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    and advance both oldHead
-        //                                      & newHead
-        //      newHead ^                 ^ newTail
-        //
-        // * Example below: head pointers don't match, but tail
-        //   pointers do, so update part 6 in place (no need to move
-        //   it), and record part 6 in the `newParts` list. Last,
-        //   advance the `oldTail` and `oldHead` pointers.
-        //
-        //         oldHead v              v oldTail
-        //   oldKeys:  [0, 1, 2, 3, 4, 5, 6]
-        //   newParts: [0,  ,  ,  ,  ,  , 6] <- tails matched: update 6
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    and advance both oldTail
-        //                                      & newTail
-        //         newHead ^              ^ newTail
-        //
-        // * If neither head nor tail match; next check if one of the
-        //   old head/tail items was removed. We first need to generate
-        //   the reverse map of new keys to index (`newKeyToIndexMap`),
-        //   which is done once lazily as a performance optimization,
-        //   since we only hit this case if multiple non-contiguous
-        //   changes were made. Note that for contiguous removal
-        //   anywhere in the list, the head and tails would advance
-        //   from either end and pass each other before we get to this
-        //   case and removals would be handled in the final while loop
-        //   without needing to generate the map.
-        //
-        // * Example below: The key at `oldTail` was removed (no longer
-        //   in the `newKeyToIndexMap`), so remove that part from the
-        //   DOM and advance just the `oldTail` pointer.
-        //
-        //         oldHead v           v oldTail
-        //   oldKeys:  [0, 1, 2, 3, 4, 5, 6]
-        //   newParts: [0,  ,  ,  ,  ,  , 6] <- 5 not in new map: remove
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    5 and advance oldTail
-        //         newHead ^           ^ newTail
-        //
-        // * Once head and tail cannot move, any mismatches are due to
-        //   either new or moved items; if a new key is in the previous
-        //   "old key to old index" map, move the old part to the new
-        //   location, otherwise create and insert a new part. Note
-        //   that when moving an old part we null its position in the
-        //   oldParts array if it lies between the head and tail so we
-        //   know to skip it when the pointers get there.
-        //
-        // * Example below: neither head nor tail match, and neither
-        //   were removed; so find the `newHead` key in the
-        //   `oldKeyToIndexMap`, and move that old part's DOM into the
-        //   next head position (before `oldParts[oldHead]`). Last,
-        //   null the part in the `oldPart` array since it was
-        //   somewhere in the remaining oldParts still to be scanned
-        //   (between the head and tail pointers) so that we know to
-        //   skip that old part on future iterations.
-        //
-        //         oldHead v        v oldTail
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6]
-        //   newParts: [0, 2,  ,  ,  ,  , 6] <- stuck: update & move 2
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    into place and advance
-        //                                      newHead
-        //         newHead ^           ^ newTail
-        //
-        // * Note that for moves/insertions like the one above, a part
-        //   inserted at the head pointer is inserted before the
-        //   current `oldParts[oldHead]`, and a part inserted at the
-        //   tail pointer is inserted before `newParts[newTail+1]`. The
-        //   seeming asymmetry lies in the fact that new parts are
-        //   moved into place outside in, so to the right of the head
-        //   pointer are old parts, and to the right of the tail
-        //   pointer are new parts.
-        //
-        // * We always restart back from the top of the algorithm,
-        //   allowing matching and simple updates in place to
-        //   continue...
-        //
-        // * Example below: the head pointers once again match, so
-        //   simply update part 1 and record it in the `newParts`
-        //   array.  Last, advance both head pointers.
-        //
-        //         oldHead v        v oldTail
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6]
-        //   newParts: [0, 2, 1,  ,  ,  , 6] <- heads matched: update 1
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    and advance both oldHead
-        //                                      & newHead
-        //            newHead ^        ^ newTail
-        //
-        // * As mentioned above, items that were moved as a result of
-        //   being stuck (the final else clause in the code below) are
-        //   marked with null, so we always advance old pointers over
-        //   these so we're comparing the next actual old value on
-        //   either end.
-        //
-        // * Example below: `oldHead` is null (already placed in
-        //   newParts), so advance `oldHead`.
-        //
-        //            oldHead v     v oldTail
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6] <- old head already used:
-        //   newParts: [0, 2, 1,  ,  ,  , 6]    advance oldHead
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]
-        //               newHead ^     ^ newTail
-        //
-        // * Note it's not critical to mark old parts as null when they
-        //   are moved from head to tail or tail to head, since they
-        //   will be outside the pointer range and never visited again.
-        //
-        // * Example below: Here the old tail key matches the new head
-        //   key, so the part at the `oldTail` position and move its
-        //   DOM to the new head position (before `oldParts[oldHead]`).
-        //   Last, advance `oldTail` and `newHead` pointers.
-        //
-        //               oldHead v  v oldTail
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6]
-        //   newParts: [0, 2, 1, 4,  ,  , 6] <- old tail matches new
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]   head: update & move 4,
-        //                                     advance oldTail & newHead
-        //               newHead ^     ^ newTail
-        //
-        // * Example below: Old and new head keys match, so update the
-        //   old head part in place, and advance the `oldHead` and
-        //   `newHead` pointers.
-        //
-        //               oldHead v oldTail
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6]
-        //   newParts: [0, 2, 1, 4, 3,   ,6] <- heads match: update 3
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]    and advance oldHead &
-        //                                      newHead
-        //                  newHead ^  ^ newTail
-        //
-        // * Once the new or old pointers move past each other then all
-        //   we have left is additions (if old list exhausted) or
-        //   removals (if new list exhausted). Those are handled in the
-        //   final while loops at the end.
-        //
-        // * Example below: `oldHead` exceeded `oldTail`, so we're done
-        //   with the main loop.  Create the remaining part and insert
-        //   it at the new head position, and the update is complete.
-        //
-        //                   (oldHead > oldTail)
-        //   oldKeys:  [0, 1, -, 3, 4, 5, 6]
-        //   newParts: [0, 2, 1, 4, 3, 7 ,6] <- create and insert 7
-        //   newKeys:  [0, 2, 1, 4, 3, 7, 6]
-        //                     newHead ^ newTail
-        //
-        // * Note that the order of the if/else clauses is not
-        //   important to the algorithm, as long as the null checks
-        //   come first (to ensure we're always working on valid old
-        //   parts) and that the final else clause comes last (since
-        //   that's where the expensive moves occur). The order of
-        //   remaining clauses is is just a simple guess at which cases
-        //   will be most common.
-        //
-        // * TODO(kschaaf) Note, we could calculate the longest
-        //   increasing subsequence (LIS) of old items in new position,
-        //   and only move those not in the LIS set. However that costs
-        //   O(nlogn) time and adds a bit more code, and only helps
-        //   make rare types of mutations require fewer moves. The
-        //   above handles removes, adds, reversal, swaps, and single
-        //   moves of contiguous items in linear time, in the minimum
-        //   number of moves. As the number of multiple moves where LIS
-        //   might help approaches a random shuffle, the LIS
-        //   optimization becomes less helpful, so it seems not worth
-        //   the code at this point. Could reconsider if a compelling
-        //   case arises.
-        while (oldHead <= oldTail && newHead <= newTail) {
-            if (oldParts[oldHead] === null) {
-                // `null` means old part at head has already been used
-                // below; skip
-                oldHead++;
-            }
-            else if (oldParts[oldTail] === null) {
-                // `null` means old part at tail has already been used
-                // below; skip
-                oldTail--;
-            }
-            else if (oldKeys[oldHead] === newKeys[newHead]) {
-                // Old head matches new head; update in place
-                newParts[newHead] =
-                    updatePart(oldParts[oldHead], newValues[newHead]);
-                oldHead++;
-                newHead++;
-            }
-            else if (oldKeys[oldTail] === newKeys[newTail]) {
-                // Old tail matches new tail; update in place
-                newParts[newTail] =
-                    updatePart(oldParts[oldTail], newValues[newTail]);
-                oldTail--;
-                newTail--;
-            }
-            else if (oldKeys[oldHead] === newKeys[newTail]) {
-                // Old head matches new tail; update and move to new tail
-                newParts[newTail] =
-                    updatePart(oldParts[oldHead], newValues[newTail]);
-                insertPartBefore(containerPart, oldParts[oldHead], newParts[newTail + 1]);
-                oldHead++;
-                newTail--;
-            }
-            else if (oldKeys[oldTail] === newKeys[newHead]) {
-                // Old tail matches new head; update and move to new head
-                newParts[newHead] =
-                    updatePart(oldParts[oldTail], newValues[newHead]);
-                insertPartBefore(containerPart, oldParts[oldTail], oldParts[oldHead]);
-                oldTail--;
-                newHead++;
-            }
-            else {
-                if (newKeyToIndexMap === undefined) {
-                    // Lazily generate key-to-index maps, used for removals &
-                    // moves below
-                    newKeyToIndexMap = generateMap(newKeys, newHead, newTail);
-                    oldKeyToIndexMap = generateMap(oldKeys, oldHead, oldTail);
-                }
-                if (!newKeyToIndexMap.has(oldKeys[oldHead])) {
-                    // Old head is no longer in new list; remove
-                    removePart(oldParts[oldHead]);
-                    oldHead++;
-                }
-                else if (!newKeyToIndexMap.has(oldKeys[oldTail])) {
-                    // Old tail is no longer in new list; remove
-                    removePart(oldParts[oldTail]);
-                    oldTail--;
-                }
-                else {
-                    // Any mismatches at this point are due to additions or
-                    // moves; see if we have an old part we can reuse and move
-                    // into place
-                    const oldIndex = oldKeyToIndexMap.get(newKeys[newHead]);
-                    const oldPart = oldIndex !== undefined ? oldParts[oldIndex] : null;
-                    if (oldPart === null) {
-                        // No old part for this value; create a new one and
-                        // insert it
-                        const newPart = createAndInsertPart(containerPart, oldParts[oldHead]);
-                        updatePart(newPart, newValues[newHead]);
-                        newParts[newHead] = newPart;
-                    }
-                    else {
-                        // Reuse old part
-                        newParts[newHead] =
-                            updatePart(oldPart, newValues[newHead]);
-                        insertPartBefore(containerPart, oldPart, oldParts[oldHead]);
-                        // This marks the old part as having been used, so that
-                        // it will be skipped in the first two checks above
-                        oldParts[oldIndex] = null;
-                    }
-                    newHead++;
-                }
-            }
-        }
-        // Add parts for any remaining new values
-        while (newHead <= newTail) {
-            // For all remaining additions, we insert before last new
-            // tail, since old pointers are no longer valid
-            const newPart = createAndInsertPart(containerPart, newParts[newTail + 1]);
-            updatePart(newPart, newValues[newHead]);
-            newParts[newHead++] = newPart;
-        }
-        // Remove any remaining unused old parts
-        while (oldHead <= oldTail) {
-            const oldPart = oldParts[oldHead++];
-            if (oldPart !== null) {
-                removePart(oldPart);
-            }
-        }
-        // Save order of new parts for next round
-        partListCache.set(containerPart, newParts);
-        keyListCache.set(containerPart, newKeys);
-    };
-});
-
-/**
- * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-// IE11 doesn't support classList on SVG elements, so we emulate it with a Set
-class ClassList {
-    constructor(element) {
-        this.classes = new Set();
-        this.changed = false;
-        this.element = element;
-        const classList = (element.getAttribute('class') || '').split(/\s+/);
-        for (const cls of classList) {
-            this.classes.add(cls);
-        }
-    }
-    add(cls) {
-        this.classes.add(cls);
-        this.changed = true;
-    }
-    remove(cls) {
-        this.classes.delete(cls);
-        this.changed = true;
-    }
-    commit() {
-        if (this.changed) {
-            let classString = '';
-            this.classes.forEach((cls) => classString += cls + ' ');
-            this.element.setAttribute('class', classString);
-        }
-    }
-}
-/**
- * Stores the ClassInfo object applied to a given AttributePart.
- * Used to unset existing values when a new ClassInfo object is applied.
- */
-const previousClassesCache = new WeakMap();
-/**
- * A directive that applies CSS classes. This must be used in the `class`
- * attribute and must be the only part used in the attribute. It takes each
- * property in the `classInfo` argument and adds the property name to the
- * element's `class` if the property value is truthy; if the property value is
- * falsey, the property name is removed from the element's `class`. For example
- * `{foo: bar}` applies the class `foo` if the value of `bar` is truthy.
- * @param classInfo {ClassInfo}
- */
-const classMap = directive((classInfo) => (part) => {
-    if (!(part instanceof AttributePart) || (part instanceof PropertyPart) ||
-        part.committer.name !== 'class' || part.committer.parts.length > 1) {
-        throw new Error('The `classMap` directive must be used in the `class` attribute ' +
-            'and must be the only part in the attribute.');
-    }
-    const { committer } = part;
-    const { element } = committer;
-    let previousClasses = previousClassesCache.get(part);
-    if (previousClasses === undefined) {
-        // Write static classes once
-        // Use setAttribute() because className isn't a string on SVG elements
-        element.setAttribute('class', committer.strings.join(' '));
-        previousClassesCache.set(part, previousClasses = new Set());
-    }
-    const classList = (element.classList || new ClassList(element));
-    // Remove old classes that no longer apply
-    // We use forEach() instead of for-of so that re don't require down-level
-    // iteration.
-    previousClasses.forEach((name) => {
-        if (!(name in classInfo)) {
-            classList.remove(name);
-            previousClasses.delete(name);
-        }
-    });
-    // Add or remove classes based on their classMap value
-    for (const name in classInfo) {
-        const value = classInfo[name];
-        if (value != previousClasses.has(name)) {
-            // We explicitly want a loose truthy check of `value` because it seems
-            // more convenient that '' and 0 are skipped.
-            if (value) {
-                classList.add(name);
-                previousClasses.add(name);
-            }
-            else {
-                classList.remove(name);
-                previousClasses.delete(name);
-            }
-        }
-    }
-    if (typeof classList.commit === 'function') {
-        classList.commit();
-    }
-});
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const o=e$1(class extends i$1{constructor(t$1){var i;if(super(t$1),t$1.type!==t.ATTRIBUTE||"class"!==t$1.name||(null===(i=t$1.strings)||void 0===i?void 0:i.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return " "+Object.keys(t).filter((i=>t[i])).join(" ")+" "}update(i,[s]){var r,o;if(void 0===this.st){this.st=new Set,void 0!==i.strings&&(this.et=new Set(i.strings.join(" ").split(/\s/).filter((t=>""!==t))));for(const t in s)s[t]&&!(null===(r=this.et)||void 0===r?void 0:r.has(t))&&this.st.add(t);return this.render(s)}const e=i.element.classList;this.st.forEach((t=>{t in s||(e.remove(t),this.st.delete(t));}));for(const t in s){const i=!!s[t];i===this.st.has(t)||(null===(o=this.et)||void 0===o?void 0:o.has(t))||(i?(e.add(t),this.st.add(t)):(e.remove(t),this.st.delete(t)));}return T}});
 
 var Selector;
 (function (Selector) {
@@ -2236,7 +657,7 @@ var Selector;
 })(Selector || (Selector = {}));
 
 const DEBOUNCE_TIMEOUT = 350;
-const styles$2 = html `
+const styles$2 = y `
     <style>
       :host {
         position: relative;
@@ -2324,7 +745,7 @@ function SearchBox({ keyWords, handleSearchInput }) {
         toggleDropdown();
         handleSearchInput(keyword);
     };
-    return html `
+    return y `
     ${styles$2}
 
     <label for="search" class="hide">Search</label>
@@ -2337,8 +758,8 @@ function SearchBox({ keyWords, handleSearchInput }) {
       @focus=${handleFocus}
       @blur=${handleBlur}
     >
-    <div role="listbox" class=${classMap({ 'show': showDropDown })}>
-      ${[...keyWords].map(keyword => html `
+    <div role="listbox" class=${o({ 'show': showDropDown })}>
+      ${[...keyWords].map(keyword => y `
         <button
           role="option"
           @mousedown=${() => onDropdownButtonClick(keyword)}>${keyword}</button>
@@ -2346,7 +767,8 @@ function SearchBox({ keyWords, handleSearchInput }) {
     </div>
   `;
 }
-customElements.define('search-box', component(SearchBox));
+const { component: component$2 } = haunted({ render: A });
+customElements.define('search-box', component$2(SearchBox));
 
 function getKeyWords(list) {
     const keywords = new Set();
@@ -2391,7 +813,7 @@ function showProjectAndLoadImage(element) {
     conditionallyLoadClockPrototype(lazyImage, element);
     lazyImage.classList.add('visible');
 }
-const styles$1 = html `
+const styles$1 = y `
   <style>
     :host {
       opacity: 1;
@@ -2499,7 +921,7 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
         addIntersectionObserver(this, showProjectAndLoadImage);
     }, []);
     const imageSourcePath = IMAGE_PATH + project.imageSources[0];
-    return html `
+    return y `
     ${styles$1}
 
     <div class="image-container">
@@ -2522,7 +944,8 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
     <button ?hidden=${!selected} class="close" @click=${handleInfoCloseClick}>Close</button>
   `;
 }
-customElements.define('project-card', component(ProjectCard));
+const { component: component$1 } = haunted({ render: A });
+customElements.define('project-card', component$1(ProjectCard));
 
 const RESUME = [
     {
@@ -2726,7 +1149,7 @@ function shouldShowProject(searchValue, project) {
     const stringToSearch = keywords.join(' ') + ' ' + title.toLowerCase();
     return listHasSearchValues(searchValue, stringToSearch);
 }
-const styles = html `
+const styles = y `
   <style>
     section {
       background-color: #ddd;
@@ -2788,7 +1211,7 @@ function ProjectList() {
     };
     const projects = PORTFOLIO
         .filter(project => shouldShowProject(searchValue, project));
-    return html `
+    return y `
     ${styles}
 
     <section class="border-bottom border-top">
@@ -2801,7 +1224,7 @@ function ProjectList() {
       </div>
 
       <div class="project-holder">
-        ${repeat(projects, (project) => kebabCase(project.title), ((project) => html `
+        ${c(projects, (project) => kebabCase(project.title), ((project) => y `
               <project-card
                 ?hidden=${hideCard(project)}
                 id=${kebabCase(project.title)}
@@ -2815,6 +1238,7 @@ function ProjectList() {
     </section>
   `;
 }
+const { component } = haunted({ render: A });
 customElements.define('project-list', component(ProjectList));
 
 function scrollToId(e) {
@@ -2829,7 +1253,7 @@ function scrollToId(e) {
         history.pushState(null, null, hash);
     }
 }
-const navBar = html `
+const navBar = y `
   <header class="navy">
     <nav class="container flex-auto">
       <a href="/#summary" @click=${scrollToId} class="button button-transparent">Summary</a>
@@ -2839,14 +1263,14 @@ const navBar = html `
   </header>
 `;
 
-const jumbotron = html `
+const jumbotron = y `
   <section class="jumbo navy">
     <h1>Jory Phillips</h1>
     <h2>designer & front-end developer</h2>
   </section>
 `;
 
-const summary = html `
+const summary = y `
   <section id="summary" class="summary">
     <div class="container">
       <p>My strength is bridging big-picture concepts with detailed implementation. I am especially interested in projects that
@@ -2860,7 +1284,7 @@ const summary = html `
 `;
 
 function renderJob(job) {
-    return html `
+    return y `
     <div class="job">
       <h3 class="title">
         <span class="dark-blue">${job.place}</span>
@@ -2870,7 +1294,7 @@ function renderJob(job) {
     </div>
   `;
 }
-const jobs = html `
+const jobs = y `
   <section id="experience" class="experience">
     <div class="container">
       <h1>Experience</h1>
@@ -2881,7 +1305,7 @@ const jobs = html `
   </section>
 `;
 
-const footer = html `
+const footer = y `
   <footer class="navy border-top">
     <div class="container">
       <a href="https://www.linkedin.com/in/joryphillips" class="button button-transparent">linkedin</a>
@@ -2891,12 +1315,12 @@ const footer = html `
   </footer>
 `;
 
-const mainPage = html `
+const mainPage = y `
   ${navBar}
   ${jumbotron}
   ${summary}
-  <project-list id="visuals"></project-list>
+  <project-list></project-list>
   ${jobs}
   ${footer}
 `;
-render(mainPage, document.body);
+A(mainPage, document.body);

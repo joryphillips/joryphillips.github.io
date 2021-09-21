@@ -1,4 +1,4 @@
-import {html} from 'lit-html';
+import {html} from 'lit';
 import {Job, RESUME} from '../data/jory';
 
 function renderJob(job: Job) {

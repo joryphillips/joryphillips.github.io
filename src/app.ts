@@ -1,4 +1,4 @@
-import {html, render} from 'lit-html';
+import {html, render} from 'lit';
 
 import './project_list';
 import { navBar } from './navbar';

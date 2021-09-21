@@ -5,7 +5,7 @@
   "main": "./src/app.ts",
   "dependencies": {
     "haunted": "^4.8.2",
-    "lit-html": "^1.4.1"
+    "lit": "^2.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.4",

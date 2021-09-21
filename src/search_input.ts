@@ -1,5 +1,6 @@
-import {html, component, useState} from 'haunted';
-import {classMap} from 'lit-html/directives/class-map';
+import {html, render} from 'lit';
+import {classMap} from 'lit/directives/class-map.js';
+import haunted, {useState} from 'haunted';
 import { Selector } from './selectors';
 
 const DEBOUNCE_TIMEOUT = 350;
@@ -129,6 +130,8 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
     </div>
   `;
 }
+
+const {component} = haunted({render});
 
 // any is needed to deal with typing issue in haunted
 customElements.define('search-box', component(SearchBox as any));
