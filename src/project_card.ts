@@ -90,7 +90,8 @@ const styles = html`
 
     h2.title {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     .image-container img {

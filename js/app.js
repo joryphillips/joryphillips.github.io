@@ -704,6 +704,7 @@ const styles$2 = y `
 
       button[role="option"] {
         background-color: #FFF;;
+        border: none;
         border-bottom: 1px solid #ccc;
         font-size: inherit;
         text-align: left;
@@ -862,7 +863,8 @@ const styles$1 = y `
 
     h2.title {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     .image-container img {
@@ -969,9 +971,9 @@ customElements.define('project-card', component$1(ProjectCard));
 
 const RESUME = [
     {
-        date: 'Sept 2015 - present',
+        date: 'Sept 2015 - Sept 2021',
         place: 'Google, UX Engineer',
-        summary: 'Designing & developing apps, UIs, widgets & ways to share & shape actionable information.',
+        summary: 'Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a TL.',
         detail: 'Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipped Material-design emoji.',
     }, {
         date: 'Jan 2014 - Sept 2015',
@@ -1193,7 +1195,6 @@ const styles = y `
     }
     .project-holder {
       display: grid;
-      align-items: center;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1rem;
       grid-auto-rows: minmax(300px, auto);
@@ -1203,11 +1204,14 @@ const styles = y `
       border-bottom-width: 1px;
       border-bottom-color: rgba(0, 0, 0, .125);
     }
-
     .border-top {
       border-top-style: solid;
       border-top-width: 1px;
       border-top-color: rgba(0, 0, 0, .125);
+    }
+    footnote {
+      display: block;
+      margin-top: 2rem;
     }
   </style>
 `;
@@ -1255,6 +1259,12 @@ function ProjectList() {
               ></project-card>
             `))}
       </div>
+      <footnote>
+          A semi-random collection of things I have worked on to help
+          visually demonstrate the depth and breadth of my experience. Some
+          things are big and important, others are random ideas or short
+          explorations.
+      </footnote>
     </section>
   `;
 }
@@ -1274,7 +1284,7 @@ function scrollToId(e) {
     }
 }
 const navBar = y `
-  <header class="navy">
+  <header class="navy border-bottom">
     <nav class="container flex-auto">
       <a href="/#summary" @click=${scrollToId} class="button button-transparent">Summary</a>
       <a href="/#visuals" @click=${scrollToId} class="button button-transparent">Visuals</a>
@@ -1286,19 +1296,23 @@ const navBar = y `
 const jumbotron = y `
   <section class="jumbo navy">
     <h1>Jory Phillips</h1>
-    <h2>designer & front-end developer</h2>
+    <h2>do-gooder; designer & front-end developer</h2>
   </section>
 `;
 
 const summary = y `
   <section id="summary" class="summary">
     <div class="container">
-      <p>My strength is bridging big-picture concepts with detailed implementation. I am especially interested in projects that
-        help people navigate and understand complex things.</p>
-      <p>I have designed & developed apps for Google, helped a branding agency brand itself, and created design guidelines and
-        illustrations for major cities and a movie studio/theme park. I have also delivered scores of presentations to decision
-        makers, community groups, and professional organizations. I can prototype, design, develop, or present your ideas
-        and information with interest, interaction, and positive experiences.</p>
+      <p>My specialty is bridging big-picture concepts with detailed
+        implementation. I seek projects that help people navigate and understand
+        complex things, or simply make people's lives better.</p>
+      <p>I have designed & developed apps for Google, helped a branding agency
+        brand itself, and created design guidelines and illustrations for major
+        cities and a movie studio/theme park. I've led teams that make
+        complicated stuff, and I am often eager to attempt the impossible.</p>
+        <p>Want to collaborate?
+        <a href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">
+        Please reach out!</a></p>
     </div>
   </section>
 `;
@@ -1307,10 +1321,10 @@ function renderJob(job) {
     return y `
     <div class="job">
       <h2 class="title">
-        <span class="dark-blue">${job.place}</span>
+        <span class="cranberry">${job.place}</span>
         <span class="regular date">${job.date}</span>
       </h2>
-      <h2 class="summary">${job.summary}</h2>
+      <p class="summary">${job.summary}</p>
     </div>
   `;
 }

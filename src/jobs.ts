@@ -5,10 +5,10 @@ function renderJob(job: Job) {
   return html`
     <div class="job">
       <h2 class="title">
-        <span class="dark-blue">${job.place}</span>
+        <span class="cranberry">${job.place}</span>
         <span class="regular date">${job.date}</span>
       </h2>
-      <h2 class="summary">${job.summary}</h2>
+      <p class="summary">${job.summary}</p>
     </div>
   `;
 }

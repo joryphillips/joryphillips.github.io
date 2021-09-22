@@ -47,7 +47,6 @@ const styles = html`
     }
     .project-holder {
       display: grid;
-      align-items: center;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1rem;
       grid-auto-rows: minmax(300px, auto);
@@ -57,11 +56,14 @@ const styles = html`
       border-bottom-width: 1px;
       border-bottom-color: rgba(0, 0, 0, .125);
     }
-
     .border-top {
       border-top-style: solid;
       border-top-width: 1px;
       border-top-color: rgba(0, 0, 0, .125);
+    }
+    footnote {
+      display: block;
+      margin-top: 2rem;
     }
   </style>
 `;
@@ -119,6 +121,12 @@ export function ProjectList() {
               ></project-card>
             `))}
       </div>
+      <footnote>
+          A semi-random collection of things I have worked on to help
+          visually demonstrate the depth and breadth of my experience. Some
+          things are big and important, others are random ideas or short
+          explorations.
+      </footnote>
     </section>
   `;
 }

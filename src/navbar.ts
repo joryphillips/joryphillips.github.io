@@ -16,7 +16,7 @@ function scrollToId(e: MouseEvent): void {
 }
 
 export const navBar = html`
-  <header class="navy">
+  <header class="navy border-bottom">
     <nav class="container flex-auto">
       <a href="/#summary" @click=${scrollToId} class="button button-transparent">Summary</a>
       <a href="/#visuals" @click=${scrollToId} class="button button-transparent">Visuals</a>

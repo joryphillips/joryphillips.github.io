@@ -3,12 +3,16 @@ import {html} from 'lit';
 export const summary = html`
   <section id="summary" class="summary">
     <div class="container">
-      <p>My strength is bridging big-picture concepts with detailed implementation. I am especially interested in projects that
-        help people navigate and understand complex things.</p>
-      <p>I have designed & developed apps for Google, helped a branding agency brand itself, and created design guidelines and
-        illustrations for major cities and a movie studio/theme park. I have also delivered scores of presentations to decision
-        makers, community groups, and professional organizations. I can prototype, design, develop, or present your ideas
-        and information with interest, interaction, and positive experiences.</p>
+      <p>My specialty is bridging big-picture concepts with detailed
+        implementation. I seek projects that help people navigate and understand
+        complex things, or simply make people's lives better.</p>
+      <p>I have designed & developed apps for Google, helped a branding agency
+        brand itself, and created design guidelines and illustrations for major
+        cities and a movie studio/theme park. I've led teams that make
+        complicated stuff, and I am often eager to attempt the impossible.</p>
+        <p>Want to collaborate?
+        <a href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">
+        Please reach out!</a></p>
     </div>
   </section>
 `;

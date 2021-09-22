@@ -57,6 +57,7 @@ const styles = html`
 
       button[role="option"] {
         background-color: #FFF;;
+        border: none;
         border-bottom: 1px solid #ccc;
         font-size: inherit;
         text-align: left;

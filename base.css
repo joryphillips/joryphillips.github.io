@@ -1,19 +1,8 @@
 body {
-  background-color: #fffaf7;
-  font-family: 'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif;
+  background-color: #f2f2f2;
+  color: #1a1a1a;
+  font-family: 'Rubik', 'Helvetica Neue', Helvetica, sans-serif;
   margin: 0;
-}
-
-*::-moz-selection {
-  background: #0086B3;
-  color: #fff;
-  text-shadow: none;
-}
-
-*::selection {
-  background: #0086B3;
-  color: #fff;
-  text-shadow: none;
 }
 
 header {
@@ -22,7 +11,7 @@ header {
   right: 0;
   top: 0;
   position: fixed;
-  background-color: #49ccff;
+  background-color: #f0f0f0;
 }
 
 nav {
@@ -37,20 +26,23 @@ nav a {
   float: left;
 }
 
-section.jumbo {
+section {
   padding-top: 4rem;
   padding-bottom: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+section.jumbo {
+  padding-bottom: 2rem;
   text-align: center;
-  background-color: #49ccff;
-  background-image: linear-gradient(0deg, #b3cce0 0%, #49ccff 74%);
 }
 
 .jumbo h1 {
-  font-size: 4rem;
+  font-size: 5rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .1rem;
+  letter-spacing: .15rem;
   margin-bottom: 1rem;
 }
 
@@ -59,33 +51,29 @@ section.jumbo {
 }
 
 section.summary {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  background-image: linear-gradient(180deg, #fffaf7 62%, #e9e9e9 103%);
+  padding-top: 2rem;
 }
 
 section.summary p {
-  font-size: 1.05rem;
+  font-size: 1.1em;
+  font-weight: 400;
   line-height: 2.2rem;
+}
+
+section.summary p a {
+  text-decoration: none;
+  font-weight: 500;
+  color: hsl(211deg 100% 25% / 90%);
 }
 
 .container {
   display: block;
-  max-width: 48rem;
+  max-width: 40rem;
   margin: 0 auto;
 }
 
 .date {
   margin-left: 0.5rem;
-}
-
-section.experience {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 section.experience h1 {
@@ -100,16 +88,18 @@ section.experience h1 {
 .job h2.title {
   margin-top: 0;
   font-size: 1.17em;
+  font-weight: 500;
 }
 
-.job h2.summary {
+.job p.summary {
   margin-top: .5rem;
   font-size: 1.17em;
+  font-weight: 400;
+  line-height: 2rem;
 }
 
 footer {
   bottom: 0;
-  background-color: #49ccff;
 }
 
 footer .container {
@@ -135,8 +125,8 @@ footer a {
   border-top-color: rgba(0, 0, 0, .125);
 }
 
-.dark-blue {
-  color: #0079a2;
+.cranberry {
+  color: #c11067;
 }
 
 .navy {
@@ -158,7 +148,7 @@ footer a {
 
 .button, button {
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   line-height: 1.125rem;
@@ -169,8 +159,4 @@ footer a {
   border: 1px solid transparent;
   vertical-align: middle;
   -webkit-appearance: none;
-}
-
-.display-none {
-  display: none;
 }
