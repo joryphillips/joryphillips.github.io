@@ -52,7 +52,8 @@ const styles = html`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: .5rem;
+      padding: .25rem .5rem;
+      height: 2rem;
     }
 
     .description {
@@ -94,14 +95,6 @@ const styles = html`
       font-weight: 500;
     }
 
-    .image-container img {
-      opacity: 0;
-    }
-
-    .image-container img.visible {
-      opacity: 1;
-    }
-
     .width-100 {
       width: 100%
     }
@@ -117,13 +110,21 @@ const styles = html`
       border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
+    .image-container img {
+      opacity: 0;
+    }
+
+    .image-container img.visible {
+      opacity: 1;
+    }
+
     .image-container > * {
       display: block;
       max-width: 100%;
       max-height: 100%;
     }
 
-    .button, button {
+    button {
       font-family: inherit;
       font-weight: 700;
       text-decoration: none;
@@ -138,6 +139,12 @@ const styles = html`
       -webkit-appearance: none;
     }
 
+    button.close {
+      margin: 1em 0 0 .5em;
+      height: 2em;
+      border: rgba(0, 0, 0, .125);
+    }
+
     button.close[hidden] {
       display: none;
     }
@@ -149,6 +156,12 @@ const styles = html`
       position: absolute;
       white-space: nowrap;
       width: 1px;
+    }
+
+    @media screen and (min-width: 600px) {
+      .image-container[selected] {
+        height: 600px;
+      }
     }
   </style>
 `;
@@ -165,9 +178,9 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
   return html`
     ${styles}
 
-    <div class="image-container">
+    <div class="image-container" ?selected=${selected}>
       <img
-        class="image visible block"
+        class="image block"
         data-src="${imageSourcePath}"
         alt="image of ${project.title}">
     </div>
@@ -176,6 +189,7 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
       <div class="info-icons">
         ${project.description ? html`
           <button
+            ?hidden=${selected}
             class="info"
             aria-label="Get more project info"
             @click=${()=> handleInfoClick(project)}

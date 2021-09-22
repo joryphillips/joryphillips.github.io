@@ -825,7 +825,8 @@ const styles$1 = y `
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: .5rem;
+      padding: .25rem .5rem;
+      height: 2rem;
     }
 
     .description {
@@ -867,14 +868,6 @@ const styles$1 = y `
       font-weight: 500;
     }
 
-    .image-container img {
-      opacity: 0;
-    }
-
-    .image-container img.visible {
-      opacity: 1;
-    }
-
     .width-100 {
       width: 100%
     }
@@ -890,13 +883,21 @@ const styles$1 = y `
       border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
+    .image-container img {
+      opacity: 0;
+    }
+
+    .image-container img.visible {
+      opacity: 1;
+    }
+
     .image-container > * {
       display: block;
       max-width: 100%;
       max-height: 100%;
     }
 
-    .button, button {
+    button {
       font-family: inherit;
       font-weight: 700;
       text-decoration: none;
@@ -911,6 +912,12 @@ const styles$1 = y `
       -webkit-appearance: none;
     }
 
+    button.close {
+      margin: 1em 0 0 .5em;
+      height: 2em;
+      border: rgba(0, 0, 0, .125);
+    }
+
     button.close[hidden] {
       display: none;
     }
@@ -923,6 +930,12 @@ const styles$1 = y `
       white-space: nowrap;
       width: 1px;
     }
+
+    @media screen and (min-width: 600px) {
+      .image-container[selected] {
+        height: 600px;
+      }
+    }
   </style>
 `;
 function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected }) {
@@ -933,9 +946,9 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
     return y `
     ${styles$1}
 
-    <div class="image-container">
+    <div class="image-container" ?selected=${selected}>
       <img
-        class="image visible block"
+        class="image block"
         data-src="${imageSourcePath}"
         alt="image of ${project.title}">
     </div>
@@ -944,6 +957,7 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
       <div class="info-icons">
         ${project.description ? y `
           <button
+            ?hidden=${selected}
             class="info"
             aria-label="Get more project info"
             @click=${() => handleInfoClick(project)}
@@ -1190,7 +1204,7 @@ const styles = y `
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
-      margin: 0 1rem .25rem 0;
+      margin: 0 1rem .5rem 0;
       white-space: nowrap;
     }
     .project-holder {
@@ -1212,6 +1226,9 @@ const styles = y `
     footnote {
       display: block;
       margin-top: 2rem;
+    }
+    search-box[hidden], footnote[hidden] {
+      display: none;
     }
   </style>
 `;
@@ -1242,6 +1259,7 @@ function ProjectList() {
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-box
+          ?hidden=${!!selectedCard}
           .keyWords=${getKeyWords(PORTFOLIO)}
           .handleSearchInput=${handleSearchInput}
         ></search-box>
@@ -1259,7 +1277,7 @@ function ProjectList() {
               ></project-card>
             `))}
       </div>
-      <footnote>
+      <footnote ?hidden=${!!selectedCard}>
           A semi-random collection of things I have worked on to help
           visually demonstrate the depth and breadth of my experience. Some
           things are big and important, others are random ideas or short

@@ -42,7 +42,7 @@ const styles = html`
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
-      margin: 0 1rem .25rem 0;
+      margin: 0 1rem .5rem 0;
       white-space: nowrap;
     }
     .project-holder {
@@ -64,6 +64,9 @@ const styles = html`
     footnote {
       display: block;
       margin-top: 2rem;
+    }
+    search-box[hidden], footnote[hidden] {
+      display: none;
     }
   </style>
 `;
@@ -102,6 +105,7 @@ export function ProjectList() {
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-box
+          ?hidden=${!!selectedCard}
           .keyWords=${util.getKeyWords(PORTFOLIO)}
           .handleSearchInput=${handleSearchInput}
         ></search-box>
@@ -121,7 +125,7 @@ export function ProjectList() {
               ></project-card>
             `))}
       </div>
-      <footnote>
+      <footnote ?hidden=${!!selectedCard}>
           A semi-random collection of things I have worked on to help
           visually demonstrate the depth and breadth of my experience. Some
           things are big and important, others are random ideas or short

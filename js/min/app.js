@@ -177,7 +177,8 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: .5rem;
+      padding: .25rem .5rem;
+      height: 2rem;
     }
 
     .description {
@@ -219,14 +220,6 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       font-weight: 500;
     }
 
-    .image-container img {
-      opacity: 0;
-    }
-
-    .image-container img.visible {
-      opacity: 1;
-    }
-
     .width-100 {
       width: 100%
     }
@@ -242,13 +235,21 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
+    .image-container img {
+      opacity: 0;
+    }
+
+    .image-container img.visible {
+      opacity: 1;
+    }
+
     .image-container > * {
       display: block;
       max-width: 100%;
       max-height: 100%;
     }
 
-    .button, button {
+    button {
       font-family: inherit;
       font-weight: 700;
       text-decoration: none;
@@ -263,6 +264,12 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       -webkit-appearance: none;
     }
 
+    button.close {
+      margin: 1em 0 0 .5em;
+      height: 2em;
+      border: rgba(0, 0, 0, .125);
+    }
+
     button.close[hidden] {
       display: none;
     }
@@ -275,13 +282,19 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       white-space: nowrap;
       width: 1px;
     }
+
+    @media screen and (min-width: 600px) {
+      .image-container[selected] {
+        height: 600px;
+      }
+    }
   </style>
 `;const{component:Be}=Ie({render:M});customElements.define("project-card",Be((function({project:e,handleInfoClick:t,handleInfoCloseClick:i,selected:s}){He((()=>{!function(e,t){const i=new IntersectionObserver((e=>{for(const s of e)if(s.isIntersecting){const e=s.target;t(e),i.unobserve(e)}}));i.observe(e)}(this,ze)}),[]);const n="./images/"+e.imageSources[0];return j`
     ${Ge}
 
-    <div class="image-container">
+    <div class="image-container" ?selected=${s}>
       <img
-        class="image visible block"
+        class="image block"
         data-src="${n}"
         alt="image of ${e.title}">
     </div>
@@ -290,6 +303,7 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       <div class="info-icons">
         ${e.description?j`
           <button
+            ?hidden=${s}
             class="info"
             aria-label="Get more project info"
             @click=${()=>t(e)}
@@ -329,7 +343,7 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
-      margin: 0 1rem .25rem 0;
+      margin: 0 1rem .5rem 0;
       white-space: nowrap;
     }
     .project-holder {
@@ -352,6 +366,9 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       display: block;
       margin-top: 2rem;
     }
+    search-box[hidden], footnote[hidden] {
+      display: none;
+    }
   </style>
 `;const{component:Je}=Ie({render:M});function qe(e){e.preventDefault();const t=e.target.hash,i=document.querySelector(t),s=document.querySelector(De.HEADER),n=s?s.offsetHeight:0;if(i){const e=i.offsetTop-n;window.scroll({top:e,behavior:"smooth"}),history.pushState(null,null,t)}}customElements.define("project-list",Je((function(){const[e,t]=Me(""),[i,s]=Me(null),n=e=>{s(Ne(e.title))},o=()=>{s(null)},r=e=>Ne(e.title)===i,a=We.filter((t=>function(e,t){const{keywords:i,title:s}=t;return function(e,t){let i=!1;const s=e.toLowerCase().split(" ");for(let e=0;e<s.length;e++){const n=s[e].trim();i=t.toLowerCase().includes(n)}return i}(e,i.join(" ")+" "+s.toLowerCase())}(e,t)));return j`
     ${Fe}
@@ -360,6 +377,7 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-box
+          ?hidden=${!!i}
           .keyWords=${function(e){const t=new Set;if(e)for(const i of e)for(const e of i.keywords)t.add(e.toLowerCase());return t}(We)}
           .handleSearchInput=${e=>{t(e)}}
         ></search-box>
@@ -377,7 +395,7 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
               ></project-card>
             `))}
       </div>
-      <footnote>
+      <footnote ?hidden=${!!i}>
           A semi-random collection of things I have worked on to help
           visually demonstrate the depth and breadth of my experience. Some
           things are big and important, others are random ideas or short
