@@ -18,7 +18,7 @@ export const RESUME: Job[] = [
   {
     date: 'Sept 2015 - Sept 2021',
     place: 'Google, UX Engineer',
-    summary: 'Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a TL.',
+    summary: 'Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a tech lead.',
     detail: 'Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipped Material-design emoji.',
   }, {
     date: 'Jan 2014 - Sept 2015',
