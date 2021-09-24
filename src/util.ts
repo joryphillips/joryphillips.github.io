@@ -36,3 +36,15 @@ export function addIntersectionObserver(
 
   lazyImageObserver.observe(el);
 }
+
+/**
+ * Call the provided function and applies the provided context after a repaint
+ * has finished.
+ */
+export function callAfterRepaint(func: (...args: unknown[])=> void, context: HTMLElement) {
+  requestAnimationFrame(()=> {
+    requestAnimationFrame(()=> {
+      func.apply(context);
+    });
+  });
+}
