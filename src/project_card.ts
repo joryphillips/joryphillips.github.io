@@ -45,7 +45,7 @@ const styles = html`
   <style>
     :host {
       opacity: 1;
-      transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
     .project-card-title {
@@ -70,22 +70,22 @@ const styles = html`
       align-items: center;
     }
 
-    .info-icons .info, .info-icons .link {
+    .info-icons .link {
       background-color: transparent;
       opacity: .7;
       padding: 0 0 0 0.7rem;
     }
 
-    .info-icons .info:hover, .info-icons .link:hover {
+    .info-icons .link:hover {
       opacity: 1;
     }
 
-    .info img, .link img {
+    .link img {
       width: 1.6rem;
       height: 1.6rem;
     }
 
-    .info[hidden], .link[hidden] {
+    .link[hidden] {
       display: none;
     }
 
@@ -102,20 +102,39 @@ const styles = html`
     .image-container {
       display: flex;
       height: 300px;
+      width: 100%;
       padding: 8px;
       overflow: hidden;
       justify-content: center;
       align-items: center;
       background-color: #FFF;
       border: 1px solid rgba(0, 0, 0, 0.2);
+      transition: box-shadow .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    button.image-container[selected] {
+      pointer-events: none;
+    }
+
+    button.image-container:focus {
+      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    }
+
+    button.image-container:focus, button.image-container:hover {
+      box-shadow: 0px 1px 6px 0px #8C8C8C;
     }
 
     .image-container img {
       opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000), scale3d 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .image-container:hover img.visible, .image-container[selected] img.visible {
+      opacity: 1;
     }
 
     .image-container img.visible {
-      opacity: 1;
+      opacity: .95;
     }
 
     .image-container > * {
@@ -178,23 +197,20 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
   return html`
     ${styles}
 
-    <div class="image-container" ?selected=${selected}>
-      <img
+    <button
+      tabindex=${selected ? -1 : 0}
+      class="image-container"
+      ?selected=${selected}
+      aria-label="Get more project info"
+      @click=${()=> handleInfoClick(project)}
+    ><img
         class="image block"
         data-src="${imageSourcePath}"
         alt="image of ${project.title}">
-    </div>
+    </button>
     <div class="project-card-title">
       <h2 class="title">${project.title}</h2>
       <div class="info-icons">
-        ${project.description ? html`
-          <button
-            ?hidden=${selected}
-            class="info"
-            aria-label="Get more project info"
-            @click=${()=> handleInfoClick(project)}
-          ><img src="${IMAGE_PATH}info-black-18dp.svg" alt="More info"></button>
-        ` : ''}
         ${project.href ? html `
           <a class="link" href="${project.href}">
             <img src="${IMAGE_PATH}launch-black-18dp.svg" alt="External link">

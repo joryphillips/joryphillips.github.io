@@ -28,8 +28,6 @@ header {
 
 nav {
   flex: 1 1 auto;
-  min-width: 0;
-  min-height: 0;
 }
 
 nav a {
@@ -92,10 +90,11 @@ section.summary p a {
 section.experience h1 {
   margin-bottom: 2rem;
   margin-top: 0;
+  font-size: 2rem;
 }
 
 .job {
-  margin-bottom: 4rem;
+  margin-top: 3rem;
 }
 
 .job h2.title {
@@ -106,6 +105,7 @@ section.experience h1 {
 
 .job p.summary {
   margin-top: .5rem;
+  margin-bottom: 0;
   font-size: 1.17rem;
   font-weight: 400;
   line-height: 2rem;
@@ -115,15 +115,18 @@ footer {
   bottom: 0;
 }
 
-footer .container {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+footer a {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  float: left;
+  font-size: .75rem;
 }
 
-footer a {
-  font-size: .75rem;
+footer .container {
+  flex: 1 1 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: .5rem;
 }
 
 .border-bottom {
@@ -172,4 +175,17 @@ footer a {
   border: 1px solid transparent;
   vertical-align: middle;
   -webkit-appearance: none;
+  transition: background-color .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.button:hover, .button:focus {
+  background-color: rgb(115 179 221 / 17%);
+}
+
+.button:focus, button:focus, a:focus {
+  outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+}
+
+.button:focus, button:focus {
+  outline-offset: -2px!important;
 }

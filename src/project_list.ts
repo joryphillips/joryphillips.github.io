@@ -29,8 +29,14 @@ const styles = html`
       background-color: #ddd;
       padding-top: 4rem;
       padding-bottom: 4rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    @media (max-width: 400px) {
+      section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
     }
     .visuals-header {
       display: flex;
@@ -39,6 +45,7 @@ const styles = html`
       margin-bottom: 2rem;
     }
     h1 {
+      font-size: 2rem;
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
@@ -61,30 +68,33 @@ const styles = html`
       border-top-width: 1px;
       border-top-color: rgba(0, 0, 0, .125);
     }
-    footnote {
-      display: block;
-      margin-top: 2rem;
-    }
-    search-box[hidden], footnote[hidden] {
+    search-box[hidden] {
       display: none;
     }
   </style>
 `;
 
+
 export function ProjectList() {
   const [searchValue, setSearchValue] = useState('');
   const [selectedCard, setSelectedCard] = useState(null);
+  const [verticalScrollPosition, setVerticalScrollPosition] = useState(null);
 
   const handleSearchInput = (value: string)=> {
     setSearchValue(value);
   };
 
   const handleInfoClick = (project: Project)=> {
+    setVerticalScrollPosition(window.scrollY);
+    const sectionEl = this.shadowRoot.querySelector('section');
+    scrollTo({top: sectionEl.offsetTop});
     setSelectedCard(util.kebabCase(project.title));
   };
 
   const handleInfoCloseClick = ()=> {
     setSelectedCard(null);
+    util.callAfterRepaint(()=> scrollTo({top: verticalScrollPosition}), this);
+    setVerticalScrollPosition(null);
   };
 
   const cardSelected = (project: Project)=> {
@@ -125,12 +135,6 @@ export function ProjectList() {
               ></project-card>
             `))}
       </div>
-      <footnote ?hidden=${!!selectedCard}>
-          A semi-random collection of things I have worked on to help
-          visually demonstrate the depth and breadth of my experience. Some
-          things are big and important, others are random ideas or short
-          explorations.
-      </footnote>
     </section>
   `;
 }

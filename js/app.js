@@ -683,18 +683,31 @@ const styles$2 = y `
         border-radius: 3px;
       }
 
-      div[role="listbox"] {
+      input[type="search"]:focus {
+        outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+      }
+
+      ul,
+      ul li,
+      ul ul li {
+        margin:0;
+        padding: 0;
+        text-indent: 0;
+        list-style-type: none;
+      }
+
+      ul[role="listbox"] {
         display: none;
         background-color: #FFF;
         border: 1px solid #ccc;
       }
 
-      div[role="listbox"], button[role="option"] {
+      ul[role="listbox"], button[role="option"] {
         box-sizing: border-box;
         width: 100%;
       }
 
-      div[role="listbox"].show {
+      ul[role="listbox"].show {
         display: block;
         position: absolute;
         z-index: 10;
@@ -702,7 +715,7 @@ const styles$2 = y `
         overflow-y: scroll;
       }
 
-      button[role="option"] {
+      li[role="option"] {
         background-color: #FFF;;
         border: none;
         border-bottom: 1px solid #ccc;
@@ -711,7 +724,11 @@ const styles$2 = y `
         padding: .5rem;
       }
 
-      button[role="option"]:last-of-type {
+      li[role="option"][active], li[role="option"]:hover {
+        background-color: rgb(115 179 221 / 17%);
+      }
+
+      li:last-of-type  button[role="option"] {
         border-bottom: none;
       }
     </style>
@@ -719,17 +736,63 @@ const styles$2 = y `
 function SearchBox({ keyWords, handleSearchInput }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const [inputDebounce, setInputDebounce] = useState(null);
+    const [optionIndex, setOptionIndex] = useState(null);
     const searchInput = this.shadowRoot.querySelector(Selector.SEARCH_INPUT);
+    const listBox = this.shadowRoot.querySelector('#listbox');
     const toggleDropdown = () => {
         setShowDropDown(!showDropDown);
     };
     const handleFocus = () => {
-        toggleDropdown();
+        setShowDropDown(true);
     };
-    const handleBlur = (e) => {
-        e.preventDefault();
+    const handleArrowDown = () => {
+        setShowDropDown(true);
+        let localIndex;
+        if (optionIndex == null || optionIndex === keyWords.size - 1) {
+            localIndex = 0;
+        }
+        else {
+            localIndex = optionIndex + 1;
+        }
+        listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setOptionIndex(localIndex);
+    };
+    const handleArrowUp = () => {
+        let localIndex;
+        if (optionIndex == null || optionIndex === 0) {
+            localIndex = keyWords.size - 1;
+        }
+        else {
+            localIndex = optionIndex - 1;
+        }
+        listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setOptionIndex(localIndex);
+    };
+    const handleInputKeyUp = (e) => {
+        const { key } = e;
+        switch (key) {
+            case 'ArrowDown':
+                handleArrowDown();
+                break;
+            case 'ArrowUp':
+                handleArrowUp();
+                break;
+            case 'Escape':
+                handleSearchInput('');
+                setOptionIndex(null);
+                setShowDropDown(false);
+                break;
+            case 'Enter':
+                searchInput.value = [...keyWords][optionIndex];
+                handleSearchInput([...keyWords][optionIndex]);
+                setShowDropDown(false);
+                break;
+        }
+    };
+    const handleBlur = () => {
+        setOptionIndex(null);
         if (showDropDown) {
-            toggleDropdown();
+            setShowDropDown(false);
         }
     };
     const handleInput = (e) => {
@@ -741,31 +804,46 @@ function SearchBox({ keyWords, handleSearchInput }) {
             handleSearchInput(value);
         }, DEBOUNCE_TIMEOUT));
     };
-    const onDropdownButtonClick = (keyword) => {
+    const onOptionClick = (keyword) => {
         searchInput.value = keyword;
         toggleDropdown();
         handleSearchInput(keyword);
     };
     return y `
     ${styles$2}
-
+    <div
+      id="combobox"
+      role="combobox"
+      aria-expanded=${showDropDown}
+      aria-owns="listbox"
+      aria-haspopup="true">
     <label for="search" class="hide">Search</label>
-    <input
-      type="search"
-      placeholder="search"
-      aria-label="Search through projects"
-      autocomplete="off"
-      @input=${handleInput}
-      @focus=${handleFocus}
-      @blur=${handleBlur}
-    >
-    <div role="listbox" class=${o({ 'show': showDropDown })}>
-      ${[...keyWords].map(keyword => y `
-        <button
-          role="option"
-          @mousedown=${() => onDropdownButtonClick(keyword)}>${keyword}</button>
-      `)}
+      <input
+        type="search"
+        role="combobox"
+        placeholder="search"
+        aria-label="Search through projects"
+        aria-controls="listbox"
+        autocomplete="off"
+        @input=${handleInput}
+        @focus=${handleFocus}
+        @blur=${handleBlur}
+        @keyup=${handleInputKeyUp}
+      >
     </div>
+
+    <ul
+      id="listbox"
+      role="listbox"
+      aria-expanded=${showDropDown}
+      class=${o({ 'show': showDropDown })}
+    >${[...keyWords].map((keyword, index) => y `
+        <li
+          role="option"
+          ?active=${index === optionIndex}
+          @mousedown=${() => onOptionClick(keyword)}>${keyword}</li>
+      `)}
+    </ul>
   `;
 }
 const { component: component$2 } = haunted({ render: A });
@@ -797,6 +875,13 @@ function addIntersectionObserver(el, onIntersection) {
     });
     lazyImageObserver.observe(el);
 }
+function callAfterRepaint(func, context) {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            func.apply(context);
+        });
+    });
+}
 
 const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
@@ -818,7 +903,7 @@ const styles$1 = y `
   <style>
     :host {
       opacity: 1;
-      transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
     .project-card-title {
@@ -843,22 +928,22 @@ const styles$1 = y `
       align-items: center;
     }
 
-    .info-icons .info, .info-icons .link {
+    .info-icons .link {
       background-color: transparent;
       opacity: .7;
       padding: 0 0 0 0.7rem;
     }
 
-    .info-icons .info:hover, .info-icons .link:hover {
+    .info-icons .link:hover {
       opacity: 1;
     }
 
-    .info img, .link img {
+    .link img {
       width: 1.6rem;
       height: 1.6rem;
     }
 
-    .info[hidden], .link[hidden] {
+    .link[hidden] {
       display: none;
     }
 
@@ -875,20 +960,39 @@ const styles$1 = y `
     .image-container {
       display: flex;
       height: 300px;
+      width: 100%;
       padding: 8px;
       overflow: hidden;
       justify-content: center;
       align-items: center;
       background-color: #FFF;
       border: 1px solid rgba(0, 0, 0, 0.2);
+      transition: box-shadow .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    button.image-container[selected] {
+      pointer-events: none;
+    }
+
+    button.image-container:focus {
+      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    }
+
+    button.image-container:focus, button.image-container:hover {
+      box-shadow: 0px 1px 6px 0px #8C8C8C;
     }
 
     .image-container img {
       opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000), scale3d 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .image-container:hover img.visible, .image-container[selected] img.visible {
+      opacity: 1;
     }
 
     .image-container img.visible {
-      opacity: 1;
+      opacity: .95;
     }
 
     .image-container > * {
@@ -946,23 +1050,20 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
     return y `
     ${styles$1}
 
-    <div class="image-container" ?selected=${selected}>
-      <img
+    <button
+      tabindex=${selected ? -1 : 0}
+      class="image-container"
+      ?selected=${selected}
+      aria-label="Get more project info"
+      @click=${() => handleInfoClick(project)}
+    ><img
         class="image block"
         data-src="${imageSourcePath}"
         alt="image of ${project.title}">
-    </div>
+    </button>
     <div class="project-card-title">
       <h2 class="title">${project.title}</h2>
       <div class="info-icons">
-        ${project.description ? y `
-          <button
-            ?hidden=${selected}
-            class="info"
-            aria-label="Get more project info"
-            @click=${() => handleInfoClick(project)}
-          ><img src="${IMAGE_PATH}info-black-18dp.svg" alt="More info"></button>
-        ` : ''}
         ${project.href ? y `
           <a class="link" href="${project.href}">
             <img src="${IMAGE_PATH}launch-black-18dp.svg" alt="External link">
@@ -1030,9 +1131,16 @@ const PORTFOLIO = [
         keywords: ['software', 'ux', 'ui', 'mock', 'communication'],
     },
     {
+        title: 'front-end tech lead',
+        date: '2020-2021',
+        description: `I was the tech lead for a team of front-end engineers working within the design systems management branch of Material. I prototyped features, led building a production-grade app for managing tokens and design system details, and mentored and helped other engineers add features.`,
+        imageSources: ['Google_Material_Design_Logo.svg'],
+        keywords: ['software', 'typescript', 'tooling', 'develop', 'engineer', 'Google', 'Material'],
+    },
+    {
         title: 'Gallery.io web engineering',
         date: '2019',
-        description: `Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, starting with the need to update how it was being built and bundled. This unblocked a TypeScript migration, which I also led, along with efforts to componentize the application and update state management using more modern libraries. As a result, thousands of tech debt issues have been closed and the application's bundle size has been reduced by at least 33%.`,
+        description: `Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, resulting in thousands of tech debt issues closed, more dev-friendly componentization, and a bundle size reduction of at least 33%. While the app is being turned down due to the popularity of Figma, I am very proud of the progress we made on it and the lessons it taught.`,
         href: 'https://gallery.io',
         imageSources: ['gallery.jpg'],
         keywords: ['software', 'typescript', 'tooling', 'modernization', 'develop', 'engineer', 'Google', 'Material'],
@@ -1043,105 +1151,82 @@ const PORTFOLIO = [
         href: 'https://github.com/joryphillips/joryphillips.github.io/issues/8#issuecomment-611778792',
         imageSources: ['web-perf.png'],
         keywords: ['software', 'develop', 'engineer', 'performance', 'tooling'],
+        description: 'I did a performance assessment on my own website and wrote up findings in a GitHub issue. If you know of a page that is loading too slowly, the methods I applied might help!',
     },
     {
-        title: 'comprehensive design + implementation',
+        title: 'full app design for Android Build',
         imageSources: ['test-result-details.png'],
-        keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
+        keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript', 'mock'],
+        description: 'I was the only UXer on the Android Build team for a while, which meant I got to lead the design of some very complex things, like this tool used to help engineers chase down broken builds and failing tests. This was an early mock, and most of what is represented here has been built and refined by the team.',
     },
     {
-        title: 'web component wireframe',
+        title: 'build and test status wireframe',
         imageSources: ['target-row-pies-wireframe.jpg'],
         keywords: ['ux', 'ui', 'wireframe', 'Google', 'Android'],
+        description: 'This was a quick ugly iPad drawing done to visually prove out the concept of integrating complext test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧',
     },
     {
         title: 'concept diagrams',
         imageSources: ['grid-test-views@3x.png'],
         keywords: ['conceptual', 'diagram', 'communication', 'Google', 'Android'],
+        description: 'These are a couple conceptual diagrams used to discuss the multidimensional complexity of tracking builds, tests, and devices. Included here mostly to add additional visual interest. 🙃',
     },
     {
         title: 'notification CRUD app',
         imageSources: ['notification-crud-edit.png'],
         keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
+        description: 'I designed and implemented a tool for adding, editing, and removing system alerts across Android internal sites.',
     },
     {
         title: 'lightweight webpage generator',
         imageSources: ['ux-page-crud.png'],
         keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
+        description: 'I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google\'s internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time.',
     },
     {
         title: 'mojibrush.co ui/ux + oss contributions',
         imageSources: ['moji-brush.png'],
         href: 'https://mojibrush.co',
         keywords: ['ux', 'ui', 'develop', 'fun'],
+        description: 'I wireframed the UI & UX for this spectacular progressive web app on a pizza box in a microkitchen, then helped build it.',
     },
     {
         title: 'make a webpage from Google Sheets',
         imageSources: ['ux-sheet-stepper.png'],
         keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
-    },
-    {
-        title: 'contrast study',
-        imageSources: ['material-gray-contrast-ratio-study.png'],
-        keywords: ['ux', 'ui', 'accessibility', 'Google', 'Android'],
-    },
-    {
-        title: 'sketchy wireframe',
-        imageSources: ['sketchy-wireframe.png'],
-        keywords: ['ux', 'ui', 'wireframe', 'sketch', 'Google', 'Android'],
+        description: 'At Google there is a common need to quickly spin up websites that pull content from Google Sheets. I made a web app that allowed people to make pages that do that, and walked them through validation, column select, sort options, etc.',
     },
     {
         title: 'four shipped Material emoji',
         imageSources: ['four-material-emoji.svg'],
         keywords: ['illustration', 'Material', 'fun', 'Google', 'Android'],
+        description: 'I designed these four emoji for the release of Android 6. Almost all emojis have been updated since then, but my design for Reminder Ribbon got put back into use for Android 12!',
     },
     {
         title: 'imagery exploration',
         imageSources: ['dichotomy-01.jpg'],
         keywords: ['presentation', 'conceptual', 'communication', 'Google', 'Android'],
+        description: 'Every designer and presenter eventually has to come up with imagery that helps convey a problem or a solution. This is one I made to help in a presentation about device notification overload.',
     },
     {
         title: 'identity/branding illustrations',
         imageSources: ['droid-4-up.svg'],
         keywords: ['illustration', 'fun', 'Google', 'Android'],
-    },
-    {
-        title: 'concept for research logo',
-        imageSources: ['UERchives-magnifying-glass-exag_480.png'],
-        keywords: ['illustration', 'Material', 'fun', 'Google', 'Android'],
+        description: 'I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is a beloved among research participants, making it ideal as a character-defining visual representation for Android researchers.',
     },
     {
         title: 'dancing t-rex',
         imageSources: ['dancing-dino.gif'],
         keywords: ['fun', 'Google', 'Android'],
-    },
-    {
-        title: 'sustainable healthcare website',
-        date: '2015',
-        imageSources: ['eksh-desktop.jpg'],
-        description: `Erika Kimball Sustainable Healthcare is a website I designed and developed using a lightweight animation library for subtle parallax scrolling effects. I researched and incorporated a custom CMS/blog solution to fit the client's needs, and designed the logo in Adobe Illustrator.`,
-        keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
-    },
-    {
-        title: 'mobile web app',
-        date: '2014',
-        imageSources: ['rumblemunk-mobile.jpg'],
-        keywords: ['ux', 'ui', 'develop'],
+        description: 'I did not design this dinosaur, but I did make him dance.',
     },
     {
         title: 'Global Brand Works Website',
         date: '2015',
         imageSources: ['gbw.jpg'],
-        description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built with HTML/CSS/JavaScript/PHP for interactivity. For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
+        description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built and the overall design direction has been steadfast for a half decade! For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
         href: 'https://globalbrandworks.com/',
         keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
-    },
-    {
-        title: 'Illustration',
-        date: '2009',
-        imageSources: ['shanghai-outlines.jpg', 'shanghai-full-width-section-trnsp.png'],
-        description: 'As part of a competition to master plan a portion of a new theme park and entertainment destination, I digitally painted section and elevations line drawings to convey exiting, active retail, restaurant, and entertainment areas. Drawing from a variety of textures and patterns found in design and fashion magazines, I experimented with transparency, overlap, and varying hues to reach an appropriate balance. This is a small, zoomed-in portion of one of several drawings, which were presented on large-format presentation boards.',
-        keywords: ['urban design', 'illustration', 'fun', 'communication'],
     },
     {
         title: 'Wall Clock Product Design/Prototype',
@@ -1154,7 +1239,7 @@ const PORTFOLIO = [
         title: 'Mapping & Data Analysis',
         date: '2009',
         imageSources: ['pub-facilities-map.svg'],
-        description: 'I designed and created this interactive map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.',
+        description: 'I designed and created this map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.',
         keywords: ['conceptual', 'urban design', 'urban planning', 'communication', 'maps'],
     },
     {
@@ -1168,6 +1253,7 @@ const PORTFOLIO = [
         title: 'not a real emoji',
         imageSources: ['incredulous_goat.png'],
         keywords: ['fun', 'goat', 'emoji'],
+        description: 'Like the dancing t-rex, I designed neither the goat, nor the sunglasses, but I did put one on the other to make a superior emoji.',
     },
 ];
 
@@ -1191,8 +1277,14 @@ const styles = y `
       background-color: #ddd;
       padding-top: 4rem;
       padding-bottom: 4rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    @media (max-width: 400px) {
+      section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
     }
     .visuals-header {
       display: flex;
@@ -1201,6 +1293,7 @@ const styles = y `
       margin-bottom: 2rem;
     }
     h1 {
+      font-size: 2rem;
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
@@ -1223,11 +1316,7 @@ const styles = y `
       border-top-width: 1px;
       border-top-color: rgba(0, 0, 0, .125);
     }
-    footnote {
-      display: block;
-      margin-top: 2rem;
-    }
-    search-box[hidden], footnote[hidden] {
+    search-box[hidden] {
       display: none;
     }
   </style>
@@ -1235,14 +1324,20 @@ const styles = y `
 function ProjectList() {
     const [searchValue, setSearchValue] = useState('');
     const [selectedCard, setSelectedCard] = useState(null);
+    const [verticalScrollPosition, setVerticalScrollPosition] = useState(null);
     const handleSearchInput = (value) => {
         setSearchValue(value);
     };
     const handleInfoClick = (project) => {
+        setVerticalScrollPosition(window.scrollY);
+        const sectionEl = this.shadowRoot.querySelector('section');
+        scrollTo({ top: sectionEl.offsetTop });
         setSelectedCard(kebabCase(project.title));
     };
     const handleInfoCloseClick = () => {
         setSelectedCard(null);
+        callAfterRepaint(() => scrollTo({ top: verticalScrollPosition }), this);
+        setVerticalScrollPosition(null);
     };
     const cardSelected = (project) => {
         return kebabCase(project.title) === selectedCard;
@@ -1277,12 +1372,6 @@ function ProjectList() {
               ></project-card>
             `))}
       </div>
-      <footnote ?hidden=${!!selectedCard}>
-          A semi-random collection of things I have worked on to help
-          visually demonstrate the depth and breadth of my experience. Some
-          things are big and important, others are random ideas or short
-          explorations.
-      </footnote>
     </section>
   `;
 }
@@ -1303,7 +1392,7 @@ function scrollToId(e) {
 }
 const navBar = y `
   <header class="navy border-bottom">
-    <nav class="container flex-auto">
+    <nav class="container">
       <a href="/#summary" @click=${scrollToId} class="button button-transparent">Summary</a>
       <a href="/#visuals" @click=${scrollToId} class="button button-transparent">Visuals</a>
       <a href="/#experience" @click=${scrollToId} class="button button-transparent">Experience</a>
