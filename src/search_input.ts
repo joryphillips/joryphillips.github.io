@@ -187,10 +187,10 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
     <label for="search" class="hide">Search</label>
       <input
         type="search"
-        role="combobox"
         placeholder="search"
         aria-label="Search through projects"
         aria-controls="listbox"
+        aria-autocomplete="list"
         autocomplete="off"
         @input=${handleInput}
         @focus=${handleFocus}

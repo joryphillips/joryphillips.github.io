@@ -58,6 +58,11 @@ const styles = html`
       gap: 1rem;
       grid-auto-rows: minmax(300px, auto);
     }
+    @media screen and (max-width: 400px) {
+      .project-holder {
+        grid-auto-rows: minmax(150px, auto);
+      }
+    }
     .border-bottom {
       border-bottom-style: solid;
       border-bottom-width: 1px;
@@ -69,7 +74,10 @@ const styles = html`
       border-top-color: rgba(0, 0, 0, .125);
     }
     search-box[hidden] {
-      display: none;
+      visibility: hidden;
+    }
+    project-card[hidden] {
+      visibility: hidden;
     }
   </style>
 `;
@@ -128,7 +136,7 @@ export function ProjectList() {
               <project-card
                 ?hidden=${hideCard(project)}
                 id=${util.kebabCase(project.title)}
-                .selected=${cardSelected(project)}
+                ?selected=${cardSelected(project)}
                 .project=${project}
                 .handleInfoClick=${handleInfoClick}
                 .handleInfoCloseClick=${handleInfoCloseClick}

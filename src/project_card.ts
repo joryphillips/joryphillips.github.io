@@ -56,13 +56,17 @@ const styles = html`
       height: 2rem;
     }
 
+    :host([selected]) .project-card-title {
+      padding: 1rem .5rem .5rem;
+    }
+
     .description {
       margin: .5rem;
       line-height: 1.7;
     }
 
     .description[hidden] {
-      display: none;
+      visibility: hidden;
     }
 
     .info-icons, .info-icons .info, .info-icons .link {
@@ -86,13 +90,17 @@ const styles = html`
     }
 
     .link[hidden] {
-      display: none;
+      visibility: hidden;
     }
 
     h2.title {
       margin: 0;
       font-size: 1rem;
       font-weight: 500;
+    }
+
+    :host([selected]) h2.title {
+      font-size: 1.5rem;
     }
 
     .width-100 {
@@ -112,7 +120,22 @@ const styles = html`
       transition: box-shadow .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
-    button.image-container[selected] {
+    @media screen and (max-width: 400px) {
+      .image-container {
+        height: 150px;
+      }
+      :host([selected]) .image-container {
+        height: 300px;
+      }
+    }
+
+    @media screen and (min-width: 600px) {
+      :host([selected]) .image-container {
+        height: 600px;
+      }
+    }
+
+    :host([selected]) button.image-container {
       pointer-events: none;
     }
 
@@ -129,7 +152,8 @@ const styles = html`
       transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000), scale3d 0.2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
-    .image-container:hover img.visible, .image-container[selected] img.visible {
+    .image-container:hover img.visible,
+    :host([selected]) .image-container img.visible {
       opacity: 1;
     }
 
@@ -159,13 +183,23 @@ const styles = html`
     }
 
     button.close {
-      margin: 1em 0 0 .5em;
-      height: 2em;
+      margin: 1rem 0 0 .5rem;
+      height: 2.5rem;
       border: rgba(0, 0, 0, .125);
+      background-color: #f0f0f0;
+      color: rgba(0, 32, 66, 0.9);
     }
 
     button.close[hidden] {
-      display: none;
+      visibility: hidden;
+    }
+
+    button.close:focus {
+      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    }
+
+    button.close:hover, button.close:focus {
+      background-color: rgb(115 179 221 / 17%);
     }
 
     .visible-hidden {
@@ -175,12 +209,6 @@ const styles = html`
       position: absolute;
       white-space: nowrap;
       width: 1px;
-    }
-
-    @media screen and (min-width: 600px) {
-      .image-container[selected] {
-        height: 600px;
-      }
     }
   </style>
 `;
@@ -200,7 +228,6 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
     <button
       tabindex=${selected ? -1 : 0}
       class="image-container"
-      ?selected=${selected}
       aria-label="Get more project info"
       @click=${()=> handleInfoClick(project)}
     ><img
@@ -225,11 +252,12 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
       class="close"
       aria-label="Close detail and return to full project list"
       @click=${handleInfoCloseClick}
-    >Close</button>
+    >Back to project list</button>
   `;
 }
 
 const {component} = haunted({render});
+ProjectCard.observedAttributes = ['selected'];
 
 // any is needed to deal with typing issue in haunted
 customElements.define('project-card', component(ProjectCard as any));
