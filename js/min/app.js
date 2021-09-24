@@ -214,7 +214,7 @@ let de,ce=!1;(()=>{try{const e={get capture(){return ce=!0,!1}};window.addEventL
     }
 
     :host([selected]) .project-card-title {
-      padding: 1rem .5rem .5rem;
+      padding: 2rem 0.5rem 1rem .5rem;
     }
 
     .description {

@@ -915,7 +915,7 @@ const styles$1 = y `
     }
 
     :host([selected]) .project-card-title {
-      padding: 1rem .5rem .5rem;
+      padding: 2rem 0.5rem 1rem .5rem;
     }
 
     .description {
