@@ -10,7 +10,7 @@ export interface Project {
   imageSources: string[];
   keywords: string[];
   date?: string;
-  description?: string;
+  description: string;
   href?: string;
 }
 
@@ -62,9 +62,16 @@ export const PORTFOLIO: Project[] = [
     keywords: ['software', 'ux', 'ui', 'mock', 'communication'],
   },
   {
+    title: 'front-end tech lead',
+    date: '2020-2021',
+    description: `I was the tech lead for a team of front-end engineers working within the design systems management branch of Material. I prototyped features, led building a production-grade app for managing tokens and design system details, and mentored and helped other engineers add features.`,
+    imageSources: ['Google_Material_Design_Logo.svg'],
+    keywords: ['software', 'typescript', 'tooling', 'develop', 'engineer', 'Google', 'Material'],
+  },
+  {
     title: 'Gallery.io web engineering',
     date: '2019',
-    description: `Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, starting with the need to update how it was being built and bundled. This unblocked a TypeScript migration, which I also led, along with efforts to componentize the application and update state management using more modern libraries. As a result, thousands of tech debt issues have been closed and the application's bundle size has been reduced by at least 33%.`,
+    description: `Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, resulting in thousands of tech debt issues closed, more dev-friendly componentization, and a bundle size reduction of at least 33%. While the app is being turned down due to the popularity of Figma, I am very proud of the progress we made on it and the lessons it taught.`,
     href: 'https://gallery.io',
     imageSources: ['gallery.jpg'],
     keywords: ['software', 'typescript', 'tooling', 'modernization', 'develop', 'engineer', 'Google', 'Material'],
@@ -75,105 +82,82 @@ export const PORTFOLIO: Project[] = [
     href: 'https://github.com/joryphillips/joryphillips.github.io/issues/8#issuecomment-611778792',
     imageSources: ['web-perf.png'],
     keywords: ['software', 'develop', 'engineer', 'performance', 'tooling'],
+    description: 'I did a performance assessment on my own website and wrote up findings in a GitHub issue. If you know of a page that is loading too slowly, the methods I applied might help!',
   },
   {
-    title: 'comprehensive design + implementation',
+    title: 'full app design for Android Build',
     imageSources: ['test-result-details.png'],
-    keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
+    keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript', 'mock'],
+    description: 'I was the only UXer on the Android Build team for a while, which meant I got to lead the design of some very complex things, like this tool used to help engineers chase down broken builds and failing tests. This was an early mock, and most of what is represented here has been built and refined by the team.',
   },
   {
-    title: 'web component wireframe',
+    title: 'build and test status wireframe',
     imageSources: ['target-row-pies-wireframe.jpg'],
     keywords: ['ux', 'ui', 'wireframe', 'Google', 'Android'],
+    description: 'This was a quick ugly iPad drawing done to visually prove out the concept of integrating complext test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧',
   },
   {
     title: 'concept diagrams',
     imageSources: ['grid-test-views@3x.png'],
     keywords: ['conceptual', 'diagram', 'communication', 'Google', 'Android'],
+    description: 'These are a couple conceptual diagrams used to discuss the multidimensional complexity of tracking builds, tests, and devices. Included here mostly to add additional visual interest. 🙃',
   },
   {
     title: 'notification CRUD app',
     imageSources: ['notification-crud-edit.png'],
     keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
+    description: 'I designed and implemented a tool for adding, editing, and removing system alerts across Android internal sites.',
   },
   {
     title: 'lightweight webpage generator',
     imageSources: ['ux-page-crud.png'],
     keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
+    description: 'I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google\'s internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time.',
   },
   {
     title: 'mojibrush.co ui/ux + oss contributions',
     imageSources: ['moji-brush.png'],
     href: 'https://mojibrush.co',
     keywords: ['ux', 'ui', 'develop', 'fun'],
+    description: 'I wireframed the UI & UX for this spectacular progressive web app on a pizza box in a microkitchen, then helped build it.',
   },
   {
     title: 'make a webpage from Google Sheets',
     imageSources: ['ux-sheet-stepper.png'],
     keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
-  },
-  {
-    title: 'contrast study',
-    imageSources: ['material-gray-contrast-ratio-study.png'],
-    keywords: ['ux', 'ui', 'accessibility', 'Google', 'Android'],
-  },
-  {
-    title: 'sketchy wireframe',
-    imageSources: ['sketchy-wireframe.png'],
-    keywords: ['ux', 'ui', 'wireframe', 'sketch', 'Google', 'Android'],
+    description: 'At Google there is a common need to quickly spin up websites that pull content from Google Sheets. I made a web app that allowed people to make pages that do that, and walked them through validation, column select, sort options, etc.',
   },
   {
     title: 'four shipped Material emoji',
     imageSources: ['four-material-emoji.svg'],
     keywords: ['illustration', 'Material', 'fun', 'Google', 'Android'],
+    description: 'I designed these four emoji for the release of Android 6. Almost all emojis have been updated since then, but my design for Reminder Ribbon got put back into use for Android 12!',
   },
   {
     title: 'imagery exploration',
     imageSources: ['dichotomy-01.jpg'],
     keywords: ['presentation', 'conceptual', 'communication', 'Google', 'Android'],
+    description: 'Every designer and presenter eventually has to come up with imagery that helps convey a problem or a solution. This is one I made to help in a presentation about device notification overload.',
   },
   {
     title: 'identity/branding illustrations',
     imageSources: ['droid-4-up.svg'],
     keywords: ['illustration', 'fun', 'Google', 'Android'],
-  },
-  {
-    title: 'concept for research logo',
-    imageSources: ['UERchives-magnifying-glass-exag_480.png'],
-    keywords: ['illustration', 'Material', 'fun', 'Google', 'Android'],
+    description: 'I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is a beloved among research participants, making it ideal as a character-defining visual representation for Android researchers.',
   },
   {
     title: 'dancing t-rex',
     imageSources: ['dancing-dino.gif'],
     keywords: ['fun', 'Google', 'Android'],
-  },
-  {
-    title: 'sustainable healthcare website',
-    date: '2015',
-    imageSources: ['eksh-desktop.jpg'],
-    description: `Erika Kimball Sustainable Healthcare is a website I designed and developed using a lightweight animation library for subtle parallax scrolling effects. I researched and incorporated a custom CMS/blog solution to fit the client's needs, and designed the logo in Adobe Illustrator.`,
-    keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
-  },
-  {
-    title: 'mobile web app',
-    date: '2014',
-    imageSources: ['rumblemunk-mobile.jpg'],
-    keywords: ['ux', 'ui', 'develop'],
+    description: 'I did not design this dinosaur, but I did make him dance.',
   },
   {
     title: 'Global Brand Works Website',
     date: '2015',
     imageSources: ['gbw.jpg'],
-    description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built with HTML/CSS/JavaScript/PHP for interactivity. For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
+    description: 'I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built and the overall design direction has been steadfast for a half decade! For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.',
     href: 'https://globalbrandworks.com/',
     keywords: ['ux', 'ui', 'develop', 'communication', 'freelance'],
-  },
-  {
-    title: 'Illustration',
-    date: '2009',
-    imageSources: ['shanghai-outlines.jpg', 'shanghai-full-width-section-trnsp.png'],
-    description: 'As part of a competition to master plan a portion of a new theme park and entertainment destination, I digitally painted section and elevations line drawings to convey exiting, active retail, restaurant, and entertainment areas. Drawing from a variety of textures and patterns found in design and fashion magazines, I experimented with transparency, overlap, and varying hues to reach an appropriate balance. This is a small, zoomed-in portion of one of several drawings, which were presented on large-format presentation boards.',
-    keywords: ['urban design', 'illustration', 'fun', 'communication'],
   },
   {
     title: 'Wall Clock Product Design/Prototype',
@@ -186,7 +170,7 @@ export const PORTFOLIO: Project[] = [
     title: 'Mapping & Data Analysis',
     date: '2009',
     imageSources: ['pub-facilities-map.svg'],
-    description: 'I designed and created this interactive map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.',
+    description: 'I designed and created this map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.',
     keywords: ['conceptual', 'urban design', 'urban planning', 'communication', 'maps'],
   },
   {
@@ -200,5 +184,6 @@ export const PORTFOLIO: Project[] = [
     title: 'not a real emoji',
     imageSources: ['incredulous_goat.png'],
     keywords: ['fun', 'goat', 'emoji'],
+    description: 'Like the dancing t-rex, I designed neither the goat, nor the sunglasses, but I did put one on the other to make a superior emoji.',
   },
 ];
