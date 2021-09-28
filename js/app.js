@@ -1109,8 +1109,7 @@ function ProjectCard({ project, handleInfoClick, handleInfoCloseClick, selected 
   `;
 }
 const { component: component$1 } = haunted({ render: A });
-ProjectCard.observedAttributes = ['selected'];
-customElements.define('project-card', component$1(ProjectCard));
+customElements.define('project-card', component$1(ProjectCard, { observedAttributes: ['selected'] }));
 
 const RESUME = [
     {

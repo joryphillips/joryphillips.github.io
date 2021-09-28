@@ -257,7 +257,10 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
 }
 
 const {component} = haunted({render});
-ProjectCard.observedAttributes = ['selected'];
 
-// any is needed to deal with typing issue in haunted
-customElements.define('project-card', component(ProjectCard as any));
+customElements.define(
+  'project-card',
+  component<HTMLElement & ProjectCardProps>(
+    ProjectCard, {observedAttributes: ['selected']},
+  ),
+);

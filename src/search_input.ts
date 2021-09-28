@@ -216,5 +216,4 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
 
 const {component} = haunted({render});
 
-// any is needed to deal with typing issue in haunted
-customElements.define('search-box', component(SearchBox as any));
+customElements.define('search-box', component<HTMLElement & SearchBoxProps>(SearchBox));
