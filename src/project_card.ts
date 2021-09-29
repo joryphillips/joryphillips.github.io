@@ -4,7 +4,7 @@ import haunted, {useEffect} from 'haunted';
 
 import {Project} from '../data/jory';
 import {Selector} from './selectors';
-import {addIntersectionObserver} from './util';
+import {addIntersectionObserver, elementSelector} from './util';
 const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
 
@@ -32,10 +32,9 @@ async function conditionallyLoadClockPrototype(lazyImage: HTMLImageElement, pare
  * we want.
  */
 function showProjectAndLoadImage(element: Element) {
-  const lazyImage = element.shadowRoot.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement;
-  if (!lazyImage) return;
-
-  lazyImage.src = lazyImage?.dataset?.src;
+  const lazyImage = elementSelector(Selector.PROJECT_IMAGE, element) as HTMLImageElement;
+  if (!lazyImage.dataset.src) return;
+  lazyImage.src = lazyImage.dataset.src;
   conditionallyLoadClockPrototype(lazyImage, element);
   lazyImage.classList.add('visible');
 }
@@ -213,11 +212,11 @@ const styles = html`
   </style>
 `;
 
-function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}: ProjectCardProps) {
+function ProjectCard(this: unknown, {project, handleInfoClick, handleInfoCloseClick, selected}: ProjectCardProps) {
 
   useEffect(()=> {
     // img loading ="lazy" not available in Safari yet.
-    addIntersectionObserver(this, showProjectAndLoadImage);
+    addIntersectionObserver(this as HTMLElement, showProjectAndLoadImage);
   }, []);
 
   const imageSourcePath = IMAGE_PATH + project.imageSources[0];
@@ -256,11 +255,16 @@ function ProjectCard({project, handleInfoClick, handleInfoCloseClick, selected}:
   `;
 }
 
-const {component} = haunted({render});
+type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
+const {component} = haunted({render: render as TemporaryRenderFunction});
 
 customElements.define(
   'project-card',
-  component<HTMLElement & ProjectCardProps>(
-    ProjectCard, {observedAttributes: ['selected']},
-  ),
+  component<HTMLElement & ProjectCardProps>(ProjectCard, {observedAttributes: ['selected']}),
 );
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'project-card': HTMLElement & ProjectCardProps,
+  }
+}

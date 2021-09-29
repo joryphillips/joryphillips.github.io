@@ -11,7 +11,7 @@ function scrollToId(e: MouseEvent): void {
   if (scrollTargetEl) {
     const scrollTargetY = scrollTargetEl.offsetTop - headerHeight;
     window.scroll({top: scrollTargetY, behavior: 'smooth'});
-    history.pushState(null, null, hash);
+    history.pushState(null, '', hash);
   }
 }
 

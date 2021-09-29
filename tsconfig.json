@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "allowJs": true,
     "noImplicitAny": true,
     "target": "ES2020",

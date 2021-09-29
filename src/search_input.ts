@@ -1,7 +1,9 @@
 import {html, render} from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
 import haunted, {useState} from 'haunted';
+
 import { Selector } from './selectors';
+import { elementSelector } from './util';
 
 const DEBOUNCE_TIMEOUT = 350;
 
@@ -87,13 +89,13 @@ const styles = html`
     </style>
 `;
 
-function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
+function SearchBox(this: unknown, {keyWords, handleSearchInput}: SearchBoxProps) {
   const [showDropDown, setShowDropDown] = useState(false);
-  const [inputDebounce, setInputDebounce] = useState(null);
-  const [optionIndex, setOptionIndex] = useState(null);
+  const [inputDebounce, setInputDebounce] = useState<number|undefined>(undefined);
+  const [optionIndex, setOptionIndex] = useState<number|null>(null);
 
-  const searchInput: HTMLInputElement = this.shadowRoot.querySelector(Selector.SEARCH_INPUT);
-  const listBox: HTMLElement = this.shadowRoot.querySelector('#listbox');
+  const searchInput = elementSelector(Selector.SEARCH_INPUT, this as HTMLElement) as HTMLInputElement;
+  const listBox = elementSelector('#listbox', this as HTMLElement);
 
   const toggleDropdown = () => {
     setShowDropDown(!showDropDown);
@@ -122,7 +124,9 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
     } else {
       localIndex = optionIndex - 1;
     }
-    listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (listBox) {
+      listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
     setOptionIndex(localIndex);
   };
 
@@ -141,6 +145,7 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
       setShowDropDown(false);
       break;
     case 'Enter':
+      if (optionIndex == null || !searchInput) break;
       searchInput.value = [...keyWords][optionIndex];
       handleSearchInput([...keyWords][optionIndex]);
       setShowDropDown(false);
@@ -164,13 +169,15 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
     if (inputDebounce) {
       clearTimeout(inputDebounce);
     }
-    setInputDebounce(setTimeout(()=> {
+    setInputDebounce(window.setTimeout(()=> {
       handleSearchInput(value);
     }, DEBOUNCE_TIMEOUT));
   };
 
   const onOptionClick = (keyword: string)=> {
-    searchInput.value = keyword;
+    if (searchInput) {
+      searchInput.value = keyword;
+    }
 
     toggleDropdown();
     handleSearchInput(keyword);
@@ -214,6 +221,13 @@ function SearchBox({keyWords, handleSearchInput}: SearchBoxProps) {
   `;
 }
 
-const {component} = haunted({render});
+type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
+const {component} = haunted({render: render as TemporaryRenderFunction});
 
 customElements.define('search-box', component<HTMLElement & SearchBoxProps>(SearchBox));
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'search-box': HTMLElement & SearchBoxProps,
+  }
+}

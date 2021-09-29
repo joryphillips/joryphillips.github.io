@@ -21,7 +21,7 @@ export function kebabCase(str: string): string {
  * provided function on intersection.
  */
 export function addIntersectionObserver(
-  el: HTMLElement,
+  el: Element,
   onIntersection: (elm: Element)=> void,
 ): void {
   const lazyImageObserver = new IntersectionObserver((entries)=> {
@@ -41,10 +41,27 @@ export function addIntersectionObserver(
  * Call the provided function and applies the provided context after a repaint
  * has finished.
  */
-export function callAfterRepaint(func: (...args: unknown[])=> void, context: HTMLElement) {
+export function callAfterRepaint(
+  func: (...args: unknown[])=> void, context: HTMLElement): void {
   requestAnimationFrame(()=> {
     requestAnimationFrame(()=> {
       func.apply(context);
     });
   });
+}
+
+
+/**
+ * Wrapper for element.querySelector that guarantees an element gets returned or
+ * throws an error.
+ */
+export function elementSelector(query: string, context: Element): HTMLElement {
+  // This is a bit ineffecient as it will search an element tree prior to
+  // looking in shadowRoot. Will separate and add a shadow boolean property
+  // if performance is ever an issue.
+  const el = (
+    context.querySelector(query) ||
+    context.shadowRoot?.querySelector(query)) as HTMLElement|undefined|null;
+  if (el) return el;
+  throw new Error(`Could not find ${query} in ${context}`);
 }

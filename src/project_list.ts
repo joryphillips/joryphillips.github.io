@@ -83,10 +83,10 @@ const styles = html`
 `;
 
 
-export function ProjectList() {
+export function ProjectList(this: unknown) {
   const [searchValue, setSearchValue] = useState('');
-  const [selectedCard, setSelectedCard] = useState(null);
-  const [verticalScrollPosition, setVerticalScrollPosition] = useState(null);
+  const [selectedCard, setSelectedCard] = useState<string|null>(null);
+  const [verticalScrollPosition, setVerticalScrollPosition] = useState<number | undefined>(undefined);
 
   const handleSearchInput = (value: string)=> {
     setSearchValue(value);
@@ -94,15 +94,15 @@ export function ProjectList() {
 
   const handleInfoClick = (project: Project)=> {
     setVerticalScrollPosition(window.scrollY);
-    const sectionEl = this.shadowRoot.querySelector('section');
+    const sectionEl = util.elementSelector('section', this as HTMLElement);
     scrollTo({top: sectionEl.offsetTop});
     setSelectedCard(util.kebabCase(project.title));
   };
 
   const handleInfoCloseClick = ()=> {
     setSelectedCard(null);
-    util.callAfterRepaint(()=> scrollTo({top: verticalScrollPosition}), this);
-    setVerticalScrollPosition(null);
+    util.callAfterRepaint(()=> scrollTo({top: verticalScrollPosition}), this as HTMLElement);
+    setVerticalScrollPosition(undefined);
   };
 
   const cardSelected = (project: Project)=> {
@@ -147,6 +147,13 @@ export function ProjectList() {
   `;
 }
 
-const {component} = haunted({render});
+type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
+const {component} = haunted({render: render as TemporaryRenderFunction});
 
 customElements.define('project-list', component(ProjectList));
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'project-list': HTMLElement,
+  }
+}
