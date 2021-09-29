@@ -11,12 +11,11 @@ export function addClockPrototype(image: HTMLImageElement|undefined, parentEl: E
   if (!image) return;
   const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
   image.replaceWith(fragment);
+  const min = elementSelector('#min', parentEl);
+  const hour = elementSelector('#hour', parentEl);
 
   const clockWork = ()=> {
     const date = new Date();
-    const min = elementSelector('#min', parentEl);
-    const hour = elementSelector('#hour', parentEl);
-
     rotateHand(min, 6 * date.getMinutes());
     rotateHand(hour, 30 * (date.getHours() % 12) + date.getMinutes() / 2);
   };

@@ -778,8 +778,12 @@ function SearchBox({ keyWords, handleSearchInput }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const [inputDebounce, setInputDebounce] = useState(undefined);
     const [optionIndex, setOptionIndex] = useState(null);
-    const searchInput = elementSelector(Selector.SEARCH_INPUT, this);
-    const listBox = elementSelector('#listbox', this);
+    let searchInput;
+    let listBox;
+    useEffect(() => {
+        searchInput = elementSelector(Selector.SEARCH_INPUT, this);
+        elementSelector('#listbox', this);
+    }, []);
     const toggleDropdown = () => {
         setShowDropDown(!showDropDown);
     };
@@ -805,9 +809,6 @@ function SearchBox({ keyWords, handleSearchInput }) {
         }
         else {
             localIndex = optionIndex - 1;
-        }
-        if (listBox) {
-            listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         setOptionIndex(localIndex);
     };
@@ -900,7 +901,7 @@ const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
 async function conditionallyLoadClockPrototype(lazyImage, parentEl) {
     if (lazyImage.src.indexOf(CLOCK_PATH) > -1) {
-        const clock = await import('./clock-3a12fbaf.js');
+        const clock = await import('./clock-4282ddcf.js');
         clock.addClockPrototype(lazyImage, parentEl);
     }
 }

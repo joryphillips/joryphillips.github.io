@@ -1,6 +1,6 @@
 import {html, render} from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
-import haunted, {useState} from 'haunted';
+import haunted, {useState, useEffect} from 'haunted';
 
 import { Selector } from './selectors';
 import { elementSelector } from './util';
@@ -94,8 +94,13 @@ function SearchBox(this: unknown, {keyWords, handleSearchInput}: SearchBoxProps)
   const [inputDebounce, setInputDebounce] = useState<number|undefined>(undefined);
   const [optionIndex, setOptionIndex] = useState<number|null>(null);
 
-  const searchInput = elementSelector(Selector.SEARCH_INPUT, this as HTMLElement) as HTMLInputElement;
-  const listBox = elementSelector('#listbox', this as HTMLElement);
+  let searchInput: HTMLInputElement;
+  let listBox: HTMLElement;
+
+  useEffect(()=> {
+    searchInput = elementSelector(Selector.SEARCH_INPUT, this as HTMLElement) as HTMLInputElement;
+    elementSelector('#listbox', this as HTMLElement);
+  }, []);
 
   const toggleDropdown = () => {
     setShowDropDown(!showDropDown);
