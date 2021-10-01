@@ -1,13 +1,15 @@
 import {html, render} from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
-import haunted, {useState, useEffect} from 'haunted';
+import haunted, {useState} from 'haunted';
 
 import { Selector } from './selectors';
-import { elementSelector } from './util';
 
 const DEBOUNCE_TIMEOUT = 350;
 
-interface SearchBoxProps {
+/**
+ * Properties for search-input element.
+ */
+export interface Props {
   keyWords: Set<string>,
   handleSearchInput: (value: string)=> void,
 }
@@ -89,18 +91,16 @@ const styles = html`
     </style>
 `;
 
-function SearchBox(this: unknown, {keyWords, handleSearchInput}: SearchBoxProps) {
+/**
+ * An ARIA 1.1-compliant search input with dropdown of suggestions.
+ */
+function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: Props) {
   const [showDropDown, setShowDropDown] = useState(false);
   const [inputDebounce, setInputDebounce] = useState<number|undefined>(undefined);
   const [optionIndex, setOptionIndex] = useState<number|null>(null);
 
-  let searchInput: HTMLInputElement;
-  let listBox: HTMLElement;
-
-  useEffect(()=> {
-    searchInput = elementSelector(Selector.SEARCH_INPUT, this as HTMLElement) as HTMLInputElement;
-    elementSelector('#listbox', this as HTMLElement);
-  }, []);
+  const searchInput = (this as Element).shadowRoot?.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement|null;
+  const listBox = (this as Element).shadowRoot?.querySelector('#listbox') as HTMLElement|null;
 
   const toggleDropdown = () => {
     setShowDropDown(!showDropDown);
@@ -118,7 +118,9 @@ function SearchBox(this: unknown, {keyWords, handleSearchInput}: SearchBoxProps)
     } else {
       localIndex = optionIndex + 1;
     }
-    listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (listBox) {
+      listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
     setOptionIndex(localIndex);
   };
 
@@ -229,10 +231,10 @@ function SearchBox(this: unknown, {keyWords, handleSearchInput}: SearchBoxProps)
 type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
 const {component} = haunted({render: render as TemporaryRenderFunction});
 
-customElements.define('search-box', component<HTMLElement & SearchBoxProps>(SearchBox));
+customElements.define('search-input', component<HTMLElement & Props>(SearchInput));
 
 declare global {
   interface HTMLElementTagNameMap {
-    'search-box': HTMLElement & SearchBoxProps,
+    'search-input': HTMLElement & Props,
   }
 }

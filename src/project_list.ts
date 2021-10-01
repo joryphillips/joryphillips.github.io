@@ -94,8 +94,10 @@ export function ProjectList(this: unknown) {
 
   const handleInfoClick = (project: Project)=> {
     setVerticalScrollPosition(window.scrollY);
-    const sectionEl = util.elementSelector('section', this as HTMLElement);
-    scrollTo({top: sectionEl.offsetTop});
+    const sectionEl = (this as HTMLElement).querySelector('section') as HTMLElement|null;
+    if (sectionEl) {
+      scrollTo({top: sectionEl.offsetTop});
+    }
     setSelectedCard(util.kebabCase(project.title));
   };
 
@@ -122,11 +124,11 @@ export function ProjectList(this: unknown) {
     <section class="border-bottom border-top">
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
-        <search-box
+        <search-input
           ?hidden=${!!selectedCard}
           .keyWords=${util.getKeyWords(PORTFOLIO)}
           .handleSearchInput=${handleSearchInput}
-        ></search-box>
+        ></search-input>
       </div>
 
       <div class="project-holder">

@@ -4,7 +4,7 @@ import haunted, {useEffect} from 'haunted';
 
 import {Project} from '../data/jory';
 import {Selector} from './selectors';
-import {addIntersectionObserver, elementSelector} from './util';
+import {addIntersectionObserver} from './util';
 const IMAGE_PATH = './images/';
 const CLOCK_PATH = 'heathrow-clock.svg';
 
@@ -32,8 +32,8 @@ async function conditionallyLoadClockPrototype(lazyImage: HTMLImageElement, pare
  * we want.
  */
 function showProjectAndLoadImage(element: Element) {
-  const lazyImage = elementSelector(Selector.PROJECT_IMAGE, element) as HTMLImageElement;
-  if (!lazyImage.dataset.src) return;
+  const lazyImage = element.shadowRoot?.querySelector(Selector.PROJECT_IMAGE) as HTMLImageElement|null;
+  if (!lazyImage || !lazyImage.dataset.src) return;
   lazyImage.src = lazyImage.dataset.src;
   conditionallyLoadClockPrototype(lazyImage, element);
   lazyImage.classList.add('visible');

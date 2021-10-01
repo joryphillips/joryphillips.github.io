@@ -49,19 +49,3 @@ export function callAfterRepaint(
     });
   });
 }
-
-
-/**
- * Wrapper for element.querySelector that guarantees an element gets returned or
- * throws an error.
- */
-export function elementSelector(query: string, context: Element): HTMLElement {
-  // This is a bit ineffecient as it will search an element tree prior to
-  // looking in shadowRoot. Will separate and add a shadow boolean property
-  // if performance is ever an issue.
-  const el = (
-    context.querySelector(query) ||
-    context.shadowRoot?.querySelector(query)) as HTMLElement|undefined|null;
-  if (el) return el;
-  throw new Error(`Could not find ${query} in ${context}`);
-}

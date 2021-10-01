@@ -1,5 +1,4 @@
 import {CLOCK_SVG_HTML} from './clock_svg';
-import {elementSelector} from './util';
 
 function rotateHand(element: Element, degree: number): void {
   element.setAttribute('transform', `rotate(${degree} 1504.5 593.2)`);
@@ -11,8 +10,9 @@ export function addClockPrototype(image: HTMLImageElement|undefined, parentEl: E
   if (!image) return;
   const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
   image.replaceWith(fragment);
-  const min = elementSelector('#min', parentEl);
-  const hour = elementSelector('#hour', parentEl);
+  const min = parentEl.shadowRoot?.querySelector('#min');
+  const hour = parentEl.shadowRoot?.querySelector('#hour');
+  if (!hour || !min) return;
 
   const clockWork = ()=> {
     const date = new Date();

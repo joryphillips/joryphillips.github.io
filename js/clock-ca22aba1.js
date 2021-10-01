@@ -1,5 +1,3 @@
-import { e as elementSelector } from './app-e4b9569f.js';
-
 const CLOCK_SVG_HTML = `
 <svg viewBox="269 -700 2200 2200" class="block width-100">
   <svg id="airplane" width="20" height="20" x="-10" y="-10" viewBox="-10 -10 20 20">
@@ -533,8 +531,10 @@ function addClockPrototype(image, parentEl) {
         return;
     const fragment = document.createRange().createContextualFragment(CLOCK_SVG_HTML);
     image.replaceWith(fragment);
-    const min = elementSelector('#min', parentEl);
-    const hour = elementSelector('#hour', parentEl);
+    const min = parentEl.shadowRoot?.querySelector('#min');
+    const hour = parentEl.shadowRoot?.querySelector('#hour');
+    if (!hour || !min)
+        return;
     const clockWork = () => {
         const date = new Date();
         rotateHand(min, 6 * date.getMinutes());
