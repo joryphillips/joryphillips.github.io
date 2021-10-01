@@ -94,16 +94,17 @@ export function ProjectList(this: unknown) {
 
   const handleInfoClick = (project: Project)=> {
     setVerticalScrollPosition(window.scrollY);
-    const sectionEl = (this as HTMLElement).querySelector('section') as HTMLElement|null;
+    const sectionEl = (this as HTMLElement).shadowRoot?.querySelector('section') as HTMLElement|null;
     if (sectionEl) {
       scrollTo({top: sectionEl.offsetTop});
     }
     setSelectedCard(util.kebabCase(project.title));
   };
 
-  const handleInfoCloseClick = ()=> {
+  const handleInfoCloseClick = async ()=> {
     setSelectedCard(null);
-    util.callAfterRepaint(()=> scrollTo({top: verticalScrollPosition}), this as HTMLElement);
+    await util.repaint();
+    scrollTo({top: verticalScrollPosition});
     setVerticalScrollPosition(undefined);
   };
 

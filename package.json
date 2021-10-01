@@ -8,10 +8,14 @@
     "lit": "^2.0.0"
   },
   "devDependencies": {
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@open-wc/testing": "^2.5.33",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.5",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "@web/dev-server-esbuild": "^0.2.14",
+    "@web/test-runner": "^0.13.18",
     "eslint": "^7.32.0",
     "rollup": "^2.56.2",
     "rollup-plugin-delete": "^2.0.0",
@@ -20,7 +24,8 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "web-test-runner \"test/**/*.test.ts\" --node-resolve",
+    "test:watch": "web-test-runner test/**/*.test.ts --node-resolve --watch",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
     "serve": "python3 -m http.server",

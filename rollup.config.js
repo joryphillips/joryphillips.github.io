@@ -20,4 +20,5 @@ export default {
     del({targets: 'js/*'}),
     typescript(),
   ],
+  preserveEntrySignatures: false,
 };

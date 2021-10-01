@@ -38,14 +38,10 @@ export function addIntersectionObserver(
 }
 
 /**
- * Call the provided function and applies the provided context after a repaint
- * has finished.
+ * Return a promise after a full repaint.
  */
-export function callAfterRepaint(
-  func: (...args: unknown[])=> void, context: HTMLElement): void {
-  requestAnimationFrame(()=> {
-    requestAnimationFrame(()=> {
-      func.apply(context);
-    });
-  });
+export function repaint(): Promise<void> {
+  return new Promise<void>(resolve =>
+    requestAnimationFrame(()=> requestAnimationFrame(()=> resolve())),
+  );
 }

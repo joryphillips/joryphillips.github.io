@@ -2,9 +2,12 @@ import {html, render} from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
 import haunted, {useState} from 'haunted';
 
-import { Selector } from './selectors';
-
 const DEBOUNCE_TIMEOUT = 350;
+const defaultHandleSearchInput = (value: string)=> value;
+const defaultScrollBehavior: ScrollIntoViewOptions = {
+  behavior: 'smooth',
+  block: 'nearest',
+};
 
 /**
  * Properties for search-input element.
@@ -94,12 +97,12 @@ const styles = html`
 /**
  * An ARIA 1.1-compliant search input with dropdown of suggestions.
  */
-function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: Props) {
+function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput = defaultHandleSearchInput}: Props) {
   const [showDropDown, setShowDropDown] = useState(false);
   const [inputDebounce, setInputDebounce] = useState<number|undefined>(undefined);
   const [optionIndex, setOptionIndex] = useState<number|null>(null);
+  const [inputValue, setInputValue] = useState('');
 
-  const searchInput = (this as Element).shadowRoot?.querySelector(Selector.SEARCH_INPUT) as HTMLInputElement|null;
   const listBox = (this as Element).shadowRoot?.querySelector('#listbox') as HTMLElement|null;
 
   const toggleDropdown = () => {
@@ -119,7 +122,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
       localIndex = optionIndex + 1;
     }
     if (listBox) {
-      listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      listBox.children[localIndex].scrollIntoView(defaultScrollBehavior);
     }
     setOptionIndex(localIndex);
   };
@@ -132,7 +135,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
       localIndex = optionIndex - 1;
     }
     if (listBox) {
-      listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      listBox.children[localIndex].scrollIntoView(defaultScrollBehavior);
     }
     setOptionIndex(localIndex);
   };
@@ -152,8 +155,8 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
       setShowDropDown(false);
       break;
     case 'Enter':
-      if (optionIndex == null || !searchInput) break;
-      searchInput.value = [...keyWords][optionIndex];
+      if (optionIndex == null) break;
+      setInputValue([...keyWords][optionIndex]);
       handleSearchInput([...keyWords][optionIndex]);
       setShowDropDown(false);
       break;
@@ -173,6 +176,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
   const handleInput = (e: InputEvent) => {
     const {value} = e.composedPath().find(
       el => ((el as HTMLElement).tagName === 'INPUT')) as HTMLInputElement;
+
     if (inputDebounce) {
       clearTimeout(inputDebounce);
     }
@@ -182,10 +186,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
   };
 
   const onOptionClick = (keyword: string)=> {
-    if (searchInput) {
-      searchInput.value = keyword;
-    }
-
+    setInputValue(keyword);
     toggleDropdown();
     handleSearchInput(keyword);
   };
@@ -206,6 +207,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput}: P
         aria-controls="listbox"
         aria-autocomplete="list"
         autocomplete="off"
+        .value=${inputValue}
         @input=${handleInput}
         @focus=${handleFocus}
         @blur=${handleBlur}

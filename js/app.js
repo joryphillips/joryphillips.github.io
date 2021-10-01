@@ -656,14 +656,12 @@ function haunted({ render }) {
  * SPDX-License-Identifier: BSD-3-Clause
  */const o=e$1(class extends i$1{constructor(t$1){var i;if(super(t$1),t$1.type!==t.ATTRIBUTE||"class"!==t$1.name||(null===(i=t$1.strings)||void 0===i?void 0:i.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return " "+Object.keys(t).filter((i=>t[i])).join(" ")+" "}update(i,[s]){var r,o;if(void 0===this.st){this.st=new Set,void 0!==i.strings&&(this.et=new Set(i.strings.join(" ").split(/\s/).filter((t=>""!==t))));for(const t in s)s[t]&&!(null===(r=this.et)||void 0===r?void 0:r.has(t))&&this.st.add(t);return this.render(s)}const e=i.element.classList;this.st.forEach((t=>{t in s||(e.remove(t),this.st.delete(t));}));for(const t in s){const i=!!s[t];i===this.st.has(t)||(null===(o=this.et)||void 0===o?void 0:o.has(t))||(i?(e.add(t),this.st.add(t)):(e.remove(t),this.st.delete(t)));}return T$1}});
 
-var Selector;
-(function (Selector) {
-    Selector["HEADER"] = "header";
-    Selector["PROJECT_IMAGE"] = ".image-container img";
-    Selector["SEARCH_INPUT"] = "input[type=\"search\"]";
-})(Selector || (Selector = {}));
-
 const DEBOUNCE_TIMEOUT = 350;
+const defaultHandleSearchInput = (value) => value;
+const defaultScrollBehavior = {
+    behavior: 'smooth',
+    block: 'nearest',
+};
 const styles$2 = y `
     <style>
       :host {
@@ -740,11 +738,11 @@ const styles$2 = y `
       }
     </style>
 `;
-function SearchInput({ keyWords = new Set(), handleSearchInput }) {
+function SearchInput({ keyWords = new Set(), handleSearchInput = defaultHandleSearchInput }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const [inputDebounce, setInputDebounce] = useState(undefined);
     const [optionIndex, setOptionIndex] = useState(null);
-    const searchInput = this.shadowRoot?.querySelector(Selector.SEARCH_INPUT);
+    const [inputValue, setInputValue] = useState('');
     const listBox = this.shadowRoot?.querySelector('#listbox');
     const toggleDropdown = () => {
         setShowDropDown(!showDropDown);
@@ -762,7 +760,7 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
             localIndex = optionIndex + 1;
         }
         if (listBox) {
-            listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            listBox.children[localIndex].scrollIntoView(defaultScrollBehavior);
         }
         setOptionIndex(localIndex);
     };
@@ -775,7 +773,7 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
             localIndex = optionIndex - 1;
         }
         if (listBox) {
-            listBox.children[localIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            listBox.children[localIndex].scrollIntoView(defaultScrollBehavior);
         }
         setOptionIndex(localIndex);
     };
@@ -794,9 +792,9 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
                 setShowDropDown(false);
                 break;
             case 'Enter':
-                if (optionIndex == null || !searchInput)
+                if (optionIndex == null)
                     break;
-                searchInput.value = [...keyWords][optionIndex];
+                setInputValue([...keyWords][optionIndex]);
                 handleSearchInput([...keyWords][optionIndex]);
                 setShowDropDown(false);
                 break;
@@ -818,9 +816,7 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
         }, DEBOUNCE_TIMEOUT));
     };
     const onOptionClick = (keyword) => {
-        if (searchInput) {
-            searchInput.value = keyword;
-        }
+        setInputValue(keyword);
         toggleDropdown();
         handleSearchInput(keyword);
     };
@@ -840,6 +836,7 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
         aria-controls="listbox"
         aria-autocomplete="list"
         autocomplete="off"
+        .value=${inputValue}
         @input=${handleInput}
         @focus=${handleFocus}
         @blur=${handleBlur}
@@ -863,6 +860,13 @@ function SearchInput({ keyWords = new Set(), handleSearchInput }) {
 }
 const { component: component$2 } = haunted({ render: A });
 customElements.define('search-input', component$2(SearchInput));
+
+var Selector;
+(function (Selector) {
+    Selector["HEADER"] = "header";
+    Selector["PROJECT_IMAGE"] = ".image-container img";
+    Selector["SEARCH_INPUT"] = "input[type=\"search\"]";
+})(Selector || (Selector = {}));
 
 function getKeyWords(list) {
     const keywords = new Set();
@@ -890,12 +894,8 @@ function addIntersectionObserver(el, onIntersection) {
     });
     lazyImageObserver.observe(el);
 }
-function callAfterRepaint(func, context) {
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            func.apply(context);
-        });
-    });
+function repaint() {
+    return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 }
 
 const IMAGE_PATH = './images/';
@@ -1380,15 +1380,16 @@ function ProjectList() {
     };
     const handleInfoClick = (project) => {
         setVerticalScrollPosition(window.scrollY);
-        const sectionEl = this.querySelector('section');
+        const sectionEl = this.shadowRoot?.querySelector('section');
         if (sectionEl) {
             scrollTo({ top: sectionEl.offsetTop });
         }
         setSelectedCard(kebabCase(project.title));
     };
-    const handleInfoCloseClick = () => {
+    const handleInfoCloseClick = async () => {
         setSelectedCard(null);
-        callAfterRepaint(() => scrollTo({ top: verticalScrollPosition }), this);
+        await repaint();
+        scrollTo({ top: verticalScrollPosition });
         setVerticalScrollPosition(undefined);
     };
     const cardSelected = (project) => {
