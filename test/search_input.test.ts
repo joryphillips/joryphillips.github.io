@@ -1,21 +1,10 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import {Props} from '../src/search_input';
 import '../src/search_input';
-import {repaint} from '../src/util';
+import { dispatchEvents } from './helpers';
 
 const keyWords = new Set(['banana', 'blueberry', 'orange', 'raspberry']);
 
-
-async function dispatchAndRepaint(context: Element, event: Event) {
-  context.dispatchEvent(event);
-  await repaint();
-}
-
-async function dispatchEvents(context: Element, events: Event[]) {
-  for (const event of events) {
-    await dispatchAndRepaint(context, event);
-  }
-}
 
 describe('search-input', ()=> {
   it('adds provided keywords', async ()=> {
@@ -50,15 +39,13 @@ describe('search-input', ()=> {
 
     it('dropdown value shows up in input on selection mousedown', async ()=> {
       const selectOption = el.shadowRoot?.querySelector('li[role="option"]') as HTMLInputElement;
-      await dispatchAndRepaint(selectOption, new Event('mousedown'));
+      await dispatchEvents(selectOption, [new Event('mousedown')]);
       expect(input.value).to.equal('banana');
     });
 
     it('focus shows listbox', async ()=> {
       const listBox = el.shadowRoot.querySelector('#listbox') as HTMLElement;
-      await dispatchEvents(input, [
-        new Event('focus'),
-      ]);
+      await dispatchEvents(input, [new Event('focus')]);
       expect(listBox.getAttribute('aria-expanded')).to.equal('true');
       expect(!!listBox.offsetParent).to.be.true;
     });

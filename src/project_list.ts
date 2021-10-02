@@ -7,7 +7,11 @@ import './project_card';
 import * as util from './util';
 import {Project, PORTFOLIO} from '../data/jory';
 
-function listHasSearchValues(searchValue: string, listString: string) {
+/**
+ * Given a string, returns true if members of the search string are present. Not
+ * a fuzzy search: all searchValues must be present to succeed.
+ */
+export function listHasSearchValues(searchValue: string, listString: string): boolean {
   let matches = false;
   const searchList = searchValue.toLowerCase().split(' ');
   for (let i = 0; i < searchList.length; i++) {
@@ -83,7 +87,7 @@ const styles = html`
 `;
 
 
-export function ProjectList(this: unknown) {
+function ProjectList(this: unknown) {
   const [searchValue, setSearchValue] = useState('');
   const [selectedCard, setSelectedCard] = useState<string|null>(null);
   const [verticalScrollPosition, setVerticalScrollPosition] = useState<number | undefined>(undefined);
