@@ -6,10 +6,6 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 export default {
   input: 'src/app.ts',
   output: [{
-    dir: './js',
-    format: 'es',
-  },
-  {
     dir: './js/min',
     format: 'es',
     sourcemap: true,
