@@ -13,7 +13,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./base.css">
+    <style>
+      html {
+        font-size: 16px;
+      }
+
+      @media (max-width: 800px) {
+        html { font-size: 15px; }
+      }
+
+      @media (max-width: 400px) {
+        html { font-size: 14px; }
+      }
+
+      body {
+        background-color: #f2f2f2;
+        color: #1a1a1a;
+        font-family: 'Rubik', 'Helvetica Neue', Helvetica, sans-serif;
+        margin: 0;
+      }
+    </style>
     <script async src="./js/min/app.js" type="module"></script>
   </head>
 
@@ -24,5 +43,7 @@
     </p>
   </noscript>
 
-  <body></body>
+  <body>
+    <app-component></app-component>
+  </body>
 </html>
