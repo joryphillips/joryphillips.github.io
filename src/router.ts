@@ -26,8 +26,7 @@ function handleNavigation({location, context, setNavFocus}: HandleNavArg) {
   // fancy smooth scrolling.
   window.addEventListener('load', async ()=> {
     await repaint();
-    // 'instant' is not in lib.dom.d.ts but is in MDN docs and it works.
-    scrollToId(context, hash, 'instant' as ScrollBehavior);
+    scrollToId(context, hash, 'instant');
     firstPageLoad = false;
   });
 }
