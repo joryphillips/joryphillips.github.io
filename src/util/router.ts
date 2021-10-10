@@ -1,5 +1,6 @@
 import { installRouter } from 'pwa-helpers/router';
-import { repaint, scrollToId } from './util';
+import { repaint } from './repaint';
+import { scrollToId } from './scroll_to_id';
 
 
 type SetNavFunc = (hash: string)=> void;

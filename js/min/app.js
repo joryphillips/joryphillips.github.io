@@ -73,7 +73,213 @@ let Ce,Te=!1;(()=>{try{const e={get capture(){return Te=!0,!1}};window.addEventL
  * @license
  * Portions Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function et({render:e}){const t=Ve(e),i=function(e){return t=>{const i={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.listeners=new Set,this.addEventListener("haunted.context",this)}disconnectedCallback(){this.removeEventListener("haunted.context",this)}handleEvent(e){const{detail:t}=e;t.Context===i&&(t.value=this.value,t.unsubscribe=this.unsubscribe.bind(this,t.callback),this.listeners.add(t.callback),e.stopPropagation())}unsubscribe(e){this.listeners.delete(e)}set value(e){this._value=e;for(let t of this.listeners)t(e)}get value(){return this._value}},Consumer:e((function({render:e}){return e(Ze(i))})),defaultValue:t};return i}}(t);return{component:t,createContext:i}}Promise.resolve(),Je(class extends We{reducer;currentState;constructor(e,t,i,s,o){super(e,t),this.dispatch=this.dispatch.bind(this),this.currentState=void 0!==o?o(s):s}update(e){return this.reducer=e,[this.currentState,this.dispatch]}dispatch(e){this.currentState=this.reducer(this.currentState,e),this.state.update()}});const tt=de`
+ */Promise.resolve(),Je(class extends We{reducer;currentState;constructor(e,t,i,s,o){super(e,t),this.dispatch=this.dispatch.bind(this),this.currentState=void 0!==o?o(s):s}update(e){return this.reducer=e,[this.currentState,this.dispatch]}dispatch(e){this.currentState=this.reducer(this.currentState,e),this.state.update()}});const{component:et}=function({render:e}){const t=Ve(e),i=function(e){return t=>{const i={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.listeners=new Set,this.addEventListener("haunted.context",this)}disconnectedCallback(){this.removeEventListener("haunted.context",this)}handleEvent(e){const{detail:t}=e;t.Context===i&&(t.value=this.value,t.unsubscribe=this.unsubscribe.bind(this,t.callback),this.listeners.add(t.callback),e.stopPropagation())}unsubscribe(e){this.listeners.delete(e)}set value(e){this._value=e;for(let t of this.listeners)t(e)}get value(){return this._value}},Consumer:e((function({render:e}){return e(Ze(i))})),defaultValue:t};return i}}(t);return{component:t,createContext:i}}({render:pe}),tt=de`
+  <style>
+    section {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    section.jumbo {
+      padding-bottom: 2rem;
+      text-align: center;
+    }
+
+    .jumbo h1 {
+      font-size: 4rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .15rem;
+      margin-bottom: 1rem;
+    }
+
+    .jumbo h2 {
+      font-size: 1.5rem;
+    }
+
+    section.summary p {
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 2.2rem;
+    }
+
+    section.summary p a {
+      text-decoration: none;
+      font-weight: 500;
+      color: hsl(211deg 100% 25% / 90%);
+    }
+
+    .container {
+      display: block;
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .date {
+      margin-left: 0.5rem;
+    }
+
+    section.experience h1 {
+      margin-bottom: 2rem;
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .job {
+      margin-top: 3rem;
+    }
+
+    .job h2.title {
+      margin-top: 0;
+      font-size: 1.17rem;
+      font-weight: 500;
+    }
+
+    .job p.summary {
+      margin-top: .5rem;
+      margin-bottom: 0;
+      font-size: 1.17rem;
+      font-weight: 400;
+      line-height: 2rem;
+    }
+
+    footer {
+      bottom: 0;
+    }
+
+    footer a {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      float: left;
+      font-size: .75rem;
+    }
+
+    footer .container {
+      flex: 1 1 auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: .5rem;
+    }
+
+    .border-bottom {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-bottom-color: rgba(0, 0, 0, .125);
+    }
+
+    .border-top {
+      border-top-style: solid;
+      border-top-width: 1px;
+      border-top-color: rgba(0, 0, 0, .125);
+    }
+
+    .cranberry {
+      color: #c11067;
+    }
+
+    .navy {
+      color: rgba(0, 32, 66, 0.9);
+    }
+
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
+    .button-transparent {
+      position: relative;
+      z-index: 2;
+      color: inherit;
+      background-color: transparent;
+      border-radius: 0;
+      border: 1px solid transparent;
+    }
+
+    .button, button {
+      font-family: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      line-height: 1.125rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin: 0;
+      height: auto;
+      border: 1px solid transparent;
+      vertical-align: middle;
+      -webkit-appearance: none;
+      transition: background-color .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .button:hover, .button:focus {
+      background-color: rgb(115 179 221 / 17%);
+    }
+
+    .button:focus, button:focus, a:focus {
+      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    }
+
+    .button:focus, button:focus {
+      outline-offset: -2px!important;
+    }
+  </style>
+`;function it(e){return e.toLowerCase().replace(/[^a-z0-9]+/gi,"-")}function st(){return new Promise((e=>requestAnimationFrame((()=>requestAnimationFrame((()=>e()))))))}
+/**
+@license
+Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/var ot;function nt(e,t,i="smooth"){const s=e.querySelector(t),o=e.querySelector(ot.HEADER),n=o?o.offsetHeight:0;if(s){const e=s.offsetTop-n;window.scroll({top:e,behavior:i})}}!function(e){e.HEADER="header",e.PROJECT_IMAGE=".image-container img",e.SEARCH_INPUT='input[type="search"]'}(ot||(ot={}));let rt=!0;function at({context:e,setNavFocus:t}){var i;i=i=>function({location:e,context:t,setNavFocus:i}){if(i(e.hash),!t)return;const s=e.hash||"#home";rt?window.addEventListener("load",(async()=>{await st(),nt(t,s,"instant"),rt=!1})):nt(t,s)}({location:i,context:e,setNavFocus:t}),document.body.addEventListener("click",(e=>{if(e.defaultPrevented||0!==e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;const t=e.composedPath().filter((e=>"A"===e.tagName))[0];if(!t||t.target||t.hasAttribute("download")||"external"===t.getAttribute("rel"))return;const s=t.href;if(!s||-1!==s.indexOf("mailto:"))return;const o=window.location,n=o.origin||o.protocol+"//"+o.host;0===s.indexOf(n)&&(e.preventDefault(),s!==o.href&&(window.history.pushState({},"",s),i(o,e)))})),window.addEventListener("popstate",(e=>i(window.location,e))),i(window.location,null)}const lt=de`
+  <section id="home" class="jumbo navy">
+    <h1>Jory Phillips</h1>
+    <h2>do-gooder; designer & front-end developer</h2>
+  </section>
+`,dt=de`
+  <section id="summary" class="summary">
+    <div class="container">
+      <p>My specialty is bridging big-picture concepts with detailed
+        implementation. I seek projects that help people navigate and understand
+        complex things, or simply make people's lives better.</p>
+      <p>I have designed & developed apps for Google, helped a branding agency
+        brand itself, and created design guidelines and illustrations for major
+        cities and a movie studio/theme park. I've led teams that make
+        complicated stuff, and I am often eager to attempt the impossible.</p>
+        <p>Want to collaborate?
+        <a href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">
+        Please reach out!</a></p>
+    </div>
+  </section>
+`,ct=[{title:"Mock for plan review UI",date:"2021",description:"A high-fidelity mock for a user interface allowing fluid communication between an agency and applicant.",imageSources:["plan_review_mock.jpg"],keywords:["software","ux","ui","mock","communication"]},{title:"front-end tech lead",date:"2020-2021",description:"I was the tech lead for a team of front-end engineers working within the design systems management branch of Material. I prototyped features, led building a production-grade app for managing tokens and design system details, and mentored and helped other engineers add features.",imageSources:["Google_Material_Design_Logo.svg"],keywords:["software","typescript","tooling","develop","engineer","Google","Material"]},{title:"Gallery.io web engineering",date:"2019",description:"Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, resulting in thousands of tech debt issues closed, more dev-friendly componentization, and a bundle size reduction of at least 33%. While the app is being turned down due to the popularity of Figma, I am very proud of the progress we made on it and the lessons it taught.",href:"https://gallery.io",imageSources:["gallery.jpg"],keywords:["software","typescript","tooling","modernization","develop","engineer","Google","Material"]},{title:"web performance analysis",date:"2020",href:"https://github.com/joryphillips/joryphillips.github.io/issues/8#issuecomment-611778792",imageSources:["web-perf.png"],keywords:["software","develop","engineer","performance","tooling"],description:"I did a performance assessment on my own website and wrote up findings in a GitHub issue. If you know of a page that is loading too slowly, the methods I applied might help!"},{title:"full app design for Android Build",imageSources:["test-result-details.png"],keywords:["ux","ui","develop","Google","Android","typescript","mock"],description:"I was the only UXer on the Android Build team for a while, which meant I got to lead the design of some very complex things, like this tool used to help engineers chase down broken builds and failing tests. This was an early mock, and most of what is represented here has been built and refined by the team."},{title:"build and test status wireframe",imageSources:["target-row-pies-wireframe.jpg"],keywords:["ux","ui","wireframe","Google","Android"],description:"This was a quick ugly iPad drawing done to visually prove out the concept of integrating complext test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧"},{title:"concept diagrams",imageSources:["grid-test-views@3x.png"],keywords:["conceptual","diagram","communication","Google","Android"],description:"These are a couple conceptual diagrams used to discuss the multidimensional complexity of tracking builds, tests, and devices. Included here mostly to add additional visual interest. 🙃"},{title:"notification CRUD app",imageSources:["notification-crud-edit.png"],keywords:["ux","ui","develop","Google","Android","typescript"],description:"I designed and implemented a tool for adding, editing, and removing system alerts across Android internal sites."},{title:"lightweight webpage generator",imageSources:["ux-page-crud.png"],keywords:["ux","ui","develop","Google","Android"],description:"I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google's internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time."},{title:"mojibrush.co ui/ux + oss contributions",imageSources:["moji-brush.png"],href:"https://mojibrush.co",keywords:["ux","ui","develop","fun"],description:"I wireframed the UI & UX for this spectacular progressive web app on a pizza box in a microkitchen, then helped build it."},{title:"make a webpage from Google Sheets",imageSources:["ux-sheet-stepper.png"],keywords:["ux","ui","develop","Google","Android"],description:"At Google there is a common need to quickly spin up websites that pull content from Google Sheets. I made a web app that allowed people to make pages that do that, and walked them through validation, column select, sort options, etc."},{title:"four shipped Material emoji",imageSources:["four-material-emoji.svg"],keywords:["illustration","Material","fun","Google","Android"],description:"I designed these four emoji for the release of Android 6. Almost all emojis have been updated since then, but my design for Reminder Ribbon got put back into use for Android 12!"},{title:"imagery exploration",imageSources:["dichotomy-01.jpg"],keywords:["presentation","conceptual","communication","Google","Android"],description:"Every designer and presenter eventually has to come up with imagery that helps convey a problem or a solution. This is one I made to help in a presentation about device notification overload."},{title:"identity/branding illustrations",imageSources:["droid-4-up.svg"],keywords:["illustration","fun","Google","Android"],description:"I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is a beloved among research participants, making it ideal as a character-defining visual representation for Android researchers."},{title:"dancing t-rex",imageSources:["dancing-dino.gif"],keywords:["fun","Google","Android"],description:"I did not design this dinosaur, but I did make him dance."},{title:"Global Brand Works Website",date:"2015",imageSources:["gbw.jpg"],description:"I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built and the overall design direction has been steadfast for a half decade! For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.",href:"https://globalbrandworks.com/",keywords:["ux","ui","develop","communication","freelance"]},{title:"Wall Clock Product Design/Prototype",date:"2010",imageSources:["heathrow-clock.svg"],description:"Tasked with coming up with product ideas that could build upon notNeutral's (Rios Clementi Hale Studio's product design brand) successful CityPlates, I started analyzing aerial photographs of different cities for inspiration. I was especially drawn to the way airports look from above. This London Heathrow graphic was originally presented as an idea for a large-scale wall graphic and clock, with the runways as moving hands. Here I have streamlined the original Illustrator file with SVG and used Javascript to make it a functional time-telling graphic.",keywords:["conceptual","prototyping","maps"]},{title:"Mapping & Data Analysis",date:"2009",imageSources:["pub-facilities-map.svg"],description:"I designed and created this map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.",keywords:["conceptual","urban design","urban planning","communication","maps"]},{title:"Universal Studios Master Plan",date:"2011",imageSources:["usmp.png"],description:"While working at Rios Clementi Hale Studios, I produced materials and coordinated a team of multidisciplinary designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles.",keywords:["urban design","urban planning","communication"]},{title:"not a real emoji",imageSources:["incredulous_goat.png"],keywords:["fun","goat","emoji"],description:"Like the dancing t-rex, I designed neither the goat, nor the sunglasses, but I did put one on the other to make a superior emoji."}];const ht=de`
+  <section id="experience" class="experience">
+    <div class="container">
+      <h1>Experience</h1>
+      <div class="job-holder">
+        ${[{date:"Sept 2015 - Sept 2021",place:"Google, UX Engineer",summary:"Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a tech lead.",detail:"Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipped Material-design emoji."},{date:"Jan 2014 - Sept 2015",place:"Freelance Designer/Developer",summary:"Designed & built web sites, apps, presentations; general design consulting.",detail:"Designed and developed a handful of client websites, also providing messaging, content advice, graphic design, and production. Developed a prototype/MVP web app to help medical clinics with green business guidelines. Consulted as a Creative Director for a boutique branding firm, including communication, visual design, and technical advice."},{date:"Aug 2011 - Dec 2013",place:"City of Santa Monica",summary:"Revised framework for future development; managed  engagement & analysis; delivered lots of presentations.",detail:"Led effort to rewrite City's zoning code. Designed and produced multi-platform content: reports, presentations, graphics, engagement materials for print, broadcast, and web. Result: a draft zoning ordinance for public review."},{date:"Jul 2008 - Aug 2011",place:"Rios Clementi Hale Studios",summary:"Bridged the gap between design and law to help move a significant destination and economic engine forward.",detail:"Helped get the Universal Studios Master Plan adopted. Design, coordination, and production of conceptual drawings, illustrations, 3D models, multi-format presentations, maps, layout & publishing of documents, and other materials."},{date:"May 2006 - Jul 2008",place:"City of West Hollywood",summary:"Analyzed & delivered recommendations regarding other people's well-designed, and not well-designed, development proposals.",detail:"Analysis and presentation of urban design and planning-related issues."},{date:"Apr 2000 - Feb 2006",place:"City of Seattle",summary:"Led major policy changes to help make Seattle more livable, walkable, and sustainable.",detail:"Produced plans, reports, graphics, and presentations leading to tangible improvements in Seattle's physical environment. First urban planner at the City of Seattle to use digital 3D modeling to inform outreach and analysis related to changes to zoning and building typologies."},{date:"Aug 1997 - April 2000",place:"Arai/Jackson Architects & Planners",summary:"Designed & produced posters and giant documents; learned to manage projects; learned from plenty of mistakes.",detail:"Design, production, content of various urban design and planning projects."}].map((e=>function(e){return de`
+    <div class="job">
+      <h2 class="title">
+        <span class="cranberry">${e.place}</span>
+        <span class="regular date">${e.date}</span>
+      </h2>
+      <p class="summary">${e.summary}</p>
+    </div>
+  `}(e)))}
+      </div>
+    </div>
+  </section>
+`,ut=de`
+  <footer class="navy border-top">
+    <div class="container">
+      <a href="https://www.linkedin.com/in/joryphillips" class="button button-transparent">linkedin</a>
+      <a class="button button-transparent" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
+      <a href="https://github.com/joryphillips/joryphillips.github.io" class="button button-transparent">src</a>
+    </div>
+  </footer>
+`,pt=de`
   <style>
     :host {
       z-index: 2;
@@ -144,8 +350,8 @@ let Ce,Te=!1;(()=>{try{const e={get capture(){return Te=!0,!1}};window.addEventL
       outline-offset: -2px!important;
     }
   </style>
-`;const{component:it}=et({render:pe});customElements.define("nav-bar",it((function({navFocus:e=""}){return Ke((()=>{!function(e,t){const i=t.shadowRoot?.querySelectorAll("a");if(!i)return;if(!e){for(const e of Array.from(i))e.blur();return}Array.from(i).find((t=>t.hash===e))?.focus()}(e,this)}),[e]),de`
-    ${tt}
+`;customElements.define("nav-bar",et((function({navFocus:e=""}){return Ke((()=>{!function(e,t){const i=t.shadowRoot?.querySelectorAll("a");if(!i)return;if(!e){for(const e of Array.from(i))e.blur();return}Array.from(i).find((t=>t.hash===e))?.focus()}(e,this)}),[e]),de`
+    ${pt}
 
     <header class="navy border-bottom">
       <nav class="container">
@@ -160,93 +366,93 @@ let Ce,Te=!1;(()=>{try{const e={get capture(){return Te=!0,!1}};window.addEventL
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,t,i){this._$Ct=e,this._$AM=t,this._$Ci=i}_$AS(e,t){return this.update(e,t)}update(e,t){return this.render(...t)}}
+const mt=1,gt=2,ft=e=>(...t)=>({_$litDirective$:e,values:t});class vt{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,t,i){this._$Ct=e,this._$AM=t,this._$Ci=i}_$AS(e,t){return this.update(e,t)}update(e,t){return this.render(...t)}}
 /**
  * @license
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{H:at}=F,lt=()=>document.createComment(""),dt=(e,t,i)=>{var s;const o=e._$AA.parentNode,n=void 0===t?e._$AB:t._$AA;if(void 0===i){const t=o.insertBefore(lt(),n),s=o.insertBefore(lt(),n);i=new at(t,s,e,e.options)}else{const t=i._$AB.nextSibling,r=i._$AM,a=r!==e;if(a){let t;null===(s=i._$AQ)||void 0===s||s.call(i,e),i._$AM=e,void 0!==i._$AP&&(t=e._$AU)!==r._$AU&&i._$AP(t)}if(t!==n||a){let e=i._$AA;for(;e!==t;){const t=e.nextSibling;o.insertBefore(e,n),e=t}}}return i},ct=(e,t,i=e)=>(e._$AI(t,i),e),ht={},ut=e=>{var t;null===(t=e._$AP)||void 0===t||t.call(e,!1,!0);let i=e._$AA;const s=e._$AB.nextSibling;for(;i!==s;){const e=i.nextSibling;i.remove(),i=e}},pt=(e,t,i)=>{const s=new Map;for(let o=t;o<=i;o++)s.set(e[o],o);return s},mt=nt(class extends rt{constructor(e){if(super(e),e.type!==ot)throw Error("repeat() can only be used in text expressions")}dt(e,t,i){let s;void 0===i?i=t:void 0!==t&&(s=t);const o=[],n=[];let r=0;for(const t of e)o[r]=s?s(t,r):r,n[r]=i(t,r),r++;return{values:n,keys:o}}render(e,t,i){return this.dt(e,t,i).values}update(e,[t,i,s]){var o;const n=(e=>e._$AH)(e),{values:r,keys:a}=this.dt(t,i,s);if(!Array.isArray(n))return this.ct=a,r;const l=null!==(o=this.ct)&&void 0!==o?o:this.ct=[],d=[];let c,h,u=0,p=n.length-1,m=0,g=r.length-1;for(;u<=p&&m<=g;)if(null===n[u])u++;else if(null===n[p])p--;else if(l[u]===a[m])d[m]=ct(n[u],r[m]),u++,m++;else if(l[p]===a[g])d[g]=ct(n[p],r[g]),p--,g--;else if(l[u]===a[g])d[g]=ct(n[u],r[g]),dt(e,d[g+1],n[u]),u++,g--;else if(l[p]===a[m])d[m]=ct(n[p],r[m]),dt(e,n[u],n[p]),p--,m++;else if(void 0===c&&(c=pt(a,m,g),h=pt(l,u,p)),c.has(l[u]))if(c.has(l[p])){const t=h.get(a[m]),i=void 0!==t?n[t]:null;if(null===i){const t=dt(e,n[u]);ct(t,r[m]),d[m]=t}else d[m]=ct(i,r[m]),dt(e,n[u],i),n[t]=null;m++}else ut(n[p]),p--;else ut(n[u]),u++;for(;m<=g;){const t=dt(e,d[g+1]);ct(t,r[m]),d[m++]=t}for(;u<=p;){const e=n[u++];null!==e&&ut(e)}return this.ct=a,((e,t=ht)=>{e._$AH=t})(e,d),H}}),gt=nt(class extends rt{constructor(e){var t;if(super(e),e.type!==st||"class"!==e.name||(null===(t=e.strings)||void 0===t?void 0:t.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(e){return" "+Object.keys(e).filter((t=>e[t])).join(" ")+" "}update(e,[t]){var i,s;if(void 0===this.st){this.st=new Set,void 0!==e.strings&&(this.et=new Set(e.strings.join(" ").split(/\s/).filter((e=>""!==e))));for(const e in t)t[e]&&!(null===(i=this.et)||void 0===i?void 0:i.has(e))&&this.st.add(e);return this.render(t)}const o=e.element.classList;this.st.forEach((e=>{e in t||(o.remove(e),this.st.delete(e))}));for(const e in t){const i=!!t[e];i===this.st.has(e)||(null===(s=this.et)||void 0===s?void 0:s.has(e))||(i?(o.add(e),this.st.add(e)):(o.remove(e),this.st.delete(e)))}return H}}),ft=e=>e,vt={behavior:"smooth",block:"nearest"},bt=de`
-    <style>
-      :host {
-        position: relative;
-        flex: 2 1 auto;
-        min-width: 200px;
-      }
+ */const{H:bt}=F,yt=()=>document.createComment(""),$t=(e,t,i)=>{var s;const o=e._$AA.parentNode,n=void 0===t?e._$AB:t._$AA;if(void 0===i){const t=o.insertBefore(yt(),n),s=o.insertBefore(yt(),n);i=new bt(t,s,e,e.options)}else{const t=i._$AB.nextSibling,r=i._$AM,a=r!==e;if(a){let t;null===(s=i._$AQ)||void 0===s||s.call(i,e),i._$AM=e,void 0!==i._$AP&&(t=e._$AU)!==r._$AU&&i._$AP(t)}if(t!==n||a){let e=i._$AA;for(;e!==t;){const t=e.nextSibling;o.insertBefore(e,n),e=t}}}return i},_t=(e,t,i=e)=>(e._$AI(t,i),e),wt={},At=e=>{var t;null===(t=e._$AP)||void 0===t||t.call(e,!1,!0);let i=e._$AA;const s=e._$AB.nextSibling;for(;i!==s;){const e=i.nextSibling;i.remove(),i=e}},xt=(e,t,i)=>{const s=new Map;for(let o=t;o<=i;o++)s.set(e[o],o);return s},St=ft(class extends vt{constructor(e){if(super(e),e.type!==gt)throw Error("repeat() can only be used in text expressions")}dt(e,t,i){let s;void 0===i?i=t:void 0!==t&&(s=t);const o=[],n=[];let r=0;for(const t of e)o[r]=s?s(t,r):r,n[r]=i(t,r),r++;return{values:n,keys:o}}render(e,t,i){return this.dt(e,t,i).values}update(e,[t,i,s]){var o;const n=(e=>e._$AH)(e),{values:r,keys:a}=this.dt(t,i,s);if(!Array.isArray(n))return this.ct=a,r;const l=null!==(o=this.ct)&&void 0!==o?o:this.ct=[],d=[];let c,h,u=0,p=n.length-1,m=0,g=r.length-1;for(;u<=p&&m<=g;)if(null===n[u])u++;else if(null===n[p])p--;else if(l[u]===a[m])d[m]=_t(n[u],r[m]),u++,m++;else if(l[p]===a[g])d[g]=_t(n[p],r[g]),p--,g--;else if(l[u]===a[g])d[g]=_t(n[u],r[g]),$t(e,d[g+1],n[u]),u++,g--;else if(l[p]===a[m])d[m]=_t(n[p],r[m]),$t(e,n[u],n[p]),p--,m++;else if(void 0===c&&(c=xt(a,m,g),h=xt(l,u,p)),c.has(l[u]))if(c.has(l[p])){const t=h.get(a[m]),i=void 0!==t?n[t]:null;if(null===i){const t=$t(e,n[u]);_t(t,r[m]),d[m]=t}else d[m]=_t(i,r[m]),$t(e,n[u],i),n[t]=null;m++}else At(n[p]),p--;else At(n[u]),u++;for(;m<=g;){const t=$t(e,d[g+1]);_t(t,r[m]),d[m++]=t}for(;u<=p;){const e=n[u++];null!==e&&At(e)}return this.ct=a,((e,t=wt)=>{e._$AH=t})(e,d),H}}),kt=ft(class extends vt{constructor(e){var t;if(super(e),e.type!==mt||"class"!==e.name||(null===(t=e.strings)||void 0===t?void 0:t.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(e){return" "+Object.keys(e).filter((t=>e[t])).join(" ")+" "}update(e,[t]){var i,s;if(void 0===this.st){this.st=new Set,void 0!==e.strings&&(this.et=new Set(e.strings.join(" ").split(/\s/).filter((e=>""!==e))));for(const e in t)t[e]&&!(null===(i=this.et)||void 0===i?void 0:i.has(e))&&this.st.add(e);return this.render(t)}const o=e.element.classList;this.st.forEach((e=>{e in t||(o.remove(e),this.st.delete(e))}));for(const e in t){const i=!!t[e];i===this.st.has(e)||(null===(s=this.et)||void 0===s?void 0:s.has(e))||(i?(o.add(e),this.st.add(e)):(o.remove(e),this.st.delete(e)))}return H}}),Et=de`
+  <style>
+    :host {
+      position: relative;
+      flex: 2 1 auto;
+      min-width: 200px;
+    }
 
-      :host label.hide {
-        position: absolute!important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px,1px,1px,1px);
-      }
+    :host label.hide {
+      position: absolute!important;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+    }
 
-      input[type="search"] {
-        font-family: inherit;
-        font-size: inherit;
-        display: block;
-        width: 100%;
-        padding: .5rem;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-      }
+    input[type="search"] {
+      font-family: inherit;
+      font-size: inherit;
+      display: block;
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
 
-      input[type="search"]:focus {
-        outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
-      }
+    input[type="search"]:focus {
+      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    }
 
-      ul,
-      ul li,
-      ul ul li {
-        margin:0;
-        padding: 0;
-        text-indent: 0;
-        list-style-type: none;
-      }
+    ul,
+    ul li,
+    ul ul li {
+      margin:0;
+      padding: 0;
+      text-indent: 0;
+      list-style-type: none;
+    }
 
-      ul[role="listbox"] {
-        display: none;
-        background-color: #FFF;
-        border: 1px solid #ccc;
-      }
+    ul[role="listbox"] {
+      display: none;
+      background-color: #FFF;
+      border: 1px solid #ccc;
+    }
 
-      ul[role="listbox"], button[role="option"] {
-        box-sizing: border-box;
-        width: 100%;
-      }
+    ul[role="listbox"], button[role="option"] {
+      box-sizing: border-box;
+      width: 100%;
+    }
 
-      ul[role="listbox"].show {
-        display: block;
-        position: absolute;
-        z-index: 10;
-        max-height: 200px;
-        overflow-y: scroll;
-      }
+    ul[role="listbox"].show {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: scroll;
+    }
 
-      li[role="option"] {
-        background-color: #FFF;;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        font-size: inherit;
-        text-align: left;
-        padding: .5rem;
-      }
+    li[role="option"] {
+      background-color: #FFF;;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      font-size: inherit;
+      text-align: left;
+      padding: .5rem;
+    }
 
-      li[role="option"][active], li[role="option"]:hover {
-        background-color: rgb(115 179 221 / 17%);
-      }
+    li[role="option"][active], li[role="option"]:hover {
+      background-color: rgb(115 179 221 / 17%);
+    }
 
-      li:last-of-type  button[role="option"] {
-        border-bottom: none;
-      }
-    </style>
-`;
+    li:last-of-type  button[role="option"] {
+      border-bottom: none;
+    }
+  </style>
+`,Ct=e=>e,Tt={behavior:"smooth",block:"nearest"};
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{component:yt}=et({render:pe});var $t;function _t(e){return e.toLowerCase().replace(/[^a-z0-9]+/gi,"-")}function wt(){return new Promise((e=>requestAnimationFrame((()=>requestAnimationFrame((()=>e()))))))}function At(e,t,i="smooth"){const s=e.querySelector(t),o=e.querySelector($t.HEADER),n=o?o.offsetHeight:0;if(s){const e=s.offsetTop-n;window.scroll({top:e,behavior:i})}}customElements.define("search-input",yt((function({keyWords:e=new Set,handleSearchInput:t=ft}){const[i,s]=Ye(!1),[o,n]=Ye(void 0),[r,a]=Ye(null),[l,d]=Ye(""),c=this.shadowRoot?.querySelector("#listbox"),h=e=>{d(e),s(!i),t(e)};return de`
-    ${bt}
+ */customElements.define("search-input",et((function({keyWords:e=new Set,handleSearchInput:t=Ct}){const[i,s]=Ye(!1),[o,n]=Ye(void 0),[r,a]=Ye(null),[l,d]=Ye(""),c=this.shadowRoot?.querySelector("#listbox"),h=e=>{d(e),s(!i),t(e)};return de`
+    ${Et}
     <div
       id="combobox"
       role="combobox"
@@ -265,7 +471,7 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
         @input=${e=>{const{value:i}=e.composedPath().find((e=>"INPUT"===e.tagName));o&&clearTimeout(o),n(window.setTimeout((()=>{t(i)}),350))}}
         @focus=${()=>{s(!0)}}
         @blur=${()=>{a(null),i&&s(!1)}}
-        @keyup=${i=>{const{key:o}=i;switch(o){case"ArrowDown":(()=>{let t;s(!0),t=null==r||r===e.size-1?0:r+1,c&&c.children[t].scrollIntoView(vt),a(t)})();break;case"ArrowUp":(()=>{let t;t=null==r||0===r?e.size-1:r-1,c&&c.children[t].scrollIntoView(vt),a(t)})();break;case"Escape":t(""),a(null),s(!1);break;case"Enter":if(null==r)break;d([...e][r]),t([...e][r]),s(!1)}}}
+        @keyup=${i=>{const{key:o}=i;switch(o){case"ArrowDown":(()=>{let t;s(!0),t=null==r||r===e.size-1?0:r+1,c&&c.children[t].scrollIntoView(Tt),a(t)})();break;case"ArrowUp":(()=>{let t;t=null==r||0===r?e.size-1:r-1,c&&c.children[t].scrollIntoView(Tt),a(t)})();break;case"Escape":t(""),a(null),s(!1);break;case"Enter":if(null==r)break;d([...e][r]),t([...e][r]),s(!1)}}}
       >
     </div>
 
@@ -273,7 +479,7 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
       id="listbox"
       role="listbox"
       aria-expanded=${i}
-      class=${gt({show:i})}
+      class=${kt({show:i})}
     >${[...e].map(((e,t)=>de`
         <li
           role="option"
@@ -281,7 +487,7 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
           @mousedown=${()=>h(e)}>${e}</li>
       `))}
     </ul>
-  `}))),function(e){e.HEADER="header",e.PROJECT_IMAGE=".image-container img",e.SEARCH_INPUT='input[type="search"]'}($t||($t={}));function xt(e){const t=e.shadowRoot?.querySelector($t.PROJECT_IMAGE);t&&t.dataset.src&&(t.src=t.dataset.src,async function(e,t){e.src.indexOf("heathrow-clock.svg")>-1&&(await import("./clock-ca22aba1.js")).addClockPrototype(e,t)}(t,e),t.classList.add("visible"))}const St=de`
+  `})));const Ht=de`
   <style>
     :host {
       opacity: 1;
@@ -451,8 +657,8 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
       width: 1px;
     }
   </style>
-`;const{component:kt}=et({render:pe});customElements.define("project-card",kt((function({project:e,handleInfoClick:t,handleInfoCloseClick:i,selected:s}){Ke((()=>{!function(e,t){const i=new IntersectionObserver((e=>{for(const s of e)if(s.isIntersecting){const e=s.target;t(e),i.unobserve(e)}}));i.observe(e)}(this,xt)}),[]);const o="./images/"+e.imageSources[0];return de`
-    ${St}
+`;function jt(e){const t=e.shadowRoot?.querySelector(ot.PROJECT_IMAGE);t&&t.dataset.src&&(t.src=t.dataset.src,async function(e,t){e.src.indexOf("heathrow-clock.svg")>-1&&(await import("./clock-8b7f62f2.js")).addClockPrototype(e,t)}(t,e),t.classList.add("visible"))}customElements.define("project-card",et((function({project:e,handleInfoClick:t,handleInfoCloseClick:i,selected:s}){Ke((()=>{!function(e,t){const i=new IntersectionObserver((e=>{for(const s of e)if(s.isIntersecting){const e=s.target;t(e),i.unobserve(e)}}));i.observe(e)}(this,jt)}),[]);const o="./images/"+e.imageSources[0];return de`
+    ${Ht}
 
     <button
       tabindex=${s?-1:0}
@@ -482,7 +688,7 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
       aria-label="Close detail and return to full project list"
       @click=${i}
     >Back to project list</button>
-  `}),{observedAttributes:["selected"]}));const Et=[{date:"Sept 2015 - Sept 2021",place:"Google, UX Engineer",summary:"Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a tech lead.",detail:"Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipped Material-design emoji."},{date:"Jan 2014 - Sept 2015",place:"Freelance Designer/Developer",summary:"Designed & built web sites, apps, presentations; general design consulting.",detail:"Designed and developed a handful of client websites, also providing messaging, content advice, graphic design, and production. Developed a prototype/MVP web app to help medical clinics with green business guidelines. Consulted as a Creative Director for a boutique branding firm, including communication, visual design, and technical advice."},{date:"Aug 2011 - Dec 2013",place:"City of Santa Monica",summary:"Revised framework for future development; managed  engagement & analysis; delivered lots of presentations.",detail:"Led effort to rewrite City's zoning code. Designed and produced multi-platform content: reports, presentations, graphics, engagement materials for print, broadcast, and web. Result: a draft zoning ordinance for public review."},{date:"Jul 2008 - Aug 2011",place:"Rios Clementi Hale Studios",summary:"Bridged the gap between design and law to help move a significant destination and economic engine forward.",detail:"Helped get the Universal Studios Master Plan adopted. Design, coordination, and production of conceptual drawings, illustrations, 3D models, multi-format presentations, maps, layout & publishing of documents, and other materials."},{date:"May 2006 - Jul 2008",place:"City of West Hollywood",summary:"Analyzed & delivered recommendations regarding other people's well-designed, and not well-designed, development proposals.",detail:"Analysis and presentation of urban design and planning-related issues."},{date:"Apr 2000 - Feb 2006",place:"City of Seattle",summary:"Led major policy changes to help make Seattle more livable, walkable, and sustainable.",detail:"Produced plans, reports, graphics, and presentations leading to tangible improvements in Seattle's physical environment. First urban planner at the City of Seattle to use digital 3D modeling to inform outreach and analysis related to changes to zoning and building typologies."},{date:"Aug 1997 - April 2000",place:"Arai/Jackson Architects & Planners",summary:"Designed & produced posters and giant documents; learned to manage projects; learned from plenty of mistakes.",detail:"Design, production, content of various urban design and planning projects."}],Ct=[{title:"Mock for plan review UI",date:"2021",description:"A high-fidelity mock for a user interface allowing fluid communication between an agency and applicant.",imageSources:["plan_review_mock.jpg"],keywords:["software","ux","ui","mock","communication"]},{title:"front-end tech lead",date:"2020-2021",description:"I was the tech lead for a team of front-end engineers working within the design systems management branch of Material. I prototyped features, led building a production-grade app for managing tokens and design system details, and mentored and helped other engineers add features.",imageSources:["Google_Material_Design_Logo.svg"],keywords:["software","typescript","tooling","develop","engineer","Google","Material"]},{title:"Gallery.io web engineering",date:"2019",description:"Google's Material Gallery web appplication evolved from iterations of earlier prototype applications written in ES5-era AngularJS. I led team-wide efforts to modernize the application, resulting in thousands of tech debt issues closed, more dev-friendly componentization, and a bundle size reduction of at least 33%. While the app is being turned down due to the popularity of Figma, I am very proud of the progress we made on it and the lessons it taught.",href:"https://gallery.io",imageSources:["gallery.jpg"],keywords:["software","typescript","tooling","modernization","develop","engineer","Google","Material"]},{title:"web performance analysis",date:"2020",href:"https://github.com/joryphillips/joryphillips.github.io/issues/8#issuecomment-611778792",imageSources:["web-perf.png"],keywords:["software","develop","engineer","performance","tooling"],description:"I did a performance assessment on my own website and wrote up findings in a GitHub issue. If you know of a page that is loading too slowly, the methods I applied might help!"},{title:"full app design for Android Build",imageSources:["test-result-details.png"],keywords:["ux","ui","develop","Google","Android","typescript","mock"],description:"I was the only UXer on the Android Build team for a while, which meant I got to lead the design of some very complex things, like this tool used to help engineers chase down broken builds and failing tests. This was an early mock, and most of what is represented here has been built and refined by the team."},{title:"build and test status wireframe",imageSources:["target-row-pies-wireframe.jpg"],keywords:["ux","ui","wireframe","Google","Android"],description:"This was a quick ugly iPad drawing done to visually prove out the concept of integrating complext test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧"},{title:"concept diagrams",imageSources:["grid-test-views@3x.png"],keywords:["conceptual","diagram","communication","Google","Android"],description:"These are a couple conceptual diagrams used to discuss the multidimensional complexity of tracking builds, tests, and devices. Included here mostly to add additional visual interest. 🙃"},{title:"notification CRUD app",imageSources:["notification-crud-edit.png"],keywords:["ux","ui","develop","Google","Android","typescript"],description:"I designed and implemented a tool for adding, editing, and removing system alerts across Android internal sites."},{title:"lightweight webpage generator",imageSources:["ux-page-crud.png"],keywords:["ux","ui","develop","Google","Android"],description:"I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google's internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time."},{title:"mojibrush.co ui/ux + oss contributions",imageSources:["moji-brush.png"],href:"https://mojibrush.co",keywords:["ux","ui","develop","fun"],description:"I wireframed the UI & UX for this spectacular progressive web app on a pizza box in a microkitchen, then helped build it."},{title:"make a webpage from Google Sheets",imageSources:["ux-sheet-stepper.png"],keywords:["ux","ui","develop","Google","Android"],description:"At Google there is a common need to quickly spin up websites that pull content from Google Sheets. I made a web app that allowed people to make pages that do that, and walked them through validation, column select, sort options, etc."},{title:"four shipped Material emoji",imageSources:["four-material-emoji.svg"],keywords:["illustration","Material","fun","Google","Android"],description:"I designed these four emoji for the release of Android 6. Almost all emojis have been updated since then, but my design for Reminder Ribbon got put back into use for Android 12!"},{title:"imagery exploration",imageSources:["dichotomy-01.jpg"],keywords:["presentation","conceptual","communication","Google","Android"],description:"Every designer and presenter eventually has to come up with imagery that helps convey a problem or a solution. This is one I made to help in a presentation about device notification overload."},{title:"identity/branding illustrations",imageSources:["droid-4-up.svg"],keywords:["illustration","fun","Google","Android"],description:"I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is a beloved among research participants, making it ideal as a character-defining visual representation for Android researchers."},{title:"dancing t-rex",imageSources:["dancing-dino.gif"],keywords:["fun","Google","Android"],description:"I did not design this dinosaur, but I did make him dance."},{title:"Global Brand Works Website",date:"2015",imageSources:["gbw.jpg"],description:"I designed and developed the Global Brand Works website with legibility, navigation, and mobile readiness in mind. The site was completely custom-built and the overall design direction has been steadfast for a half decade! For a time, I also served as the Creative Director for this boutique branding agency and helped their clients with general design, graphic, and presentation needs.",href:"https://globalbrandworks.com/",keywords:["ux","ui","develop","communication","freelance"]},{title:"Wall Clock Product Design/Prototype",date:"2010",imageSources:["heathrow-clock.svg"],description:"Tasked with coming up with product ideas that could build upon notNeutral's (Rios Clementi Hale Studio's product design brand) successful CityPlates, I started analyzing aerial photographs of different cities for inspiration. I was especially drawn to the way airports look from above. This London Heathrow graphic was originally presented as an idea for a large-scale wall graphic and clock, with the runways as moving hands. Here I have streamlined the original Illustrator file with SVG and used Javascript to make it a functional time-telling graphic.",keywords:["conceptual","prototyping","maps"]},{title:"Mapping & Data Analysis",date:"2009",imageSources:["pub-facilities-map.svg"],description:"I designed and created this map in Adobe Illustrator after exporting the data from ArcGIS. The map was originally used at multiple scales in a presentation to elected officials and planners to describe the abundance of public facilities within five miles of the Univeral Studios site. The icons are based on universally-recognized symbols for the activities they represent.",keywords:["conceptual","urban design","urban planning","communication","maps"]},{title:"Universal Studios Master Plan",date:"2011",imageSources:["usmp.png"],description:"While working at Rios Clementi Hale Studios, I produced materials and coordinated a team of multidisciplinary designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles.",keywords:["urban design","urban planning","communication"]},{title:"not a real emoji",imageSources:["incredulous_goat.png"],keywords:["fun","goat","emoji"],description:"Like the dancing t-rex, I designed neither the goat, nor the sunglasses, but I did put one on the other to make a superior emoji."}];const Tt=de`
+  `}),{observedAttributes:["selected"]}));const Pt=de`
   <style>
     section {
       background-color: #ddd;
@@ -539,24 +745,24 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
       visibility: hidden;
     }
   </style>
-`;const{component:Ht}=et({render:pe});customElements.define("project-list",Ht((function(){const[e,t]=Ye(""),[i,s]=Ye(null),[o,n]=Ye(void 0),r=e=>{n(window.scrollY);const t=this.shadowRoot?.querySelector("section");t&&scrollTo({top:t.offsetTop}),s(_t(e.title))},a=async()=>{s(null),await wt(),scrollTo({top:o}),n(void 0)},l=e=>_t(e.title)===i,d=Ct.filter((t=>function(e,t){const{keywords:i,title:s}=t;return function(e,t){let i=!1;const s=e.toLowerCase().split(" ");for(let e=0;e<s.length;e++){const o=s[e].trim();i=t.toLowerCase().includes(o)}return i}(e,i.join(" ")+" "+s.toLowerCase())}(e,t)));return de`
-    ${Tt}
+`;customElements.define("project-list",et((function(){const[e,t]=Ye(""),[i,s]=Ye(null),[o,n]=Ye(void 0),r=e=>{n(window.scrollY);const t=this.shadowRoot?.querySelector("section");t&&scrollTo({top:t.offsetTop}),s(it(e.title))},a=async()=>{s(null),await st(),scrollTo({top:o}),n(void 0)},l=e=>it(e.title)===i,d=ct.filter((t=>function(e,t){const{keywords:i,title:s}=t;return function(e,t){let i=!1;const s=e.toLowerCase().split(" ");for(let e=0;e<s.length;e++){const o=s[e].trim();i=t.toLowerCase().includes(o)}return i}(e,i.join(" ")+" "+s.toLowerCase())}(e,t)));return de`
+    ${Pt}
 
     <section class="border-bottom border-top">
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-input
           ?hidden=${!!i}
-          .keyWords=${function(e){const t=new Set;if(e)for(const i of e)for(const e of i.keywords)t.add(e.toLowerCase());return t}(Ct)}
+          .keyWords=${function(e){const t=new Set;if(e)for(const i of e)for(const e of i.keywords)t.add(e.toLowerCase());return t}(ct)}
           .handleSearchInput=${e=>{t(e)}}
         ></search-input>
       </div>
 
       <div class="project-holder">
-        ${mt(d,(e=>_t(e.title)),(e=>de`
+        ${St(d,(e=>it(e.title)),(e=>de`
               <project-card
                 ?hidden=${(e=>null!=i&&!l(e))(e)}
-                id=${_t(e.title)}
+                id=${it(e.title)}
                 ?selected=${l(e)}
                 .project=${e}
                 .handleInfoClick=${r}
@@ -565,224 +771,17 @@ const st=1,ot=2,nt=e=>(...t)=>({_$litDirective$:e,values:t});class rt{constructo
             `))}
       </div>
     </section>
-  `})));const jt=de`
-  <section id="home" class="jumbo navy">
-    <h1>Jory Phillips</h1>
-    <h2>do-gooder; designer & front-end developer</h2>
-  </section>
-`,Pt=de`
-  <section id="summary" class="summary">
-    <div class="container">
-      <p>My specialty is bridging big-picture concepts with detailed
-        implementation. I seek projects that help people navigate and understand
-        complex things, or simply make people's lives better.</p>
-      <p>I have designed & developed apps for Google, helped a branding agency
-        brand itself, and created design guidelines and illustrations for major
-        cities and a movie studio/theme park. I've led teams that make
-        complicated stuff, and I am often eager to attempt the impossible.</p>
-        <p>Want to collaborate?
-        <a href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">
-        Please reach out!</a></p>
-    </div>
-  </section>
-`;const It=de`
-  <section id="experience" class="experience">
-    <div class="container">
-      <h1>Experience</h1>
-      <div class="job-holder">
-        ${Et.map((e=>function(e){return de`
-    <div class="job">
-      <h2 class="title">
-        <span class="cranberry">${e.place}</span>
-        <span class="regular date">${e.date}</span>
-      </h2>
-      <p class="summary">${e.summary}</p>
-    </div>
-  `}(e)))}
-      </div>
-    </div>
-  </section>
-`,Mt=de`
-  <footer class="navy border-top">
-    <div class="container">
-      <a href="https://www.linkedin.com/in/joryphillips" class="button button-transparent">linkedin</a>
-      <a class="button button-transparent" href="javascript:location='mailto:\u006a\u006f\u0072\u0079\u002e\u006c\u002e\u0070\u0068\u0069\u006c\u006c\u0069\u0070\u0073\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d';void 0">email</a>
-      <a href="https://github.com/joryphillips/joryphillips.github.io" class="button button-transparent">src</a>
-    </div>
-  </footer>
-`,Ut=de`
-  <style>
-    section {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    section.jumbo {
-      padding-bottom: 2rem;
-      text-align: center;
-    }
-
-    .jumbo h1 {
-      font-size: 4rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .15rem;
-      margin-bottom: 1rem;
-    }
-
-    .jumbo h2 {
-      font-size: 1.5rem;
-    }
-
-    section.summary p {
-      margin: 0 0 1rem 0;
-      font-size: 1.1rem;
-      font-weight: 400;
-      line-height: 2.2rem;
-    }
-
-    section.summary p a {
-      text-decoration: none;
-      font-weight: 500;
-      color: hsl(211deg 100% 25% / 90%);
-    }
-
-    .container {
-      display: block;
-      max-width: 40rem;
-      margin: 0 auto;
-    }
-
-    .date {
-      margin-left: 0.5rem;
-    }
-
-    section.experience h1 {
-      margin-bottom: 2rem;
-      margin-top: 0;
-      font-size: 2rem;
-    }
-
-    .job {
-      margin-top: 3rem;
-    }
-
-    .job h2.title {
-      margin-top: 0;
-      font-size: 1.17rem;
-      font-weight: 500;
-    }
-
-    .job p.summary {
-      margin-top: .5rem;
-      margin-bottom: 0;
-      font-size: 1.17rem;
-      font-weight: 400;
-      line-height: 2rem;
-    }
-
-    footer {
-      bottom: 0;
-    }
-
-    footer a {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      float: left;
-      font-size: .75rem;
-    }
-
-    footer .container {
-      flex: 1 1 auto;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      padding-bottom: .5rem;
-    }
-
-    .border-bottom {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
-      border-bottom-color: rgba(0, 0, 0, .125);
-    }
-
-    .border-top {
-      border-top-style: solid;
-      border-top-width: 1px;
-      border-top-color: rgba(0, 0, 0, .125);
-    }
-
-    .cranberry {
-      color: #c11067;
-    }
-
-    .navy {
-      color: rgba(0, 32, 66, 0.9);
-    }
-
-    .cursor-pointer {
-      cursor: pointer;
-    }
-
-    .button-transparent {
-      position: relative;
-      z-index: 2;
-      color: inherit;
-      background-color: transparent;
-      border-radius: 0;
-      border: 1px solid transparent;
-    }
-
-    .button, button {
-      font-family: inherit;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      line-height: 1.125rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      margin: 0;
-      height: auto;
-      border: 1px solid transparent;
-      vertical-align: middle;
-      -webkit-appearance: none;
-      transition: background-color .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    }
-
-    .button:hover, .button:focus {
-      background-color: rgb(115 179 221 / 17%);
-    }
-
-    .button:focus, button:focus, a:focus {
-      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
-    }
-
-    .button:focus, button:focus {
-      outline-offset: -2px!important;
-    }
-  </style>
-`
-/**
-@license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/;let Nt=!0;function zt({context:e,setNavFocus:t}){var i;i=i=>function({location:e,context:t,setNavFocus:i}){if(i(e.hash),!t)return;const s=e.hash||"#home";Nt?window.addEventListener("load",(async()=>{await wt(),At(t,s,"instant"),Nt=!1})):At(t,s)}({location:i,context:e,setNavFocus:t}),document.body.addEventListener("click",(e=>{if(e.defaultPrevented||0!==e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;const t=e.composedPath().filter((e=>"A"===e.tagName))[0];if(!t||t.target||t.hasAttribute("download")||"external"===t.getAttribute("rel"))return;const s=t.href;if(!s||-1!==s.indexOf("mailto:"))return;const o=window.location,n=o.origin||o.protocol+"//"+o.host;0===s.indexOf(n)&&(e.preventDefault(),s!==o.href&&(window.history.pushState({},"",s),i(o,e)))})),window.addEventListener("popstate",(e=>i(window.location,e))),i(window.location,null)}const Rt=de`
-  ${jt}
-  ${Pt}
-  <project-list id="visuals"></project-list>
-  ${It}
-`;const{component:Dt}=et({render:pe});customElements.define("app-component",Dt((function(){const[e,t]=Ye(""),[i,s]=Ye("");return Ke((()=>{zt({context:this.shadowRoot,setNavFocus:t})}),[]),de`
-    ${Ut}
+  `}))),customElements.define("app-component",et((function(){const[e,t]=Ye(""),[i,s]=Ye("");return Ke((()=>{at({context:this.shadowRoot,setNavFocus:t})}),[]),de`
+    ${tt}
 
     <nav-bar .navFocus=${e}></nav-bar>
 
-    ${i?de`<project-detail></project-detail>`:Rt}
+    ${i?de`<project-detail></project-detail>`:de`
+        ${lt}
+        ${dt}
+        <project-list id="visuals"></project-list>
+        ${ht}`}
 
-    ${Mt}
+    ${ut}
   `})));
 //# sourceMappingURL=app.js.map

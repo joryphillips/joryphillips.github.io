@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import {Props} from '../src/search_input';
-import '../src/search_input';
+import {Props} from '../src/components/search_input/search_input';
+import '../src/components/search_input/search_input';
 import { dispatchEvents } from './helpers';
 
 const keyWords = new Set(['banana', 'blueberry', 'orange', 'raspberry']);

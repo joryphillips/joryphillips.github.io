@@ -4,7 +4,7 @@ import del from 'rollup-plugin-delete';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
-  input: 'src/app.ts',
+  input: 'src/components/app/app.ts',
   output: [{
     dir: './js/min',
     format: 'es',

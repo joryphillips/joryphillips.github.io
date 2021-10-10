@@ -1,11 +1,14 @@
-import {html, render} from 'lit';
+import {html} from 'lit';
 import {repeat} from 'lit/directives/repeat.js';
-import haunted, {useState} from 'haunted';
+import {useState} from 'haunted';
 
-import './search_input';
-import './project_card';
-import * as util from './util';
-import {Project, PORTFOLIO} from '../data/jory';
+import {component} from '../../util/haunted_component';
+
+import '../search_input/search_input';
+import '../project_card/project_card';
+import * as util from '../../util/util';
+import {Project, PORTFOLIO} from '../../../data/jory';
+import { styles } from './styles';
 
 /**
  * Given a string, returns true if members of the search string are present. Not
@@ -26,66 +29,6 @@ function shouldShowProject(searchValue: string, project: Project) {
   const stringToSearch = keywords.join(' ') + ' ' + title.toLowerCase();
   return listHasSearchValues(searchValue, stringToSearch);
 }
-
-const styles = html`
-  <style>
-    section {
-      background-color: #ddd;
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-    @media (max-width: 400px) {
-      section {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-    }
-    .visuals-header {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    h1 {
-      font-size: 2rem;
-      flex: 1 1 auto;
-      min-width: 0;
-      min-height: 0;
-      margin: 0 1rem .5rem 0;
-      white-space: nowrap;
-    }
-    .project-holder {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      grid-auto-rows: minmax(300px, auto);
-    }
-    @media screen and (max-width: 400px) {
-      .project-holder {
-        grid-auto-rows: minmax(150px, auto);
-      }
-    }
-    .border-bottom {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
-      border-bottom-color: rgba(0, 0, 0, .125);
-    }
-    .border-top {
-      border-top-style: solid;
-      border-top-width: 1px;
-      border-top-color: rgba(0, 0, 0, .125);
-    }
-    search-box[hidden] {
-      visibility: hidden;
-    }
-    project-card[hidden] {
-      visibility: hidden;
-    }
-  </style>
-`;
-
 
 function ProjectList(this: unknown) {
   const [searchValue, setSearchValue] = useState('');
@@ -154,8 +97,8 @@ function ProjectList(this: unknown) {
   `;
 }
 
-type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
-const {component} = haunted({render: render as TemporaryRenderFunction});
+export const projectList = html`<project-list id="visuals"></project-list>`;
+
 
 customElements.define('project-list', component(ProjectList));
 

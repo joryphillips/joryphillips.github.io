@@ -1,21 +1,13 @@
-import { html, render } from 'lit';
-import haunted, { useState, useEffect } from 'haunted';
+import { html} from 'lit';
+import { useState, useEffect } from 'haunted';
 
-import './navbar';
-import './project_list';
-import { jumbotron } from './jumbotron';
-import { summary } from './summary';
-import { jobs } from './jobs';
-import { footer } from './footer';
-import { styles } from './app_styles';
-import { router } from './router';
+import {component} from '../../util/haunted_component';
 
-const mainView = html`
-  ${jumbotron}
-  ${summary}
-  <project-list id="visuals"></project-list>
-  ${jobs}
-`;
+import { styles } from './styles';
+import { router } from '../../util/util';
+import { jumbotron, summary, jobs, footer } from './components';
+import '../navbar/navbar';
+import '../project_list/project_list';
 
 function App(this: unknown) {
   const [navFocus, setNavFocus] = useState('');
@@ -33,19 +25,20 @@ function App(this: unknown) {
 
     <nav-bar .navFocus=${navFocus}></nav-bar>
 
-    ${selectedProject ?
+    ${!selectedProject ?
+      html`
+        ${jumbotron}
+        ${summary}
+        <project-list id="visuals"></project-list>
+        ${jobs}`
+      :
       // TODO implement project-detail
       html`<project-detail></project-detail>`
-      :
-      mainView
     }
 
     ${footer}
   `;
 }
-
-type TemporaryRenderFunction = (result: unknown, container: DocumentFragment | Element)=> void;
-const {component} = haunted({render: render as TemporaryRenderFunction});
 
 customElements.define('app-component', component<HTMLElement>(App));
 

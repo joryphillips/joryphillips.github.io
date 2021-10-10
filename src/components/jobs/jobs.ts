@@ -1,5 +1,5 @@
 import {html} from 'lit';
-import {Job, RESUME} from '../data/jory';
+import {Job, RESUME} from '../../../data/jory';
 
 function renderJob(job: Job) {
   return html`

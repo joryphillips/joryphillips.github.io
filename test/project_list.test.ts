@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import { listHasSearchValues } from '../src/project_list';
-import '../src/project_list';
+import { listHasSearchValues } from '../src/components/project_list/project_list';
+import '../src/components/project_list/project_list';
 import { dispatchEvents } from './helpers';
 
 describe('project_list', ()=> {
