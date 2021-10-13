@@ -53,6 +53,10 @@ export const styles = html`
       font-size: 1.5rem;
     }
 
+    svg.width-100 {
+       width: 100%
+     }
+
     .image-container {
       display: flex;
       height: 300px;
