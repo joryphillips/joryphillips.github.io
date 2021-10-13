@@ -19,9 +19,10 @@ function onNavFocusChange(navFocus: string, context: HTMLElement) {
 
 interface Props {
   navFocus: string;
+  onNavSelect: ()=> void;
 }
 
-function NavBar(this: unknown, {navFocus = ''}: Props) {
+function NavBar(this: unknown, {navFocus = '', onNavSelect}: Props) {
 
   useEffect(()=> {
     onNavFocusChange(navFocus, this as HTMLElement);
@@ -32,9 +33,9 @@ function NavBar(this: unknown, {navFocus = ''}: Props) {
 
     <header class="navy">
       <nav>
-        <a href="/#summary">Summary</a>
-        <a href="/#visuals">Visuals</a>
-        <a href="/#experience">Experience</a>
+        <a href="/#summary" @click=${onNavSelect}>Summary</a>
+        <a href="/#visuals" @click=${onNavSelect}>Visuals</a>
+        <a href="/#experience" @click=${onNavSelect}>Experience</a>
       </nav>
     </header>
   `;

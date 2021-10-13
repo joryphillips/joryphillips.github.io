@@ -4,8 +4,9 @@ import { useState, useEffect, useLayoutEffect } from 'haunted';
 import { component } from '../../util/haunted_component';
 
 import { styles } from './styles';
-import { kebabCase, router, repaint, scrollToId } from '../../util/util';
+import { kebabCase, router, scrollToId } from '../../util/util';
 import { jumbotron, summary, jobs, footer } from './components';
+import { PORTFOLIO } from '../../../data/jory';
 import '../navbar/navbar';
 import '../project_list/project_list';
 import '../project_detail/project_detail';
@@ -22,34 +23,37 @@ function App(this: unknown) {
     });
   }, []);
 
-  // useEffect for scrollTo in combo with useLayoutEffect for scrollToId will
-  // make it so that when returning to the main page from project-detail, the
-  // scroll position will be resumed as opposed to scrolling to nav location.
-  // (useEffect will run after useLayoutEffect)
-  useLayoutEffect(()=> {
-    if (navFocus && !selectedProjectName) {
+  useEffect(()=> {
+    if (navFocus && !selectedProjectName && !verticalScrollPosition) {
       scrollToId((this as Element).shadowRoot!, navFocus);
     }
-  }, [navFocus, selectedProjectName]);
+  }, [navFocus, selectedProjectName, verticalScrollPosition]);
 
   useEffect(()=> {
-    if (!selectedProjectName && verticalScrollPosition) {
+    if (!selectedProjectName && verticalScrollPosition != null) {
       scrollTo({top: verticalScrollPosition});
-      setVerticalScrollPosition(undefined);
     }
   }, [verticalScrollPosition, selectedProjectName]);
 
-  const handleSetProject = (name: string)=> {
-    if (name) {
+  const handleSetProject = (kebabedName: string)=> {
+    if (kebabedName) {
       setVerticalScrollPosition(window.scrollY);
+      const title = PORTFOLIO.find(proj => kebabCase(proj.title) === kebabedName)?.title;
+      document.title = `Jory's ${title} Project`;
+    } else {
+      document.title = 'Jory Phillips Portfolio and Resume';
     }
-    setSelectedProjectName(kebabCase(name));
+    setSelectedProjectName(kebabedName);
+  };
+
+  const onNavSelect = ()=> {
+    setVerticalScrollPosition(undefined);
   };
 
   return html`
     ${styles}
 
-    <nav-bar .navFocus=${navFocus}></nav-bar>
+    <nav-bar .navFocus=${navFocus} .onNavSelect=${onNavSelect}></nav-bar>
       <main ?hidden=${!!selectedProjectName}>
         ${jumbotron}
         ${summary}
