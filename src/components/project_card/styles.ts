@@ -19,15 +19,6 @@ export const styles = html`
       padding: 2rem 0.5rem 1rem .5rem;
     }
 
-    .description {
-      margin: .5rem;
-      line-height: 1.7;
-    }
-
-    .description[hidden] {
-      visibility: hidden;
-    }
-
     .info-icons, .info-icons .info, .info-icons .link {
       display: flex;
       align-items: center;
@@ -62,14 +53,9 @@ export const styles = html`
       font-size: 1.5rem;
     }
 
-    .width-100 {
-      width: 100%
-    }
-
     .image-container {
       display: flex;
       height: 300px;
-      width: 100%;
       padding: 8px;
       overflow: hidden;
       justify-content: center;
@@ -94,15 +80,15 @@ export const styles = html`
       }
     }
 
-    :host([selected]) button.image-container {
+    :host([selected]) a.image-container {
       pointer-events: none;
     }
 
-    button.image-container:focus {
+    a.image-container:focus {
       outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
     }
 
-    button.image-container:focus, button.image-container:hover {
+    a.image-container:focus, a.image-container:hover {
       box-shadow: 0px 1px 6px 0px #8C8C8C;
     }
 
@@ -126,39 +112,14 @@ export const styles = html`
       max-height: 100%;
     }
 
-    button {
+    a {
       font-family: inherit;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       line-height: 1.125rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
       margin: 0;
       height: auto;
-      border: 1px solid transparent;
-      vertical-align: middle;
-      -webkit-appearance: none;
-    }
-
-    button.close {
-      margin: 1rem 0 0 .5rem;
-      height: 2.5rem;
-      border: rgba(0, 0, 0, .125);
-      background-color: #f0f0f0;
-      color: rgba(0, 32, 66, 0.9);
-    }
-
-    button.close[hidden] {
-      visibility: hidden;
-    }
-
-    button.close:focus {
-      outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
-    }
-
-    button.close:hover, button.close:focus {
-      background-color: rgb(115 179 221 / 17%);
     }
 
     .visible-hidden {

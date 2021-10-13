@@ -50,11 +50,5 @@ export const styles = html`
       border-top-width: 1px;
       border-top-color: rgba(0, 0, 0, .125);
     }
-    search-box[hidden] {
-      visibility: hidden;
-    }
-    project-card[hidden] {
-      visibility: hidden;
-    }
   </style>
 `;

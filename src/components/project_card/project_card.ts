@@ -4,7 +4,7 @@ import {useEffect} from 'haunted';
 import {component} from '../../util/haunted_component';
 
 import {Project} from '../../../data/jory';
-import {Selector, addIntersectionObserver} from '../../util/util';
+import {Selector, addIntersectionObserver, kebabCase} from '../../util/util';
 import {styles} from './styles';
 
 const IMAGE_PATH = './images/';
@@ -12,8 +12,6 @@ const CLOCK_PATH = 'heathrow-clock.svg';
 
 interface ProjectCardProps {
   project: Project,
-  handleInfoClick: (project: Project)=> void,
-  handleInfoCloseClick: ()=> void,
   selected: boolean,
 }
 
@@ -41,7 +39,7 @@ function showProjectAndLoadImage(element: Element) {
   lazyImage.classList.add('visible');
 }
 
-function ProjectCard(this: unknown, {project, handleInfoClick, handleInfoCloseClick, selected}: ProjectCardProps) {
+function ProjectCard(this: unknown, {project, selected}: ProjectCardProps) {
 
   useEffect(()=> {
     // img loading ="lazy" not available in Safari yet.
@@ -50,19 +48,21 @@ function ProjectCard(this: unknown, {project, handleInfoClick, handleInfoCloseCl
 
   const imageSourcePath = IMAGE_PATH + project.imageSources[0];
 
+  const queryTitle = encodeURIComponent(kebabCase(project.title));
+
   return html`
     ${styles}
 
-    <button
+    <a
       tabindex=${selected ? -1 : 0}
+      href="/?project=${queryTitle}"
       class="image-container"
       aria-label="Get more project info"
-      @click=${()=> handleInfoClick(project)}
     ><img
         class="image block"
         data-src="${imageSourcePath}"
         alt="image of ${project.title}">
-    </button>
+    </a>
     <div class="project-card-title">
       <h2 class="title">${project.title}</h2>
       <div class="info-icons">
@@ -71,16 +71,9 @@ function ProjectCard(this: unknown, {project, handleInfoClick, handleInfoCloseCl
             <img src="${IMAGE_PATH}launch-black-18dp.svg" alt="External link">
             <span class="visible-hidden">Go to project reference</span>
           </a>
-        ` : ''}
+        ` : null}
       </div>
     </div>
-    <p ?hidden=${!selected} class="description">${project.description}</p>
-    <button
-      ?hidden=${!selected}
-      class="close"
-      aria-label="Close detail and return to full project list"
-      @click=${handleInfoCloseClick}
-    >Back to project list</button>
   `;
 }
 

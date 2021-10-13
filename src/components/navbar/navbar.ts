@@ -30,11 +30,11 @@ function NavBar(this: unknown, {navFocus = ''}: Props) {
   return html`
     ${styles}
 
-    <header class="navy border-bottom">
-      <nav class="container">
-        <a href="#summary" class="button button-transparent">Summary</a>
-        <a href="#visuals" class="button button-transparent">Visuals</a>
-        <a href="#experience" class="button button-transparent">Experience</a>
+    <header class="navy">
+      <nav>
+        <a href="/#summary">Summary</a>
+        <a href="/#visuals">Visuals</a>
+        <a href="/#experience">Experience</a>
       </nav>
     </header>
   `;

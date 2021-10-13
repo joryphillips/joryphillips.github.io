@@ -30,37 +30,15 @@ function shouldShowProject(searchValue: string, project: Project) {
   return listHasSearchValues(searchValue, stringToSearch);
 }
 
-function ProjectList(this: unknown) {
+interface Props {
+  setSelectedProjectName: (name: string)=> void;
+}
+
+function ProjectList(this: unknown, {setSelectedProjectName}: Props) {
   const [searchValue, setSearchValue] = useState('');
-  const [selectedCard, setSelectedCard] = useState<string|null>(null);
-  const [verticalScrollPosition, setVerticalScrollPosition] = useState<number | undefined>(undefined);
 
   const handleSearchInput = (value: string)=> {
     setSearchValue(value);
-  };
-
-  const handleInfoClick = (project: Project)=> {
-    setVerticalScrollPosition(window.scrollY);
-    const sectionEl = (this as HTMLElement).shadowRoot?.querySelector('section') as HTMLElement|null;
-    if (sectionEl) {
-      scrollTo({top: sectionEl.offsetTop});
-    }
-    setSelectedCard(util.kebabCase(project.title));
-  };
-
-  const handleInfoCloseClick = async ()=> {
-    setSelectedCard(null);
-    await util.repaint();
-    scrollTo({top: verticalScrollPosition});
-    setVerticalScrollPosition(undefined);
-  };
-
-  const cardSelected = (project: Project)=> {
-    return util.kebabCase(project.title) === selectedCard;
-  };
-
-  const hideCard = (project: Project)=> {
-    return selectedCard != null && !cardSelected(project);
   };
 
   const projects = PORTFOLIO
@@ -73,7 +51,6 @@ function ProjectList(this: unknown) {
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-input
-          ?hidden=${!!selectedCard}
           .keyWords=${util.getKeyWords(PORTFOLIO)}
           .handleSearchInput=${handleSearchInput}
         ></search-input>
@@ -84,12 +61,8 @@ function ProjectList(this: unknown) {
             (project) => util.kebabCase(project.title),
             ((project) => html`
               <project-card
-                ?hidden=${hideCard(project)}
-                id=${util.kebabCase(project.title)}
-                ?selected=${cardSelected(project)}
                 .project=${project}
-                .handleInfoClick=${handleInfoClick}
-                .handleInfoCloseClick=${handleInfoCloseClick}
+                .handleInfoClick=${setSelectedProjectName}
               ></project-card>
             `))}
       </div>
@@ -100,7 +73,7 @@ function ProjectList(this: unknown) {
 export const projectList = html`<project-list id="visuals"></project-list>`;
 
 
-customElements.define('project-list', component(ProjectList));
+customElements.define('project-list', component<HTMLElement & Props>(ProjectList));
 
 declare global {
   interface HTMLElementTagNameMap {

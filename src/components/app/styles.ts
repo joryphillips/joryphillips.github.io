@@ -2,6 +2,17 @@ import { html } from 'lit';
 
 export const styles = html`
   <style>
+    :host {
+      position: relative;
+      display: block;
+      min-height: 100vh;
+    }
+
+    main {
+      padding-top: 3.25rem;
+      padding-bottom: 3.25rem;
+    }
+
     section {
       padding-top: 4rem;
       padding-bottom: 4rem;
@@ -10,6 +21,7 @@ export const styles = html`
     }
 
     section.jumbo {
+      padding-top: 2rem;
       padding-bottom: 2rem;
       text-align: center;
     }
@@ -74,21 +86,24 @@ export const styles = html`
     }
 
     footer {
+      position: absolute;
       bottom: 0;
+      height: 3.25rem;
+      width: 100%;
+      background-color: #f0f0f0;
     }
 
     footer a {
       padding-top: 1rem;
       padding-bottom: 1rem;
-      float: left;
       font-size: .75rem;
     }
 
     footer .container {
+      display: flex;
       flex: 1 1 auto;
       padding-left: 1rem;
       padding-right: 1rem;
-      padding-bottom: .5rem;
     }
 
     .border-bottom {

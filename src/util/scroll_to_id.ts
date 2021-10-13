@@ -4,7 +4,7 @@ import { Selector } from './selectors';
  * 'instant' is not in lib.dom.d.ts for ScrollBehavior but is in MDN docs and it
  *  works.
  */
-type ActualScrollBehavior = 'smooth'|'instant'|'auto';
+type ActualScrollBehavior = 'instant'|ScrollBehavior;
 
 /**
  * Scrolls the window to the provided selector in the given context. Context can
@@ -14,7 +14,8 @@ type ActualScrollBehavior = 'smooth'|'instant'|'auto';
 export function scrollToId(
   context: Element|ShadowRoot,
   selector: string,
-  behavior: ActualScrollBehavior = 'smooth'): void {
+  behavior: ActualScrollBehavior = 'instant'): void {
+  if (!selector) return;
   const scrollTargetEl = context.querySelector(selector) as HTMLElement;
   const header = context.querySelector(Selector.HEADER);
   const headerHeight = header ? header.offsetHeight : 0;
