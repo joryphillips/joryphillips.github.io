@@ -143,7 +143,7 @@ export const PORTFOLIO: Project[] = [
     title: 'identity/branding illustrations',
     imageSources: ['droid-4-up.svg'],
     keywords: ['illustration', 'fun', 'Google', 'Android'],
-    description: 'I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is a beloved among research participants, making it ideal as a character-defining visual representation for Android researchers.',
+    description: 'I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is beloved among research participants, making it ideal as a character-defining visual representation for Android researchers.',
   },
   {
     title: 'dancing t-rex',

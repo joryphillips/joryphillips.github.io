@@ -1,7 +1,7 @@
 import {html} from 'lit';
 
 export const summary = html`
-  <section id="summary" class="summary">
+  <section class="summary">
     <div class="container">
       <p>My specialty is bridging big-picture concepts with detailed
         implementation. I seek projects that help people navigate and understand
