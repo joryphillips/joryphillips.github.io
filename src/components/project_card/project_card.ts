@@ -43,7 +43,10 @@ function ProjectCard(this: unknown, {project, selected}: ProjectCardProps) {
 
   useEffect(()=> {
     // img loading ="lazy" not available in Safari yet.
-    addIntersectionObserver(this as HTMLElement, showProjectAndLoadImage);
+    addIntersectionObserver({
+      element: this as HTMLElement,
+      onIntersection: showProjectAndLoadImage,
+    });
   }, []);
 
   const imageSourcePath = IMAGE_PATH + project.imageSources[0];
