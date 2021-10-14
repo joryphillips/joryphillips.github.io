@@ -36,7 +36,9 @@ function App(this: unknown) {
         element,
         onIntersection,
         unobserve: false,
-        options: {threshold: 0.25},
+        options: {
+          threshold: 0.05,
+        },
       });
     }
 
