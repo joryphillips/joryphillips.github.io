@@ -4,17 +4,13 @@ import { useState, useEffect } from 'haunted';
 import { component } from '../../util/haunted_component';
 
 import { styles } from './styles';
-import { addIntersectionObserver, kebabCase, router, scrollToId } from '../../util/util';
+import { kebabCase, router, scrollToId } from '../../util/util';
 import { jumbotron, summary, jobs, footer } from './components';
 import { PORTFOLIO } from '../../../data/jory';
 import '../navbar/navbar';
 import '../project_list/project_list';
 import '../project_detail/project_detail';
 
-
-function isElement(el: Element|undefined|null): el is HTMLElement {
-  return el instanceof Element;
-}
 
 function App(this: unknown) {
   const [navFocus, setNavFocus] = useState('');
@@ -26,22 +22,6 @@ function App(this: unknown) {
       setNavFocus,
       setProject: handleSetProject,
     });
-
-    const sections = ['#summary', '#visuals', '#experience'].map(sel => {
-      return (this as Element).shadowRoot?.querySelector(sel);
-    }).filter(isElement);
-
-    for (const element of sections) {
-      addIntersectionObserver({
-        element,
-        onIntersection,
-        unobserve: false,
-        options: {
-          threshold: 0.05,
-        },
-      });
-    }
-
   }, []);
 
   useEffect(()=> {
@@ -69,12 +49,6 @@ function App(this: unknown) {
 
   const onNavSelect = ()=> {
     setVerticalScrollPosition(undefined);
-  };
-
-  const onIntersection = (el: Element)=> {
-    history.replaceState(null, '', `#${el.id}`);
-    setNavFocus(`#${el.id}`);
-    setVerticalScrollPosition(window.scrollY);
   };
 
   return html`
