@@ -4,7 +4,7 @@ import { useState, useEffect } from 'haunted';
 import { component } from '../../util/haunted_component';
 
 import { styles } from './styles';
-import { kebabCase, router, scrollToId } from '../../util/util';
+import { kebabCase, router, scrollToElement } from '../../util/util';
 import { jumbotron, summary, jobs, footer } from './components';
 import { PORTFOLIO } from '../../../data/jory';
 import '../navbar/navbar';
@@ -26,7 +26,7 @@ function App(this: unknown) {
 
   useEffect(()=> {
     if (navFocus && !selectedProjectName && !verticalScrollPosition) {
-      scrollToId((this as Element).shadowRoot!, navFocus);
+      scrollToElement((this as Element).shadowRoot!, navFocus);
     }
   }, [navFocus, selectedProjectName, verticalScrollPosition]);
 

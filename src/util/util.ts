@@ -3,7 +3,7 @@ import { getKeyWords } from './get_key_words';
 import { kebabCase } from './kebab_case';
 import { repaint } from './repaint';
 import { router } from './router';
-import { scrollToId } from './scroll_to_id';
+import { scrollToElement } from './scroll_to_element';
 import { Selector } from './selectors';
 
 export {
@@ -12,6 +12,6 @@ export {
   kebabCase,
   repaint,
   router,
-  scrollToId,
+  scrollToElement,
   Selector,
 };
