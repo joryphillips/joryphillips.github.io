@@ -49,5 +49,6 @@
   "bugs": {
     "url": "https://github.com/joryphillips/joryphillips.github.io/issues"
   },
-  "homepage": "https://github.com/joryphillips/joryphillips.github.io#readme"
+  "homepage": "https://github.com/joryphillips/joryphillips.github.io#readme",
+  "packageManager": "yarn@3.0.2"
 }
