@@ -1,7 +1,7 @@
 {
   "name": "joryphillips.github.io",
   "version": "1.0.0",
-  "description": "Resume and Portfolio Static Page with native HTML Templates",
+  "description": "Resume and Portfolio",
   "main": "./src/app.ts",
   "dependencies": {
     "haunted": "^4.8.2",
