@@ -94,7 +94,7 @@ export const PORTFOLIO: Project[] = [
     title: 'build and test status wireframe',
     imageSources: ['target-row-pies-wireframe.jpg'],
     keywords: ['ux', 'ui', 'wireframe', 'Google', 'Android'],
-    description: 'This was a quick ugly iPad drawing done to visually prove out the concept of integrating complext test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧',
+    description: 'This was a quick ugly iPad drawing done to visually prove out the concept of integrating complex test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧',
   },
   {
     title: 'concept diagrams',
