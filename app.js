@@ -493,7 +493,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 2rem 0.5rem 1rem .5rem;
     }
 
-    .info-icons, .info-icons .info, .info-icons .link {
+    .info-icons {
+      margin-left: 0.7rem;
+    }
+
+    .info-icons, .info-icons .link {
       display: flex;
       align-items: center;
     }
@@ -501,7 +505,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .info-icons .link {
       background-color: transparent;
       opacity: .7;
-      padding: 0 0 0 0.7rem;
     }
 
     .info-icons .link:hover {
