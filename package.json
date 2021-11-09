@@ -41,7 +41,9 @@
     "build": "rollup --config --configPlugin @rollup/plugin-typescript",
     "watch": "rollup --config --configPlugin @rollup/plugin-typescript --watch",
     "serve": "python3 -m http.server --directory dist",
-    "prod": "npm run serve & npm run watch & wait"
+    "prod": "yarn serve & yarn watch & wait",
+    "commit": "cd dist && git add --all && git commit -m \"Release at $(date)\"",
+    "deploy": "yarn commit && git push origin gh-pages"
   },
   "repository": {
     "type": "git",
