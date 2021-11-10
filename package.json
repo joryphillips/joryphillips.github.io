@@ -5,14 +5,14 @@
   "main": "./src/app.ts",
   "dependencies": {
     "haunted": "^4.8.2",
-    "lit": "^2.0.0",
+    "lit": "^2.0.2",
     "pwa-helpers": "^0.9.1"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@open-wc/dev-server-hmr": "next",
     "@open-wc/testing": "^3.0.1",
-    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-typescript": "^8.2.5",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
@@ -21,15 +21,14 @@
     "@web/rollup-plugin-copy": "^0.3.0",
     "@web/rollup-plugin-html": "^1.10.1",
     "@web/test-runner": "^0.13.18",
-    "esbuild": "^0.13.12",
-    "eslint": "^8.1.0",
-    "rollup": "^2.58.3",
+    "esbuild": "^0.13.13",
+    "eslint": "^8.2.0",
+    "rollup": "^2.59.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-esbuild": "^4.6.0",
     "rollup-plugin-minify-html-literals": "^1.2.6",
-    "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.4"
   },
   "resolutions": {
     "ansi-regex": "^5.0.1"
