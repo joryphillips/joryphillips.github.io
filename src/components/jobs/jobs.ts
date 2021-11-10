@@ -4,9 +4,9 @@ import {Job, RESUME} from '../../../data/jory';
 function renderJob(job: Job) {
   return html`
     <div class="job">
-      <h2 class="title">
-        <span class="cranberry">${job.place}</span>
-        <span class="regular date">${job.date}</span>
+      <h2>
+        <div class="cranberry title">${job.place}</div>
+        <div class="regular date">${job.date}</div>
       </h2>
       <p class="summary">${job.summary}</p>
     </div>

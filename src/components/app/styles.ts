@@ -57,10 +57,6 @@ export const styles = html`
       margin: 0 auto;
     }
 
-    .date {
-      margin-left: 0.5rem;
-    }
-
     section.experience h1 {
       margin-bottom: 2rem;
       margin-top: 0;
@@ -71,10 +67,26 @@ export const styles = html`
       margin-top: 3rem;
     }
 
-    .job h2.title {
+    .job h2 {
       margin-top: 0;
       font-size: 1.17rem;
       font-weight: 500;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .job .title {
+      margin-right: 0.5rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .job .title {
+        width: 100%;
+      }
+    }
+
+    .job .title, .job .date {
+      margin-top: 0.5rem;
     }
 
     .job p.summary {
