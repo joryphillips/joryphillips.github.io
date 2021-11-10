@@ -22,7 +22,7 @@ export default {
   output: [{
     dir: `./${BUNDLE_DIR}`,
     format: 'es',
-    sourcemap: true, // uncomment for prod debugging
+    sourcemap: true, // recommended for Lighthouse and debugging.
   }],
   plugins: [
     copy({
