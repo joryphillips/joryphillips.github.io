@@ -6,6 +6,8 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import esbuild from 'rollup-plugin-esbuild';
 import html from '@web/rollup-plugin-html';
 import { copy } from '@web/rollup-plugin-copy';
+import minifyHTML from 'rollup-plugin-minify-html-literals';
+
 import {PORTFOLIO} from './data/jory';
 
 const IMAGE_DIR = 'images';
@@ -28,6 +30,7 @@ export default {
     }),
     nodeResolve(),
     del({targets: `${BUNDLE_DIR}/*`}),
+    minifyHTML(),
     esbuild({
       ts: true,
       minify: true,
