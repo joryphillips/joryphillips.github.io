@@ -1,9 +1,8 @@
 import { html } from 'lit';
 import { useEffect } from 'haunted';
 
-import {component} from '../../util/haunted_component';
-import { addStyles } from '../../util/util';
-import {styles} from './styles';
+import { addStyles, component } from '../../util/util';
+import { styles } from './styles';
 
 function onNavFocusChange(navFocus: string, context: HTMLElement) {
   const tabs = context.shadowRoot?.querySelectorAll('a');

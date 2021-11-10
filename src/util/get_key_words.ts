@@ -1,4 +1,4 @@
-import {Project} from '../../data/jory';
+import { Project } from '../../data/jory';
 
 export function getKeyWords(list: Project[]): Set<string> {
   const keywords = new Set<string>();

@@ -1,4 +1,4 @@
-import {html} from 'lit';
+import { html } from 'lit';
 
 export const footer = html`
   <footer class="navy border-top">

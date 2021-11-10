@@ -1,5 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import {Props} from '../src/components/search_input/search_input';
+import { Props } from '../src/components/search_input/search_input';
 import '../src/components/search_input/search_input';
 import { dispatchEvents } from './helpers';
 

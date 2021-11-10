@@ -1,4 +1,4 @@
-import {html} from 'lit';
+import { html } from 'lit';
 
 export const jumbotron = html`
   <section id="summary" class="jumbo navy">

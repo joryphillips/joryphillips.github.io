@@ -1,4 +1,4 @@
-import {CLOCK_SVG_HTML} from './clock_svg';
+import { CLOCK_SVG_HTML } from './clock_svg';
 
 function rotateHand(element: Element, degree: number): void {
   element.setAttribute('transform', `rotate(${degree} 1504.5 593.2)`);

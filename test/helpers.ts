@@ -1,4 +1,4 @@
-import {repaint} from '../src/util/util';
+import { repaint } from '../src/util/util';
 
 
 async function dispatchAndRepaint(context: Element, event: Event) {

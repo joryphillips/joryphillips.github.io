@@ -51,7 +51,7 @@ function App(this: unknown) {
     setVerticalScrollPosition(undefined);
   };
 
-    addStyles(this, [styles]);
+  addStyles(this, [styles]);
 
   return html`
     <nav-bar .navFocus=${navFocus} .onNavSelect=${onNavSelect}></nav-bar>

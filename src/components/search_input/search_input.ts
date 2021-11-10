@@ -1,10 +1,9 @@
 import { html } from 'lit';
-import {classMap} from 'lit/directives/class-map.js';
-import {useState} from 'haunted';
+import { classMap } from 'lit/directives/class-map.js';
+import { useState } from 'haunted';
 
-import { addStyles } from '../../util/util';
-import {component} from '../../util/haunted_component';
-import {styles} from './styles';
+import { addStyles, component } from '../../util/util';
+import { styles } from './styles';
 
 const DEBOUNCE_TIMEOUT = 350;
 const defaultHandleSearchInput = (value: string)=> value;
@@ -118,7 +117,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput = d
     handleSearchInput(keyword);
   };
 
-    addStyles(this, [styles]);
+  addStyles(this, [styles]);
 
   return html`
     <div

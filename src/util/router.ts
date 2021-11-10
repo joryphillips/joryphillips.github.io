@@ -9,6 +9,10 @@ interface HandleNavArg extends RouterArg {
   location: Location;
 }
 
+/**
+ * Custom behavior for navigation. Primarily, determine from hashes and query
+ * params if a project is selected and what navigation element to focus.
+ */
 async function handleNavigation({location, setNavFocus, setProject}: HandleNavArg) {
   const params = new URLSearchParams(location.search);
 

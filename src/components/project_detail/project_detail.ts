@@ -1,10 +1,8 @@
 import { html } from 'lit';
 
-import {component} from '../../util/haunted_component';
-
-import {PORTFOLIO} from '../../../data/jory';
-import {addStyles, kebabCase} from '../../util/util';
-import {styles} from './styles';
+import { PORTFOLIO } from '../../../data/jory';
+import { addStyles, component, kebabCase } from '../../util/util';
+import { styles } from './styles';
 
 interface Props {
   projectName: string,

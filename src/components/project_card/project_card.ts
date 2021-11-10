@@ -53,7 +53,7 @@ function ProjectCard(this: unknown, {project, selected}: ProjectCardProps) {
 
   const queryTitle = encodeURIComponent(kebabCase(project.title));
 
-    addStyles(this, [styles]);
+  addStyles(this, [styles]);
 
   return html`
     <a

@@ -6,10 +6,12 @@ import { repaint } from './repaint';
 import { router } from './router';
 import { scrollToElement } from './scroll_to_element';
 import { Selector } from './selectors';
+import { component } from './haunted_component';
 
 export {
   addIntersectionObserver,
   addStyles,
+  component,
   getKeyWords,
   kebabCase,
   repaint,

@@ -1,13 +1,11 @@
-import {html} from 'lit';
-import {repeat} from 'lit/directives/repeat.js';
-import {useState} from 'haunted';
-
-import {component} from '../../util/haunted_component';
+import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
+import { useState } from 'haunted';
 
 import '../search_input/search_input';
 import '../project_card/project_card';
-import {addStyles, kebabCase, getKeyWords} from '../../util/util';
-import {Project, PORTFOLIO} from '../../../data/jory';
+import { addStyles, component, kebabCase, getKeyWords } from '../../util/util';
+import { Project, PORTFOLIO } from '../../../data/jory';
 import { styles } from './styles';
 
 /**
