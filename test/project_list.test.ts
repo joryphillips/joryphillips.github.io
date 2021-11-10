@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { listHasSearchValues } from '../src/components/project_list/project_list';
 
 describe('listHasSearchValues', ()=> {
-  describe('single serach value', ()=> {
+  describe('single search value', ()=> {
     it('returns false if search value not present', ()=> {
       const searchValue = 'boop';
       const stringsToSearch = 'boo radley oop';
