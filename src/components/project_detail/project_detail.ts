@@ -1,9 +1,9 @@
-import {html} from 'lit';
+import { html } from 'lit';
 
 import {component} from '../../util/haunted_component';
 
 import {PORTFOLIO} from '../../../data/jory';
-import {kebabCase} from '../../util/kebab_case';
+import {addStyles, kebabCase} from '../../util/util';
 import {styles} from './styles';
 
 interface Props {
@@ -15,9 +15,9 @@ function ProjectDetail(this: unknown, {projectName}: Props) {
   const project = PORTFOLIO.find(proj => kebabCase(proj.title) === projectName);
   if (!project) return html`<div>No project found</div>`;
 
-  return html`
-    ${styles}
+  addStyles(this, [styles]);
 
+  return html`
     <project-card
       selected
       .project=${project}

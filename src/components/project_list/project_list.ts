@@ -6,7 +6,7 @@ import {component} from '../../util/haunted_component';
 
 import '../search_input/search_input';
 import '../project_card/project_card';
-import * as util from '../../util/util';
+import {addStyles, kebabCase, getKeyWords} from '../../util/util';
 import {Project, PORTFOLIO} from '../../../data/jory';
 import { styles } from './styles';
 
@@ -44,21 +44,22 @@ function ProjectList(this: unknown, {setSelectedProjectName}: Props) {
   const projects = PORTFOLIO
     .filter(project => shouldShowProject(searchValue, project));
 
+  addStyles(this, [styles]);
+
   return html`
-    ${styles}
 
     <section class="border-bottom border-top">
       <div class="visuals-header">
         <h1>Visuals & Projects</h1>
         <search-input
-          .keyWords=${util.getKeyWords(PORTFOLIO)}
+          .keyWords=${getKeyWords(PORTFOLIO)}
           .handleSearchInput=${handleSearchInput}
         ></search-input>
       </div>
 
       <div class="project-holder">
         ${repeat(projects,
-            (project) => util.kebabCase(project.title),
+            (project) => kebabCase(project.title),
             ((project) => html`
               <project-card
                 .project=${project}

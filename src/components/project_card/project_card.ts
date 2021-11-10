@@ -1,10 +1,10 @@
-import {html} from 'lit';
+import { html } from 'lit';
 import {useEffect} from 'haunted';
 
 import {component} from '../../util/haunted_component';
 
 import {Project} from '../../../data/jory';
-import {Selector, addIntersectionObserver, kebabCase} from '../../util/util';
+import {Selector, addIntersectionObserver, addStyles, kebabCase} from '../../util/util';
 import {styles} from './styles';
 
 const IMAGE_PATH = './images/';
@@ -53,9 +53,9 @@ function ProjectCard(this: unknown, {project, selected}: ProjectCardProps) {
 
   const queryTitle = encodeURIComponent(kebabCase(project.title));
 
-  return html`
-    ${styles}
+    addStyles(this, [styles]);
 
+  return html`
     <a
       tabindex=${selected ? -1 : 0}
       href="/?project=${queryTitle}"

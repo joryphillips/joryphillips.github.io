@@ -1,10 +1,10 @@
-import { html} from 'lit';
+import { html } from 'lit';
 import { useState, useEffect } from 'haunted';
 
 import { component } from '../../util/haunted_component';
 
 import { styles } from './styles';
-import { kebabCase, router, scrollToElement } from '../../util/util';
+import { addStyles, kebabCase, router, scrollToElement } from '../../util/util';
 import { jumbotron, summary, jobs, footer } from './components';
 import { PORTFOLIO } from '../../../data/jory';
 import '../navbar/navbar';
@@ -51,23 +51,27 @@ function App(this: unknown) {
     setVerticalScrollPosition(undefined);
   };
 
-  return html`
-    ${styles}
+    addStyles(this, [styles]);
 
+  return html`
     <nav-bar .navFocus=${navFocus} .onNavSelect=${onNavSelect}></nav-bar>
-      <main ?hidden=${!!selectedProjectName}>
-        ${jumbotron}
-        ${summary}
-        <project-list
-          id="visuals"
-          .setSelectedProjectName=${handleSetProject}
-        ></project-list>
-        ${jobs}
-      </main>
-      <project-detail
-        ?hidden=${!selectedProjectName}
-        .projectName=${selectedProjectName}
-      ></project-detail>
+
+    <main ?hidden=${!!selectedProjectName}>
+      ${jumbotron}
+      ${summary}
+
+      <project-list
+        id="visuals"
+        .setSelectedProjectName=${handleSetProject}
+      ></project-list>
+
+      ${jobs}
+    </main>
+
+    <project-detail
+      ?hidden=${!selectedProjectName}
+      .projectName=${selectedProjectName}
+    ></project-detail>
 
     ${footer}
   `;

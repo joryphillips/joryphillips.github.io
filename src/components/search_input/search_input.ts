@@ -1,7 +1,8 @@
-import {html} from 'lit';
+import { html } from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
 import {useState} from 'haunted';
 
+import { addStyles } from '../../util/util';
 import {component} from '../../util/haunted_component';
 import {styles} from './styles';
 
@@ -117,8 +118,9 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput = d
     handleSearchInput(keyword);
   };
 
+    addStyles(this, [styles]);
+
   return html`
-    ${styles}
     <div
       id="combobox"
       role="combobox"

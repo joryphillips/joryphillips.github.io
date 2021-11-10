@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { useEffect } from 'haunted';
 
 import {component} from '../../util/haunted_component';
+import { addStyles } from '../../util/util';
 import {styles} from './styles';
 
 function onNavFocusChange(navFocus: string, context: HTMLElement) {
@@ -28,9 +29,9 @@ function NavBar(this: unknown, {navFocus = '', onNavSelect}: Props) {
     onNavFocusChange(navFocus, this as HTMLElement);
   }, [navFocus]);
 
-  return html`
-    ${styles}
+  addStyles(this, [styles]);
 
+  return html`
     <header class="navy">
       <nav>
         <a href="/#summary" @click=${onNavSelect}>Summary</a>
