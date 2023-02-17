@@ -521,4 +521,4 @@ const h=`
   <g id="specialAirplane" transform="matrix(-1.0689 0 0 1.0689 1158.358 592.7991)"/>
 </svg>
 `;function e(c,l){c.setAttribute("transform",`rotate(${l} 1504.5 593.2)`)}const C=1e3;function n(c,l){if(!c)return;const f=document.createRange().createContextualFragment(h);c.replaceWith(f);const a=l.shadowRoot?.querySelector("#min"),i=l.shadowRoot?.querySelector("#hour");if(!i||!a)return;const t=()=>{const r=new Date;e(a,6*r.getMinutes()),e(i,30*(r.getHours()%12)+r.getMinutes()/2)};t(),setInterval(t,C)}export{n as addClockPrototype};
-//# sourceMappingURL=clock-d2c372ba.js.map
+//# sourceMappingURL=clock-134cabe8.js.map
