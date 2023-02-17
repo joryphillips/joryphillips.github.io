@@ -4,31 +4,31 @@
   "description": "Resume and Portfolio",
   "main": "./src/app.ts",
   "dependencies": {
-    "haunted": "^4.8.2",
-    "lit": "^2.0.2",
+    "haunted": "^5.0.0",
+    "lit": "^2.6.1",
     "pwa-helpers": "^0.9.1"
   },
   "devDependencies": {
-    "@esm-bundle/chai": "^4.3.4-fix.0",
-    "@open-wc/dev-server-hmr": "next",
-    "@open-wc/testing": "^3.0.1",
+    "@esm-bundle/chai": "4.3.4-fix.0",
+    "@open-wc/dev-server-hmr": "^0.1.3",
+    "@open-wc/testing": "^3.1.7",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-typescript": "^8.2.5",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
-    "@web/dev-server": "^0.1.28",
-    "@web/dev-server-esbuild": "^0.2.14",
+    "@web/dev-server": "^0.1.35",
+    "@web/dev-server-esbuild": "^0.3.3",
     "@web/rollup-plugin-copy": "^0.3.0",
-    "@web/rollup-plugin-html": "^1.10.1",
-    "@web/test-runner": "^0.13.18",
-    "esbuild": "^0.13.13",
-    "eslint": "^8.2.0",
+    "@web/rollup-plugin-html": "^1.11.0",
+    "@web/test-runner": "^0.15.0",
+    "esbuild": "^0.17.8",
+    "eslint": "^8.34.0",
     "rollup": "^2.59.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-esbuild": "^4.6.0",
     "rollup-plugin-minify-html-literals": "^1.2.6",
-    "tslib": "^2.3.1",
-    "typescript": "^4.4.4"
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
   },
   "resolutions": {
     "ansi-regex": "^5.0.1"
@@ -60,5 +60,5 @@
     "url": "https://github.com/joryphillips/joryphillips.github.io/issues"
   },
   "homepage": "https://github.com/joryphillips/joryphillips.github.io#readme",
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@4.0.0-rc.39"
 }
