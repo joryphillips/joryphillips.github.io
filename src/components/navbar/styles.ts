@@ -1,6 +1,7 @@
 import { css } from 'lit';
+import { cssVariables } from '../../shared_styles/styles';
 
-export const styles = css`
+export const styles = [cssVariables, css`
   :host {
     z-index: 2;
     height: 3.25rem;
@@ -37,7 +38,7 @@ export const styles = css`
     line-height: 1.125rem;
     vertical-align: middle;
     -webkit-appearance: none;
-    transition: background-color .15s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition: background-color .15s var(--ease-in-out-cubic);
     color: inherit;
     background-color: transparent;
     border-radius: 0;
@@ -45,8 +46,8 @@ export const styles = css`
   }
 
   a:focus {
-    background-color: rgb(115 179 221 / 17%);
-    outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    background-color: var(--hover-background);
+    outline: var(--focus-outline)!important;
     outline-offset: -2px!important;
   }
-`;
+`];

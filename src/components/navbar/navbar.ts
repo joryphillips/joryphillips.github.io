@@ -28,7 +28,7 @@ function NavBar(this: unknown, {navFocus = '', onNavSelect}: Props) {
     onNavFocusChange(navFocus, this as HTMLElement);
   }, [navFocus]);
 
-  addStyles(this, [styles]);
+  addStyles(this, styles);
 
   return html`
     <header class="navy">
