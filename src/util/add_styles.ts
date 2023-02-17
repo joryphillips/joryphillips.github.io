@@ -1,12 +1,11 @@
-import { adoptStyles } from 'lit';
-import { CSSResultOrNative } from '@lit/reactive-element';
+import { adoptStyles, CSSResultOrNative } from 'lit';
 
 /**
  * Applies the given styles to a shadowRoot of the provided element using Lit's
  * adoptStyles function.
  */
 export function addStyles(
-  element: HTMLElement|unknown,
+  element: HTMLElement | unknown,
   styles: CSSResultOrNative[],
 ): void {
   if (!(element instanceof HTMLElement)) return;
