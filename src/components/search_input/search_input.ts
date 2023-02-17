@@ -117,7 +117,7 @@ function SearchInput(this: unknown, {keyWords = new Set(), handleSearchInput = d
     handleSearchInput(keyword);
   };
 
-  addStyles(this, [styles]);
+  addStyles(this, styles);
 
   return html`
     <div

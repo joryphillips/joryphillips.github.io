@@ -1,6 +1,7 @@
 import { css } from 'lit';
+import { sharedStyles } from '../../shared_styles/styles';
 
-export const styles = css`
+export const styles = [sharedStyles, css`
   section {
     background-color: #ddd;
     padding-top: 4rem;
@@ -39,14 +40,4 @@ export const styles = css`
       grid-auto-rows: minmax(150px, auto);
     }
   }
-  .border-bottom {
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgba(0, 0, 0, .125);
-  }
-  .border-top {
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: rgba(0, 0, 0, .125);
-  }
-`;
+`];

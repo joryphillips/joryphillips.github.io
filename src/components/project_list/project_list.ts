@@ -42,7 +42,7 @@ function ProjectList(this: unknown, {setSelectedProjectName}: Props) {
   const projects = PORTFOLIO
     .filter(project => shouldShowProject(searchValue, project));
 
-  addStyles(this, [styles]);
+  addStyles(this, styles);
 
   return html`
 

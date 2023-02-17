@@ -1,7 +1,12 @@
 import { css } from 'lit';
 
-export const styles = css`
+export const styles = [css`
   :host {
+    --input-border: 1px solid #ccc;
+    --input-border-radius: 3px;
+    --combo-padding: .5rem;
+    --combo-background: #FFF;
+
     position: relative;
     flex: 2 1 auto;
     min-width: 200px;
@@ -20,13 +25,13 @@ export const styles = css`
     font-size: inherit;
     display: block;
     width: 100%;
-    padding: .5rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    padding: var(--combo-padding);
+    border: var(--input-border);
+    border-radius: var(--input-border-radius);
   }
 
   input[type="search"]:focus {
-    outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    outline: var(--focus-outline)!important;
   }
 
   ul,
@@ -40,8 +45,8 @@ export const styles = css`
 
   ul[role="listbox"] {
     display: none;
-    background-color: #FFF;
-    border: 1px solid #ccc;
+    background-color: var(--combo-background);
+    border: var(--input-border);
   }
 
   ul[role="listbox"], button[role="option"] {
@@ -58,19 +63,19 @@ export const styles = css`
   }
 
   li[role="option"] {
-    background-color: #FFF;;
+    background-color: var(--combo-background);
     border: none;
-    border-bottom: 1px solid #ccc;
+    border: var(--input-border);
     font-size: inherit;
     text-align: left;
-    padding: .5rem;
+    padding: var(--combo-padding);
   }
 
   li[role="option"][active], li[role="option"]:hover {
-    background-color: rgb(115 179 221 / 17%);
+    background-color: var(--hover-background);
   }
 
   li:last-of-type  button[role="option"] {
     border-bottom: none;
   }
-`;
+`];

@@ -1,6 +1,7 @@
 import { css } from 'lit';
+import { cssVariables } from '../../shared_styles/styles';
 
-export const styles = css`
+export const styles = [cssVariables, css`
   :host {
     position: relative;
     display: block;
@@ -117,18 +118,6 @@ export const styles = css`
     padding-right: 1rem;
   }
 
-  .border-bottom {
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgba(0, 0, 0, .125);
-  }
-
-  .border-top {
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: rgba(0, 0, 0, .125);
-  }
-
   .cranberry {
     color: #c11067;
   }
@@ -167,14 +156,14 @@ export const styles = css`
   }
 
   .button:hover, .button:focus {
-    background-color: rgb(115 179 221 / 17%);
+    background-color: var(--hover-background);
   }
 
   .button:focus, button:focus, a:focus {
-    outline: 2px solid hsl(211deg 100% 40% / 90%)!important;
+    outline: var(--focus-outline)!important;
   }
 
   .button:focus, button:focus {
     outline-offset: -2px!important;
   }
-`;
+`];
