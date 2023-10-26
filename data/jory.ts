@@ -16,9 +16,21 @@ export interface Project {
 
 export const RESUME: Job[] = [
   {
+    date: 'May 2022 - Sept 2023',
+    place: 'Sorted Materials Corporation Founder and CTO',
+    summary: 'Built full-stack, user-friendly logistics app to help companies set up and manage their zero-waste programs.',
+    detail: ' Made foundational tech decisions and implementation, prototyping, rapid MVP; all the startup things.',
+  },
+  {
+    date: 'Dec 2021 - Feb 2022',
+    place: 'SimpleCircle',
+    summary: 'Built React components to implement several key app features, including mapping and driver routing integration.',
+    detail: '',
+  },
+  {
     date: 'Sept 2015 - Sept 2021',
     place: 'Google, UX Engineer',
-    summary: 'Designed & developed apps, UIs, widgets & ways to share & shape actionable information. Started as web designer; finished as a tech lead.',
+    summary: 'Designed & developed apps, UIs, widgets & ways to share & shape actionable information.',
     detail: 'Developed a web app from conception through implementation to allow the Android UX team to better share their work. Developed a rapid prototyping app for the Google Store UX team. Designed and developed a web app for UX researchers to store, find, and share study findings. Also designed identity-building illustrations and several shipped Material-design emoji.',
   }, {
     date: 'Jan 2014 - Sept 2015',
@@ -48,12 +60,19 @@ export const RESUME: Job[] = [
   }, {
     date: 'Aug 1997 - April 2000',
     place: 'Arai/Jackson Architects & Planners',
-    summary: 'Designed & produced posters and giant documents; learned to manage projects; learned from plenty of mistakes.',
+    summary: 'Designed & produced posters and giant documents; learned a great deal.',
     detail: 'Design, production, content of various urban design and planning projects.',
   }];
 
 
 export const PORTFOLIO: Project[] = [
+  {
+    title: 'Sorted Materials',
+    date: '2023-2023',
+    description: `The parti of the Sorted Materials app is an interactive node + edge graph that allows users to rapidly set up material streams.`,
+    imageSources: ['sorted_materials.png'],
+    keywords: ['software', 'ux', 'ui', 'communication', 'typescript', 'tooling', 'develop', 'engineer', 'startup'],
+  },
   {
     title: 'Mock for plan review UI',
     date: '2021',
@@ -115,7 +134,7 @@ export const PORTFOLIO: Project[] = [
     description: 'I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google\'s internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time.',
   },
   {
-    title: 'mojibrush.co ui/ux + oss contributions',
+    title: 'mojibrush.co ui/ux + oss',
     imageSources: ['moji-brush.png'],
     href: 'https://mojibrush.co',
     keywords: ['ux', 'ui', 'develop', 'fun'],

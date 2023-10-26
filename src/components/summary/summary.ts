@@ -3,10 +3,8 @@ import { html } from 'lit';
 export const summary = html`
   <section class="summary">
     <div class="container">
-      <p>My specialty is bridging big-picture concepts with detailed
-        implementation. I seek projects that help people navigate and understand
-        complex things, or simply make people's lives better.</p>
-      <p>I have designed & developed apps for Google, helped a branding agency
+      <p>I build things that make people's lives easier and better.
+        I have designed & developed apps for Google, helped a branding agency
         brand itself, and created design guidelines and illustrations for major
         cities and a movie studio/theme park. I've led teams that make
         complicated stuff, and I am often eager to attempt the impossible.</p>
