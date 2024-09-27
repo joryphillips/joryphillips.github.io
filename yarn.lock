@@ -4087,7 +4087,7 @@ __metadata:
     haunted: "npm:^5.0.0"
     lit: "npm:^2.6.1"
     pwa-helpers: "npm:^0.9.1"
-    rollup: "npm:^2.59.0"
+    rollup: "npm:^2.79.2"
     rollup-plugin-delete: "npm:^2.0.0"
     rollup-plugin-esbuild: "npm:^4.6.0"
     rollup-plugin-minify-html-literals: "npm:^1.2.6"
@@ -5380,20 +5380,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.59.0":
-  version: 2.59.0
-  resolution: "rollup@npm:2.59.0"
-  dependencies:
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 6742076b593deaaf99fccaf7944c80b5eae9a63b301f61979f3f39e0798ad6d32cf3e1e13f9df21dc5a0d97ba5a1bb3aaeab73a754b5fefc665dceb0ad30d232
-  languageName: node
-  linkType: hard
-
 "rollup@npm:^2.67.0":
   version: 2.79.1
   resolution: "rollup@npm:2.79.1"
@@ -5405,6 +5391,20 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: b91c27c3b5234af864f282ffa2c13891d9caf25cad8ba7ad11f5201bdb6516f10c90a8c3402a5f72eafc74a555b1c685b6b04d107a6d6866195812a82f4aa308
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^2.79.2":
+  version: 2.79.2
+  resolution: "rollup@npm:2.79.2"
+  dependencies:
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 17ac2f09568db65ffcc25e29a00f4b44bd48c9825b56d414e87490a3dcceaa9ff7f5984a367217abc9e39a619ae1f9052adc160c5e81b6f6ca91c46c334df59e
   languageName: node
   linkType: hard
 

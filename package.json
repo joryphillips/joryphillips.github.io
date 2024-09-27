@@ -23,7 +23,7 @@
     "@web/test-runner": "^0.15.0",
     "esbuild": "^0.17.8",
     "eslint": "^8.34.0",
-    "rollup": "^2.59.0",
+    "rollup": "^2.79.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-esbuild": "^4.6.0",
     "rollup-plugin-minify-html-literals": "^1.2.6",
