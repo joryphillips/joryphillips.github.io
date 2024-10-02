@@ -44,18 +44,7 @@ See [package.json](https://github.com/joryphillips/joryphillips.github.io/blob/m
 
 ### How the build works: highlights
 
-**Rollup** is the main tool that puts everything together. It handles bundling and code splitting. A handful of Rollup plugins also help out:
-
-**@web/rollup-plugin-html** allows `index.html` as an entrypoint (normally it is a TypeScript or JavaScript file). Aside from that, it does two main things:
-
-1. replaces the `<script src=".../app.ts>` import with a path to bundled & minified JS;
-2. parses `index.html` for static and meta links, and copies them to an `assets/` folder in the designated build location.
-
-**@web/rollup-plugin-copy** simply copies designated static files. This repo contains many more images than is currently shown in the app. The config file [maps all portoflio projects](https://github.com/joryphillips/joryphillips.github.io/blob/main/rollup.config.js#L16) to get only the first image listed, consistent with how the app works, and the copy plugin copies those files to `dist`.
-
-**rollup-plugin-minify-html-literals** is a fantastic tool that minifies template literals and CSS. This plugin dropped the bundle size by ~17% (10K smaller, uncompressed)
-
-**rollup-plugin-esbuild** is the speedy replacement for TypeScript and terser plugins. It transpiles TS to minified JS.
+**Vite** is the main tool that puts everything together. It provides a dev server, and handles bundling and code splitting.
 
 Please feel free to fork this repo and repurpose it to your needs!
 

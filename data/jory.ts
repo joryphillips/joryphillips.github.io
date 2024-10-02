@@ -23,7 +23,7 @@ export const RESUME: Job[] = [
   },
   {
     date: 'Dec 2021 - Feb 2022',
-    place: 'SimpleCircle',
+    place: 'SimpleCircle, Front-end Engineer',
     summary: 'Built React components to implement several key app features, including mapping and driver routing integration.',
     detail: '',
   },
@@ -67,8 +67,17 @@ export const RESUME: Job[] = [
 
 export const PORTFOLIO: Project[] = [
   {
+    title: 'Macarons UI and Design System',
+    date: '2022-2024',
+    href: 'https://macarons-ui.com',
+    description: `Macarons is a design system with styled UI components intended for React projects. This project is an open-source version of work done in the Sorted Materials app.`,
+    imageSources: ['macarons-ui.png'],
+    keywords: ['software', 'ux', 'ui', 'communication', 'typescript', 'tooling', 'develop', 'engineer', 'startup'],
+  },
+  {
     title: 'Sorted Materials',
     date: '2022-2024',
+    href: 'https://sortedmaterials.com',
     description: `The parti of the Sorted Materials app is an interactive node + edge graph that allows users to rapidly set up material streams.`,
     imageSources: ['sorted_materials.png'],
     keywords: ['software', 'ux', 'ui', 'communication', 'typescript', 'tooling', 'develop', 'engineer', 'startup'],
@@ -110,28 +119,10 @@ export const PORTFOLIO: Project[] = [
     description: 'I was the only UXer on the Android Build team for a while, which meant I got to lead the design of some very complex things, like this tool used to help engineers chase down broken builds and failing tests. This was an early mock, and most of what is represented here has been built and refined by the team.',
   },
   {
-    title: 'build and test status wireframe',
-    imageSources: ['target-row-pies-wireframe.jpg'],
-    keywords: ['ux', 'ui', 'wireframe', 'Google', 'Android'],
-    description: 'This was a quick ugly iPad drawing done to visually prove out the concept of integrating complex test and basic build status information. It was then engineered by me and others on the Android Build team. I implemented a pretty sweet web component for displaying those test results pie charts, too. 😁 🥧',
-  },
-  {
-    title: 'concept diagrams',
-    imageSources: ['grid-test-views@3x.png'],
-    keywords: ['conceptual', 'diagram', 'communication', 'Google', 'Android'],
-    description: 'These are a couple conceptual diagrams used to discuss the multidimensional complexity of tracking builds, tests, and devices. Included here mostly to add additional visual interest. 🙃',
-  },
-  {
     title: 'notification CRUD app',
     imageSources: ['notification-crud-edit.png'],
     keywords: ['ux', 'ui', 'develop', 'Google', 'Android', 'typescript'],
     description: 'I designed and implemented a tool for adding, editing, and removing system alerts across Android internal sites.',
-  },
-  {
-    title: 'lightweight webpage generator',
-    imageSources: ['ux-page-crud.png'],
-    keywords: ['ux', 'ui', 'develop', 'Google', 'Android'],
-    description: 'I made web app that allowed Google teams to generate their own internal sites, pulling content from Sheets, Drive, custom Markdown, and Google\'s internal bug reporting tool. This tool helped get at least two versions of Android OS get designed and shipped on time.',
   },
   {
     title: 'mojibrush.co ui/ux + oss',
@@ -153,22 +144,10 @@ export const PORTFOLIO: Project[] = [
     description: 'I designed these four emoji for the release of Android 6. Almost all emojis have been updated since then, but my design for Reminder Ribbon got put back into use for Android 12!',
   },
   {
-    title: 'imagery exploration',
-    imageSources: ['dichotomy-01.jpg'],
-    keywords: ['presentation', 'conceptual', 'communication', 'Google', 'Android'],
-    description: 'Every designer and presenter eventually has to come up with imagery that helps convey a problem or a solution. This is one I made to help in a presentation about device notification overload.',
-  },
-  {
     title: 'identity/branding illustrations',
     imageSources: ['droid-4-up.svg'],
     keywords: ['illustration', 'fun', 'Google', 'Android'],
     description: 'I designed these for the Android UX research team as an exercise in helping them achieve brand cohesiveness. The Android figurine is beloved among research participants, making it ideal as a character-defining visual representation for Android researchers.',
-  },
-  {
-    title: 'dancing t-rex',
-    imageSources: ['dancing-dino.gif'],
-    keywords: ['fun', 'Google', 'Android'],
-    description: 'I did not design this dinosaur, but I did make him dance.',
   },
   {
     title: 'Global Brand Works Website',
@@ -198,11 +177,5 @@ export const PORTFOLIO: Project[] = [
     imageSources: ['usmp.png'],
     description: `While working at Rios Clementi Hale Studios, I produced materials and coordinated a team of multidisciplinary designers to help Universal Studios create an 'entitlement package' that adopted their new master plan. The project's needs constantly shifted, and included maintaining a building inventory, creating view simulations, 3D modeling, mapping, diagramming, and preparing various presentation materials. This important plan was subsequently adopted by the City of Los Angeles and the County of Los Angeles.`,
     keywords: ['urban design', 'urban planning', 'communication'],
-  },
-  {
-    title: 'not a real emoji',
-    imageSources: ['incredulous_goat.png'],
-    keywords: ['fun', 'goat', 'emoji'],
-    description: 'Like the dancing t-rex, I designed neither the goat, nor the sunglasses, but I did put one on the other to make a superior emoji.',
   },
 ];
