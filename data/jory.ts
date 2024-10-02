@@ -16,10 +16,10 @@ export interface Project {
 
 export const RESUME: Job[] = [
   {
-    date: 'May 2022 - Sept 2023',
-    place: 'Sorted Materials Corporation Founder and CTO',
-    summary: 'Built full-stack, user-friendly logistics app to help companies set up and manage their zero-waste programs.',
-    detail: ' Made foundational tech decisions and implementation, prototyping, rapid MVP; all the startup things.',
+    date: 'May 2022 - present',
+    place: 'Sorted Materials Corporation, CTO, Full-stack engineering',
+    summary: 'Built user-friendly logistics app to help companies set up and manage their zero-waste programs.',
+    detail: ' Made foundational tech decisions, design and implementation, prototyping, and MVP.',
   },
   {
     date: 'Dec 2021 - Feb 2022',
@@ -68,7 +68,7 @@ export const RESUME: Job[] = [
 export const PORTFOLIO: Project[] = [
   {
     title: 'Sorted Materials',
-    date: '2023-2023',
+    date: '2022-2024',
     description: `The parti of the Sorted Materials app is an interactive node + edge graph that allows users to rapidly set up material streams.`,
     imageSources: ['sorted_materials.png'],
     keywords: ['software', 'ux', 'ui', 'communication', 'typescript', 'tooling', 'develop', 'engineer', 'startup'],
