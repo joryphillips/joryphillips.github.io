@@ -22,8 +22,14 @@ export const RESUME: Job[] = [
     detail: ' Made foundational tech decisions, design and implementation, prototyping, and MVP.',
   },
   {
+    date: 'Sept 2021 - present',
+    place: 'Technical Consultant',
+    summary: 'Determined initial technical and product viability for a number of startup and business ideas.',
+    detail: ' Coordinated and consulted with cross-functional founders; produced mockups, wireframes, and prototypes; scoped engineering needs.',
+  },
+  {
     date: 'Dec 2021 - Feb 2022',
-    place: 'SimpleCircle, Front-end Engineer',
+    place: 'SimpleCircle, Front-End Engineer',
     summary: 'Built React components to implement several key app features, including mapping and driver routing integration.',
     detail: '',
   },
