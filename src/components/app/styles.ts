@@ -34,7 +34,7 @@ export const styles = [cssVariables, css`
     margin-bottom: 1rem;
   }
 
-  .jumbo h2 {
+  .jumbo h2, .h2 {
     font-size: 1.5rem;
   }
 
