@@ -73,6 +73,14 @@ export const RESUME: Job[] = [
 
 export const PORTFOLIO: Project[] = [
   {
+    title: 'Policy Graph',
+    date: '2025',
+    href: 'https://policygraph.org',
+    description: `Policy Graph is a reseach tool that I am activiely working on as of March 2025. It allows users to get comprehensive results for questions like, "How many US cities have a zero-waste plan?" Every iniative starts with the question, "How are other people doing this?" Policy Graph will answer that question.`,
+    imageSources: ['policygraph.png'],
+    keywords: ['software', 'ux', 'ui', 'communication', 'typescript', 'tooling', 'develop', 'engineer', 'startup', 'policy', 'data', 'llm', 'ai/ml', 'research'],
+  },
+  {
     title: 'Macarons UI and Design System',
     date: '2022-2024',
     href: 'https://macarons-ui.com',
