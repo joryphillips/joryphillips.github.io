@@ -68,10 +68,10 @@ function App(this: unknown) {
       ${jobs}
     </main>
 
-    <project-detail
-      ?hidden=${!selectedProjectName}
-      .projectName=${selectedProjectName}
-    ></project-detail>
+    ${selectedProjectName ? 
+      html`<project-detail ?hidden=${!selectedProjectName} .projectName=${selectedProjectName}></project-detail>` 
+      : ''
+    }
 
     ${footer}
   `;

@@ -11,7 +11,7 @@ interface Props {
 function ProjectDetail(this: unknown, {projectName}: Props) {
 
   const project = PORTFOLIO.find(proj => kebabCase(proj.title) === projectName);
-  if (!project) return html`<div>No project found</div>`;
+  if (!project) return;
 
   addStyles(this, [styles]);
 
