@@ -208,7 +208,7 @@ export class VennDiagram extends LitElement {
       fill-opacity: 0.8;
     }
     #me-text text {
-      fill: rgba(0, 32, 66, 0.7)
+      fill: rgba(0, 32, 66, 1)
     }
   `;
   
