@@ -10,8 +10,20 @@ export class VennDiagram extends LitElement {
       max-width: 800px;
       margin: 0 auto;
       text-align: center;
+
+      /* Color variables */
+      --color-non-overlap: rgba(97, 180, 205, 0.4);
+      --color-overlap: rgba(97, 180, 205, 0.6);
+      --color-text: rgba(0, 32, 66, 0.5);
+
+      --color-active-non-overlap: rgba(97, 180, 205, 0.5);
+      --color-active-overlap: rgba(97, 180, 205, 0.7);
+      --color-active-text: rgba(0, 32, 66, 0.8);
+
+      /* Animation duration */
+      --animation-duration: 18s;
     }
-    
+
     .venn-container {
       position: relative;
       margin: 0 auto;
@@ -19,7 +31,7 @@ export class VennDiagram extends LitElement {
       width: 600px;
       max-width: 100%;
     }
-    
+
     svg {
       width: 100%;
       height: auto;
@@ -27,191 +39,115 @@ export class VennDiagram extends LitElement {
       margin: 0 auto;
     }
 
-    /* Default state for paths and text */
+    /* Base styles for paths and text */
     svg path {
-      transition: fill-opacity 0.125s ease-in-out;
-      cursor: pointer;
+      fill: var(--color-non-overlap);
+      transition: fill 0.3s ease-in-out;
     }
-    
+
     svg text {
-      transition: fill-opacity 0.125s ease-in-out;
-      cursor: pointer;
+      fill: var(--color-text);
+      transition: fill 0.3s ease-in-out;
       font-family: 'HelveticaNeue', 'Helvetica Neue', sans-serif;
       font-size: 28px;
-      fill: rgba(0, 32, 66, 0.6);
-    }
-    
-    g path {
-      fill: rgb(97,180,205);
     }
 
-    /* Default opacities for different sections */
-    #comms path,
-    #policy path,
-    #eng path {
-      fill-opacity: 0.4;
-    }
-
+    /* Overlapping sections */
     #comms-policy path,
     #comms-eng path,
     #eng-policy path {
-      fill-opacity: 0.6;
+      fill: var(--color-overlap);
     }
 
     #me path {
-      fill-opacity: 0.8;
-    }
-
-    /* Revised animation system using percentages instead of delays */
-    @keyframes cycle-highlights {
-      /* Default state - all sections at base opacity */
-      0%, 100% { fill-opacity: var(--base-opacity); }
-      
-      /* 1. comms (0-16.67%) */
-      3%, 13% { 
-        fill-opacity: var(--comms-hover, var(--base-opacity)); 
-      }
-      
-      /* 2. comms-policy (16.67-33.33%) */
-      20%, 30% { 
-        fill-opacity: var(--comms-policy-hover, var(--base-opacity)); 
-      }
-      
-      /* 3. policy (33.33-50%) */
-      36.7%, 46.7% { 
-        fill-opacity: var(--policy-hover, var(--base-opacity)); 
-      }
-      
-      /* 4. eng-policy (50-66.67%) */
-      53.3%, 63.3% { 
-        fill-opacity: var(--eng-policy-hover, var(--base-opacity)); 
-      }
-      
-      /* 5. eng (66.67-83.33%) */
-      70%, 80% { 
-        fill-opacity: var(--eng-hover, var(--base-opacity)); 
-      }
-      
-      /* 6. comms-eng (83.33-100%) */
-      86.7%, 96.7% { 
-        fill-opacity: var(--comms-eng-hover, var(--base-opacity)); 
-      }
-    }
-    
-    @keyframes cycle-text-highlights {
-      /* Default state */
-      0%, 100% { fill: rgba(0, 32, 66, 0.7); }
-      
-      /* 1. comms */
-      3%, 13% { 
-        fill: var(--comms-text-active, rgba(0, 32, 66, 0.7));
-      }
-      
-      /* 2. comms-policy */
-      20%, 30% { 
-        fill: var(--comms-policy-text-active, rgba(0, 32, 66, 0.7));
-      }
-      
-      /* 3. policy */
-      36.7%, 46.7% { 
-        fill: var(--policy-text-active, rgba(0, 32, 66, 0.7));
-      }
-      
-      /* 4. eng-policy */
-      53.3%, 63.3% { 
-        fill: var(--eng-policy-text-active, rgba(0, 32, 66, 0.7));
-      }
-      
-      /* 5. eng */
-      70%, 80% { 
-        fill: var(--eng-text-active, rgba(0, 32, 66, 0.7));
-      }
-      
-      /* 6. comms-eng */
-      86.7%, 96.7% { 
-        fill: var(--comms-eng-text-active, rgba(0, 32, 66, 0.7));
-      }
-    }
-    
-    /* All paths share the same animation */
-    #comms path, 
-    #policy path, 
-    #eng path,
-    #comms-policy path,
-    #comms-eng path,
-    #eng-policy path {
-      animation: cycle-highlights 28s infinite;
-    }
-    
-    /* All texts share the same animation */
-    #comms-text text,
-    #policy-text text,
-    #eng-text text,
-    #comms-policy-text text,
-    #comms-eng-text text,
-    #eng-policy-text text {
-      animation: cycle-text-highlights 28s infinite;
-    }
-    
-    /* Set active states only for relevant sections */
-    #comms path { 
-      --base-opacity: 0.4;
-      --comms-hover: 0.5; 
-    }
-    #comms-text text { 
-      --comms-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    #comms-policy path { 
-      --base-opacity: 0.6;
-      --comms-policy-hover: 0.7; 
-    }
-    #comms-policy-text text { 
-      --comms-policy-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    #policy path { 
-      --base-opacity: 0.4;
-      --policy-hover: 0.5; 
-    }
-    #policy-text text { 
-      --policy-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    #eng-policy path { 
-      --base-opacity: 0.6;
-      --eng-policy-hover: 0.7; 
-    }
-    #eng-policy-text text { 
-      --eng-policy-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    #eng path { 
-      --base-opacity: 0.4;
-      --eng-hover: 0.5; 
-    }
-    #eng-text text { 
-      --eng-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    #comms-eng path { 
-      --base-opacity: 0.6;
-      --comms-eng-hover: 0.7; 
-    }
-    #comms-eng-text text { 
-      --comms-eng-text-active: rgba(0, 32, 66, 0.8);
-    }
-    
-    /* No animation for 'me' section */
-    #me path {
-      --base-opacity: 0.8;
-      fill-opacity: 0.8;
+      fill: rgba(97, 180, 205, 0.8);
     }
     #me-text text {
-      fill: rgba(0, 32, 66, 1)
+      fill: rgba(0, 32, 66, 0.8);
+    }
+
+    /* Animation keyframes */
+    @keyframes section-cycle {
+      0%, 16.67% {
+        fill: var(--color-non-overlap);
+      }
+      8.33% {
+        fill: var(--color-active-non-overlap);
+      }
+    }
+
+    @keyframes overlap-cycle {
+      0%, 16.67% {
+        fill: var(--color-overlap);
+      }
+      8.33% {
+        fill: var(--color-active-overlap);
+      }
+    }
+
+    @keyframes text-cycle {
+      0%, 16.67% {
+        fill: var(--color-text);
+      }
+      8.33% {
+        fill: var(--color-active-text);
+      }
+    }
+
+    /* Section animations */
+    #comms path {
+      animation: section-cycle var(--animation-duration) infinite;
+    }
+    #comms-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+    }
+
+    #comms-policy path {
+      animation: overlap-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) / 6);
+    }
+    #comms-policy-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) / 6);
+    }
+
+    #policy path {
+      animation: section-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 2 / 6);
+    }
+    #policy-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 2 / 6);
+    }
+
+    #eng-policy path {
+      animation: overlap-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 3 / 6);
+    }
+    #eng-policy-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 3 / 6);
+    }
+
+    #eng path {
+      animation: section-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 4 / 6);
+    }
+    #eng-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 4 / 6);
+    }
+
+    #comms-eng path {
+      animation: overlap-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 5 / 6);
+    }
+    #comms-eng-text text {
+      animation: text-cycle var(--animation-duration) infinite;
+      animation-delay: calc(var(--animation-duration) * 5 / 6);
     }
   `;
-  
+
   render() {
     return html`
       <div class="venn-container">
