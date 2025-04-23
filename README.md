@@ -2,7 +2,7 @@
 
 This webpage is now made with Svelte and Tailwind. I held out on Svelte for a long time, but its runes API finally won me over. Svelte's tooling and DX is very much top-of-class. It is not perfect, but I love the obvious push for minimal boilerplate and syntax. It's right there in the name!
 
-I have a love-hate relationship with Tailwind. On the one hand, it has everything built in and is basically industary standard. On the other, well, if you have ever had a list of classes that is about 5 pages wide, you know my pain. But the combo of LLMs + tree shaking make it a lot easier to deal with. And dark mode is an easy win. So Tailwind it is.
+I have a love-hate relationship with Tailwind. On the one hand, it has everything built in and is basically industry standard. On the other, if you have ever had a list of classes that is about 5 pages wide, you know my pain. But the combo of LLMs + tree shaking make it a lot easier to deal with. And dark mode is an easy win. So Tailwind it is.
 
 ## History
 
